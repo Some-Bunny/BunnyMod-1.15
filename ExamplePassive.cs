@@ -678,13 +678,13 @@ namespace BunnyMod
                     CellData cellAimDown = currentRoom.GetNearestCellToPosition(vector2 + Vector2.down);
                     if (player.IsValidPlayerPosition(vector2) && !cellAim.isNextToWall && !cellAimLeft.isNextToWall && !cellAimRight.isNextToWall && !cellAimUp.isNextToWall && !cellAimDown.isNextToWall)
                     {
+                        RewardCrown.VomitPrevention = true;
+                        GameManager.Instance.StartCoroutine(RewardCrown.PreventVomiting());
                         (player as PlayerController).WarpToPoint(vector2);
                         LootEngine.DoDefaultItemPoof(vector2);
                         SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, vector2.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(vector2.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
                     }
                 }
-                RewardCrown.VomitPrevention = true;
-                GameManager.Instance.StartCoroutine(RewardCrown.PreventVomiting());
             }
 
         }

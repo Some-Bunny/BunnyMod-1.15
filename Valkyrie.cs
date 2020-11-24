@@ -93,21 +93,23 @@ namespace BunnyMod
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{
+			PlayerController player = (GameManager.Instance.PrimaryPlayer);
+			bool flagA = player.PlayerHasActiveSynergy("Armageddon");
+			if (flagA)
+			{
+				HomingModifier homing = projectile.gameObject.AddComponent<HomingModifier>();
+				homing.HomingRadius = 250f;
+				homing.AngularVelocity = 250f;
+			}
 			projectile.OnDestruction += this.kerboomer;
 		}
 
 		private void kerboomer(Projectile projectile)
 		{
-			PlayerController player = (GameManager.Instance.PrimaryPlayer);
-			bool flagA = player.PlayerHasActiveSynergy("Armageddon");
-			if (flagA)
-            {
-				HomingModifier homing = projectile.gameObject.AddComponent<HomingModifier>();
-				homing.HomingRadius = 250f;
-				homing.AngularVelocity = 750f;
-			}
-				AkSoundEngine.PostEvent("Play_OBJ_nuke_blast_01", gameObject);
-			Exploder.DoDefaultExplosion(projectile.specRigidbody.UnitTopCenter, default(Vector2), null, false, CoreDamageTypes.None, true);
+			this.Blam(projectile.sprite.WorldCenter);
+
+			//AkSoundEngine.PostEvent("Play_OBJ_nuke_blast_01", gameObject);
+			//Exploder.DoDefaultExplosion(projectile.specRigidbody.UnitTopCenter, default(Vector2), null, false, CoreDamageTypes.None, true);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun bruhgun)
@@ -167,5 +169,30 @@ namespace BunnyMod
 				AkSoundEngine.PostEvent("Play_WPN_shotgun_reload", gameObject);
 			}
 		}
+		public void Blam(Vector3 position)
+		{
+			AkSoundEngine.PostEvent("Play_OBJ_nuke_blast_01", gameObject);
+			ExplosionData defaultSmallExplosionData2 = GameManager.Instance.Dungeon.sharedSettingsPrefab.DefaultSmallExplosionData;
+			this.smallPlayerSafeExplosion.effect = defaultSmallExplosionData2.effect;
+			this.smallPlayerSafeExplosion.ignoreList = defaultSmallExplosionData2.ignoreList;
+			this.smallPlayerSafeExplosion.ss = defaultSmallExplosionData2.ss;
+			Exploder.Explode(position, this.smallPlayerSafeExplosion, Vector2.zero, null, false, CoreDamageTypes.None, false);
+		}
+		private ExplosionData smallPlayerSafeExplosion = new ExplosionData
+		{
+			damageRadius = 4f,
+			damageToPlayer = 0f,
+			doDamage = true,
+			damage = 40f,
+			doExplosionRing = true,
+			doDestroyProjectiles = false,
+			doForce = true,
+			debrisForce = 0f,
+			preventPlayerForce = true,
+			explosionDelay = 0f,
+			usesComprehensiveDelay = false,
+			doScreenShake = false,
+			playDefaultSFX = true,
+		};
 	}
 }	

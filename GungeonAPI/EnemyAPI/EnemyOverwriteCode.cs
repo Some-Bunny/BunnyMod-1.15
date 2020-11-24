@@ -2279,7 +2279,7 @@ namespace BunnyMod
 				{
 					if (!preventSpawningProjectiles)
 					{
-						int numure = UnityEngine.Random.Range(0, 3);
+						int numure = UnityEngine.Random.Range(0, 2);
 						bool fuckye = numure == 0;
 						if (fuckye)
 						{
@@ -3542,6 +3542,304 @@ namespace BunnyMod
 					yield break;
 				}
 			}
+		}
+	}
+}
+
+namespace BunnyMod
+{
+	public class JammedBlizzbulon : OverrideBehavior
+	{
+		public override string OverrideAIActorGUID => "022d7c822bc146b58fe3b0287568aaa2";
+
+		public override void DoOverride()
+		{
+			ShootBehavior shootGunBehavior1 = behaviorSpec.AttackBehaviors[0] as ShootBehavior;
+			//shootGunBehavior.LeadAmount = 0.70f;
+			//shootGunBehavior.WeaponType = WeaponType.BulletScript;
+			shootGunBehavior1.BulletScript = new CustomBulletScriptSelector(typeof(JammedBlizzbulonAtatck1));
+			ShootBehavior shootGunBehavior2 = behaviorSpec.AttackBehaviors[1] as ShootBehavior;
+			shootGunBehavior2.BulletScript = new CustomBulletScriptSelector(typeof(JammedBlizzbulonAtatck2));
+
+			//ToolsEnemy.DebugInformation(behaviorSpec);
+
+
+		}
+		public class JammedBlizzbulonAtatck1 : Script
+		{
+			protected override IEnumerator Top()
+			{
+
+				for (int i = 0; i < 24; i++)
+				{
+					this.Fire(new Direction(0f + (15 * i), DirectionType.Absolute, -1f), new Speed(9f, SpeedType.Absolute), null);
+				};
+				//yield return base.Wait(10);
+				for (int i = 0; i < 4; i++)
+				{
+					for (int a = 0; a < 6; a++)
+					{
+						this.Fire(new Direction(0f + (90 * i), DirectionType.Aim, -1f), new Speed(9+((a*1.75f)), SpeedType.Absolute), null);
+					}
+				};
+				yield break;
+			}
+			private const int NumWaves = 3;
+
+			// Token: 0x0400082B RID: 2091
+			private const int NumBullets = 12;
+
+			// Token: 0x0200021F RID: 543
+			
+			public class SpeedBullet : Bullet
+			{
+				protected override IEnumerator Top()
+				{
+					base.ChangeSpeed(new Speed(18f, SpeedType.Absolute), 40);
+					yield break;
+				}
+			}
+		}
+		public class JammedBlizzbulonAtatck2 : Script
+		{
+			protected override IEnumerator Top()
+			{
+				int speedandspread = UnityEngine.Random.Range(4, 8);
+				for (int i = -3; i < 4; i++)
+				{
+					this.Fire(new Direction(0+(speedandspread * i), DirectionType.Aim, -1f), new Speed(speedandspread - (float)Mathf.Abs(i) * 1f, SpeedType.Absolute), new JammedBlizzbulonAtatck2.SpeedBullet());
+				}
+				yield return base.Wait(50);
+				int speedandspread2 = UnityEngine.Random.Range(12, 18);
+				for (int i = -5; i < 6; i++)
+				{
+					this.Fire(new Direction(0 + ((speedandspread2/2) * i), DirectionType.Aim, -1f), new Speed(speedandspread2 - (float)Mathf.Abs(i) * 0.75f, SpeedType.Absolute), null);
+				}
+				yield break;
+			}
+			private const int NumWaves = 3;
+
+			// Token: 0x0400082B RID: 2091
+			private const int NumBullets = 12;
+
+			// Token: 0x0200021F RID: 543
+
+			public class SpeedBullet : Bullet
+			{
+				protected override IEnumerator Top()
+				{
+					base.ChangeSpeed(new Speed(15f, SpeedType.Absolute), 20);
+					yield break;
+				}
+			}
+		}
+	}
+}
+
+namespace BunnyMod
+{
+	public class JammedGunCultist : OverrideBehavior
+	{
+		public override string OverrideAIActorGUID => "57255ed50ee24794b7aac1ac3cfb8a95"; // Replace the GUID with whatever enemy you want to modify. This GUID is for the bullet kin.
+																						  // You can find a full list of GUIDs at https://github.com/ModTheGungeon/ETGMod/blob/master/Assembly-CSharp.Base.mm/Content/gungeon_id_map/enemies.txt
+		public override void DoOverride()
+		{
+
+			ShootGunBehavior shootGunBehavior = behaviorSpec.AttackBehaviorGroup.AttackBehaviors[0].Behavior as ShootGunBehavior; // Get the ShootGunBehavior, at index 0 of the AttackBehaviors list
+			shootGunBehavior.LeadAmount = 0.62f;
+
+			shootGunBehavior.WeaponType = WeaponType.BulletScript; // Makes it so the bullet kin will shoot our bullet script instead of his own gun shot.
+			shootGunBehavior.BulletScript = new CustomBulletScriptSelector(typeof(JammedGunCultistAttack)); // Sets the bullet kin's bullet script to our custom bullet script.
+			//ToolsEnemy.DebugInformation(behaviorSpec);
+		}
+		public class JammedGunCultistAttack : Script // This BulletScript is just a modified version of the script BulletManShroomed, which you can find with dnSpy.
+		{
+			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
+			{
+				if (this.BulletBank && this.BulletBank.aiActor && this.BulletBank.aiActor.TargetRigidbody)
+				{
+					//base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("37340393f97f41b2822bc02d14654172").bulletBank.GetBullet("quickHoming"));
+				}
+				int shots = UnityEngine.Random.Range(2, 6);
+				for (int a = 0; a < shots; a++)
+                {
+					base.PostWwiseEvent("Play_WPN_magnum_shot_01", null);
+					int angle = UnityEngine.Random.Range(-10, 10);
+					for (int i = -1; i < 2; i++)
+					{
+						this.Fire(new Direction(0 + (8 * i)+ angle, DirectionType.Aim, -1f), new Speed(13 - (float)Mathf.Abs(i) * 0.5f, SpeedType.Absolute), new JammedGunCultistAttack.SpeedBullet());
+					}
+					yield return this.Wait(60/shots);
+
+				}
+				yield break;
+			}
+			public class SpeedBullet : Bullet
+			{
+				protected override IEnumerator Top()
+				{
+					base.ChangeSpeed(new Speed(3f, SpeedType.Absolute), 30);
+					yield return base.Wait(34);
+					base.ChangeSpeed(new Speed(19f, SpeedType.Absolute), 15);
+					//yield return base.Wait(40);
+				}
+			}
+		}
+	}
+}
+
+namespace BunnyMod
+{
+	public class JammedGummySpent : OverrideBehavior
+	{
+		public override string OverrideAIActorGUID => "e21ac9492110493baef6df02a2682a0d";
+
+		public override void DoOverride()
+		{
+			ShootBehavior shootGunBehavior1 = behaviorSpec.AttackBehaviorGroup.AttackBehaviors[0].Behavior as ShootBehavior;
+			//shootGunBehavior.LeadAmount = 0.70f;
+			//shootGunBehavior.WeaponType = WeaponType.BulletScript;
+			shootGunBehavior1.BulletScript = new CustomBulletScriptSelector(typeof(JammedGummySpentAttack));
+			//ShootBehavior shootGunBehavior2 = behaviorSpec.AttackBehaviors[1] as ShootBehavior;
+			//shootGunBehavior2.BulletScript = new CustomBulletScriptSelector(typeof(JammedBlizzbulonAtatck2));
+			//ToolsEnemy.DebugInformation(behaviorSpec);
+		}
+		public class JammedGummySpentAttack : Script // This BulletScript is just a modified version of the script BulletManShroomed, which you can find with dnSpy.
+		{
+			protected override IEnumerator Top()
+			{
+				float num = base.RandomAngle();
+				float num2 = 12f;
+				for (int a = 0; a < 3; a++)
+                {
+					for (int i = 0; i < 32; i++)
+					{
+						base.Fire(new Direction(0 + (12 * i) +(3*a), DirectionType.Absolute, -1f), new Speed(5.5f, SpeedType.Absolute), new JammedGummySpentAttack.RotatingBullet(base.Position));
+						base.Fire(new Direction(num + (float)i * num2 + (3 * a), DirectionType.Absolute, -1f), new Speed(6f, SpeedType.Absolute), new JammedGummySpentAttack.OscillatingBullet());
+					}
+					yield return this.Wait(7);
+				}
+
+				yield return null;
+			}
+
+			// Token: 0x04000D63 RID: 3427
+			private const int NumBullets = 100;
+
+			// Token: 0x02000336 RID: 822
+			private class OscillatingBullet : Bullet
+			{
+				// Token: 0x06000CBD RID: 3261 RVA: 0x0003D46C File Offset: 0x0003B66C
+				public OscillatingBullet() : base(null, false, false, false)
+				{
+				}
+
+				// Token: 0x06000CBE RID: 3262 RVA: 0x0003D478 File Offset: 0x0003B678
+				protected override IEnumerator Top()
+				{
+					float randomOffset = UnityEngine.Random.value;
+					float startSpeed = this.Speed;
+					for (int i = 0; i < 300; i++)
+					{
+						this.Speed = startSpeed + Mathf.SmoothStep(-2f, 2f, Mathf.PingPong((float)base.Tick / 60f + randomOffset, 1f));
+						yield return base.Wait(1);
+					}
+					base.Vanish(false);
+					yield break;
+				}
+			}
+			public class RotatingBullet : Bullet
+			{
+				// Token: 0x06000AD4 RID: 2772 RVA: 0x00034000 File Offset: 0x00032200
+				public RotatingBullet(Vector2 origin) : base(null, false, false, false)
+				{
+					this.m_origin = origin;
+				}
+
+				// Token: 0x06000AD5 RID: 2773 RVA: 0x00034014 File Offset: 0x00032214
+				protected override IEnumerator Top()
+				{
+					int numure = UnityEngine.Random.Range(0, 2);
+					bool fuckye = numure == 0;
+					if (fuckye)
+                    {
+						Vector2 originToPos = base.Position - this.m_origin;
+						float dist = originToPos.magnitude;
+						float angle = originToPos.ToAngle();
+						base.ManualControl = true;
+						for (int i = 0; i < 300; i++)
+						{
+							angle -= 0.9f;
+							dist += this.Speed / 60f;
+							base.Position = this.m_origin + BraveMathCollege.DegreesToVector(angle, dist);
+							yield return base.Wait(1);
+						}
+						base.Vanish(false);
+						yield break;
+					}
+					bool a = numure == 1;
+					if (a)
+					{
+						Vector2 originToPos = base.Position - this.m_origin;
+						float dist = originToPos.magnitude;
+						float angle = originToPos.ToAngle();
+						base.ManualControl = true;
+						for (int i = 0; i < 300; i++)
+						{
+							angle -= -0.9f;
+							dist += this.Speed / 60f;
+							base.Position = this.m_origin + BraveMathCollege.DegreesToVector(angle, dist);
+							yield return base.Wait(1);
+						}
+						base.Vanish(false);
+						yield break;
+					}
+					
+				}
+
+				// Token: 0x04000B5E RID: 2910
+				private Vector2 m_origin;
+			}
+			
+		}
+	}
+}
+
+namespace BunnyMod
+{
+	public class JammedGummy: OverrideBehavior
+	{
+		public override string OverrideAIActorGUID => "5288e86d20184fa69c91ceb642d31474"; // Replace the GUID with whatever enemy you want to modify. This GUID is for the bullet kin.
+																						  // You can find a full list of GUIDs at https://github.com/ModTheGungeon/ETGMod/blob/master/Assembly-CSharp.Base.mm/Content/gungeon_id_map/enemies.txt
+		public override void DoOverride()
+		{
+
+			ShootGunBehavior shootGunBehavior = behaviorSpec.AttackBehaviorGroup.AttackBehaviors[0].Behavior as ShootGunBehavior; // Get the ShootGunBehavior, at index 0 of the AttackBehaviors list
+			shootGunBehavior.LeadAmount = 0.62f;
+
+			shootGunBehavior.WeaponType = WeaponType.BulletScript; // Makes it so the bullet kin will shoot our bullet script instead of his own gun shot.
+			shootGunBehavior.BulletScript = new CustomBulletScriptSelector(typeof(JammedGummyAttack)); // Sets the bullet kin's bullet script to our custom bullet script.
+																											//ToolsEnemy.DebugInformation(behaviorSpec);
+		}
+		public class JammedGummyAttack : Script // This BulletScript is just a modified version of the script BulletManShroomed, which you can find with dnSpy.
+		{
+			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
+			{
+				if (this.BulletBank && this.BulletBank.aiActor && this.BulletBank.aiActor.TargetRigidbody)
+				{
+					//base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("37340393f97f41b2822bc02d14654172").bulletBank.GetBullet("quickHoming"));
+				}
+				int shots1 = UnityEngine.Random.Range(3, 7);
+				for (int e = 0; e < shots1; e++)
+				{
+					int accuracy = UnityEngine.Random.Range(-8, 8);
+					base.PostWwiseEvent("Play_WPN_uzi_shot_01", null);
+					base.Fire(new Direction(accuracy, DirectionType.Aim, -1f), new Speed(9.5f, SpeedType.Absolute), null);
+					yield return base.Wait(10/shots1);
+				}
+				yield break;
+			}
+		
 		}
 	}
 }

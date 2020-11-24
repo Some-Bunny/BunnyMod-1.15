@@ -146,17 +146,45 @@ namespace BunnyMod
 		}
 		private IEnumerator Warplol(PlayerController player, Vector2 playerPosition, Vector2 projPosition)
 		{
-			AkSoundEngine.PostEvent("Play_OBJ_teleport_depart_01", gameObject);
+			StartCoroutine(HandleShield(player));
+			//AkSoundEngine.PostEvent("Play_OBJ_teleport_depart_01", gameObject);
 			GameObject obj = new GameObject();
 			HealthHaver fuck = obj.AddComponent<HealthHaver>();
 			yield return new WaitForSeconds(0.1f);
 			//Vector2 vector2 = projectile.sprite.WorldCenter;
 			(player as PlayerController).WarpToPoint(projPosition);
-			fuck.StartCoroutine("IncorporealityOnHit");
-			fuck.TriggerInvulnerabilityPeriod(-1.25f);
-			yield return new WaitForSeconds(0.123f);
+			yield return new WaitForSeconds(0.12f);
 			SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, player.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(player.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
 
+			yield break;
+		}
+		float m_activeDuration = 1f;
+		float duration = 1f;
+		private IEnumerator HandleShield(PlayerController user)
+		{
+			//IsCurrentlyActive = true;
+			//float m_activeElapsed = 0f;
+			m_activeDuration = this.duration;
+			SpeculativeRigidbody specRigidbody = user.specRigidbody;
+			user.healthHaver.IsVulnerable = false;
+			float elapsed = 0f;
+			while (elapsed < this.duration)
+			{
+				elapsed += BraveTime.DeltaTime;
+				user.healthHaver.IsVulnerable = false;
+				yield return null;
+			}
+			if (user)
+			{
+				user.healthHaver.IsVulnerable = true;
+				user.ClearOverrideShader();
+				SpeculativeRigidbody specRigidbody2 = user.specRigidbody;
+				//IsCurrentlyActive = false;
+			}
+			if (this)
+			{
+				AkSoundEngine.PostEvent("Play_OBJ_metalskin_end_01", base.gameObject);
+			}
 			yield break;
 		}
 	}
