@@ -665,16 +665,23 @@ namespace BunnyMod
             bool b = a;
             if (b)
             {
-
+                RoomHandler currentRoom = player.CurrentRoom;
                 SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, base.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(base.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
                 IntVector2? vector = (player as PlayerController).CurrentRoom.GetRandomAvailableCell(new IntVector2?(IntVector2.One * 2), CellTypes.FLOOR | CellTypes.PIT, false, null);
                 if (vector != null)
                 {
                     Vector2 vector2 = vector.Value.ToVector2();
-                    (player as PlayerController).WarpToPoint(vector2);
-                    LootEngine.DoDefaultItemPoof(vector2);
-                    SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, vector2.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(vector2.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
-
+                    CellData cellAim = currentRoom.GetNearestCellToPosition(vector2);
+                    CellData cellAimLeft = currentRoom.GetNearestCellToPosition(vector2 + Vector2.left);
+                    CellData cellAimRight = currentRoom.GetNearestCellToPosition(vector2 + Vector2.right);
+                    CellData cellAimUp = currentRoom.GetNearestCellToPosition(vector2 + Vector2.up);
+                    CellData cellAimDown = currentRoom.GetNearestCellToPosition(vector2 + Vector2.down);
+                    if (player.IsValidPlayerPosition(vector2) && !cellAim.isNextToWall && !cellAimLeft.isNextToWall && !cellAimRight.isNextToWall && !cellAimUp.isNextToWall && !cellAimDown.isNextToWall)
+                    {
+                        (player as PlayerController).WarpToPoint(vector2);
+                        LootEngine.DoDefaultItemPoof(vector2);
+                        SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, vector2.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(vector2.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+                    }
                 }
                 RewardCrown.VomitPrevention = true;
                 GameManager.Instance.StartCoroutine(RewardCrown.PreventVomiting());
