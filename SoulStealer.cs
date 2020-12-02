@@ -61,9 +61,11 @@ namespace BunnyMod
 			projectile.transform.parent = trollmimic.barrelOffset;
             projectile.SetProjectileSpriteRight("soulstealer_projectile_001", 18, 9, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(9), new int?(5), null, null, null);
             ETGMod.Databases.Items.Add(trollmimic, null, "ANY");
-		}
+            trollmimic.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+            trollmimic.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
+        }
 
-		public override void PostProcessProjectile(Projectile projectile)
+        public override void PostProcessProjectile(Projectile projectile)
 		{
 			projectile.OnWillKillEnemy = (Action<Projectile, SpeculativeRigidbody>)Delegate.Combine(projectile.OnWillKillEnemy, new Action<Projectile, SpeculativeRigidbody>(this.OnKill));
 		}

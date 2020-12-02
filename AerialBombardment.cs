@@ -59,7 +59,6 @@ namespace BunnyMod
 			}
 			gun.reloadTime = 1.2f;
 			gun.SetBaseMaxAmmo(70);
-			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			// Here we just set the quality of the gun and the "EncounterGuid", which is used by Gungeon to identify the gun.
 			gun.quality = PickupObject.ItemQuality.C;
 			gun.encounterTrackable.EncounterGuid = "Cheer up Bunny ^ᴗ^";
@@ -75,7 +74,7 @@ namespace BunnyMod
 			//This determines what sprite you want your projectile to use. Note this isn't necessary if you don't want to have a custom projectile sprite.
 			//The x and y values determine the size of your custom projectile
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
-
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{

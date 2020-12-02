@@ -71,6 +71,32 @@ namespace BunnyMod
         }
     }
 }
+namespace BunnyMod
+{
+    public class Curse2Emblem : PassiveItem
+    {
+        public static void Register()
+        {
+            string itemName = "Curse2Emblem";
+            string resourceName = "BunnyMod/Resources/curse2icon.png";
+            GameObject obj = new GameObject(itemName);
+            var item = obj.AddComponent<Curse2Emblem>();
+            ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
+            string shortDesc = "a";
+            string longDesc = "a.";
+            ItemBuilder.SetupItem(item, shortDesc, longDesc, "bny");
+            item.quality = PickupObject.ItemQuality.EXCLUDED;
+        }
+        public override void Pickup(PlayerController player)
+        {
+            base.Pickup(player);
+        }
+        public override DebrisObject Drop(PlayerController player)
+        {
+            return base.Drop(player);
+        }
+    }
+}
 
 namespace BunnyMod
 {
@@ -745,6 +771,7 @@ namespace BunnyMod
 
         public override void Pickup(PlayerController player)
         {
+            this.CanBeDropped = false;
             base.Pickup(player);
         }
         public override void Update()
@@ -763,8 +790,13 @@ namespace BunnyMod
                 }
                 else
                 {
-                    lastOwner.healthHaver.OnPreDeath += this.HandlePreDeath;
-                    this.id = DragunHeartThing.spriteIDs[1];
+                    bool a = this.EatenBullet == 1;
+                    if (a)
+                    {
+                        lastOwner.healthHaver.OnPreDeath += this.HandlePreDeath;
+                        this.id = DragunHeartThing.spriteIDs[1];
+                        this.EatenBullet += 1;
+                    }
                 }
                 base.sprite.SetSprite(this.id);
             }
@@ -800,6 +832,7 @@ namespace BunnyMod
                     LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Crown of the Discoverer"].gameObject, player, true);
                     yield return new WaitForSeconds(0.25f);
                     {
+                        player.healthHaver.OnPreDeath -= this.HandlePreDeath;
                         player.RemoveActiveItem(DragunHeartThing.poggersheart);
                     }
                 }
@@ -807,6 +840,7 @@ namespace BunnyMod
                 {
                     yield return new WaitForSeconds(0.25f);
                     {
+                        player.healthHaver.OnPreDeath -= this.HandlePreDeath;
                         player.RemoveActiveItem(DragunHeartThing.poggersheart);
                     }
                 }

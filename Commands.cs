@@ -60,15 +60,15 @@ namespace BunnyMod
 			});
 			ETGModConsole.Commands.GetGroup("bny").AddUnit("curse_2.0", delegate (string[] args)
 			{
-				bool flag = Commands.NoHarderLotJ;
+				bool flag = JammedSquire.NoHarderLotJ;
 				if (flag)
 				{
-					Commands.NoHarderLotJ = false;
+					JammedSquire.NoHarderLotJ = false;
 					ETGModConsole.Log("Curse 2.0 Enabled.", false);
 				}
 				else
 				{
-					Commands.NoHarderLotJ = true;
+					JammedSquire.NoHarderLotJ = true;
 					ETGModConsole.Log("Curse 2.0 Disabled.", false);
 				}
 			});

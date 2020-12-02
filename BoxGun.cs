@@ -32,7 +32,6 @@ namespace BunnyMod
 			GunExt.SetAnimationFPS(gun, gun.reloadAnimation, 12);
 			GunExt.SetAnimationFPS(gun, gun.idleAnimation, 7);
 			GunExt.AddProjectileModuleFrom(gun, "ak-47", true, false);
-			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			gun.DefaultModule.ammoCost = 1;
 			gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
 			gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
@@ -54,6 +53,7 @@ namespace BunnyMod
 			projectile.transform.parent = gun.barrelOffset;
 			projectile.SetProjectileSpriteRight("boxgun_projectile_001", 10, 14, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(7), new int?(7), null, null, null);
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun gun)

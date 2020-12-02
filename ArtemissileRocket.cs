@@ -62,6 +62,8 @@ namespace BunnyMod
 
 			gun.quality = PickupObject.ItemQuality.B;
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+
 		}
 
 		private bool HasReloaded;

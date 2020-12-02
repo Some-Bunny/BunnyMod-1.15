@@ -25,7 +25,7 @@ namespace BunnyMod
 			Gun flakcannon = ETGMod.Databases.Items.NewGun("Matter Translocator", "mattertranslocator");
 			Game.Items.Rename("outdated_gun_mods:matter_translocator", "bny:matter_translocator");
 			flakcannon.gameObject.AddComponent<MatterTranslocator>();
-			GunExt.SetShortDescription(flakcannon, "Tele-tech");
+			GunExt.SetShortDescription(flakcannon, "Tele-Tech");
 			GunExt.SetLongDescription(flakcannon, "The most stable and well-calibrated portable teleporter available for use. As with all things, it's weaponized.");
 			GunExt.SetupSprite(flakcannon, null, "mattertranslocator_idle_001", 11);
 			GunExt.SetAnimationFPS(flakcannon, flakcannon.shootAnimation, 15);
@@ -43,7 +43,6 @@ namespace BunnyMod
 			flakcannon.quality = PickupObject.ItemQuality.A;
 			flakcannon.DefaultModule.angleVariance = 0f;
 			flakcannon.DefaultModule.burstShotCount = 1;
-			flakcannon.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(flakcannon.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
@@ -62,6 +61,9 @@ namespace BunnyMod
 			spook.penetration = 100;
 			flakcannon.encounterTrackable.EncounterGuid = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 			ETGMod.Databases.Items.Add(flakcannon, null, "ANY");
+			flakcannon.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+			flakcannon.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+
 		}
 
 		public override void OnPostFired(PlayerController player, Gun flakcannon)

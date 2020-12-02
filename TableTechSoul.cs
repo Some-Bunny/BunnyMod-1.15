@@ -38,15 +38,14 @@ namespace BunnyMod
 
         public override void Pickup(PlayerController player)
         {
-            player.OnTableFlipCompleted = (Action<FlippableCover>)Delegate.Combine(player.OnTableFlipCompleted, new Action<FlippableCover>(this.HandleFlip));
+            player.OnTableFlipped = (Action<FlippableCover>)Delegate.Combine(player.OnTableFlipped, new Action<FlippableCover>(this.HandleFlip));
             base.Pickup(player);
             Tools.Print($"Player picked up {this.DisplayName}");
         }
         private void HandleFlip(FlippableCover table)
         {
-            {
-                this.CreateNewCompanion(base.Owner);
-            }
+            //AkSoundEngine.PostEvent("Play_OBJ_ammo_pickup_01", base.gameObject);
+            this.CreateNewCompanion(base.Owner);
         }
         private void CreateNewCompanion(PlayerController player)
         {
@@ -193,8 +192,7 @@ namespace BunnyMod
 
         public override DebrisObject Drop(PlayerController player)
         {
-            player.OnTableFlipCompleted = (Action<FlippableCover>)Delegate.Remove(player.OnTableFlipCompleted, new Action<FlippableCover>(this.HandleFlip));
-            Tools.Print($"Player dropped {this.DisplayName}");
+            player.OnTableFlipped = (Action<FlippableCover>)Delegate.Remove(player.OnTableFlipped, new Action<FlippableCover>(this.HandleFlip));
             return base.Drop(player);
         }
         private List<CompanionController> companionsSpawned = new List<CompanionController>();

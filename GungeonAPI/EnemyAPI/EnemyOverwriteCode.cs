@@ -761,6 +761,7 @@ namespace BunnyMod
 }
 */
 //Curse 2.0
+
 namespace BunnyMod
 {
 	public class JammedBulletkin : OverrideBehavior
@@ -785,12 +786,15 @@ namespace BunnyMod
 				{
 					//base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("37340393f97f41b2822bc02d14654172").bulletBank.GetBullet("quickHoming"));
 				}
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float num = 0f;
+				num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				base.PostWwiseEvent("Play_WPN_magnum_shot_01", null);
-				base.Fire(new Direction(-16f, DirectionType.Relative, -1f), new Speed(7f, SpeedType.Absolute), null);
-				base.Fire(new Direction(-10f, DirectionType.Relative, -1f), new Speed(8f, SpeedType.Absolute), null);
-				base.Fire(new Direction(0f, DirectionType.Relative, -1f), new Speed(8f, SpeedType.Absolute), new ShotgunCreecherUglyCircle1.CreecherBullet());
-				base.Fire(new Direction(10f, DirectionType.Relative, -1f), new Speed(8f, SpeedType.Absolute), null);
-				base.Fire(new Direction(16f, DirectionType.Relative, -1f), new Speed(7f, SpeedType.Absolute), null);
+				base.Fire(new Direction(-16f, DirectionType.Relative, -1f), new Speed(7f+(num/4), SpeedType.Absolute), null);
+				base.Fire(new Direction(-10f, DirectionType.Relative, -1f), new Speed(8f+(num/4), SpeedType.Absolute), null);
+				base.Fire(new Direction(0f, DirectionType.Relative, -1f), new Speed(8f+(num/4), SpeedType.Absolute), new ShotgunCreecherUglyCircle1.CreecherBullet());
+				base.Fire(new Direction(10f, DirectionType.Relative, -1f), new Speed(8f+(num/4), SpeedType.Absolute), null);
+				base.Fire(new Direction(16f, DirectionType.Relative, -1f), new Speed(7f+(num/4), SpeedType.Absolute), null);
 				yield return this.Wait(30);
 
 				yield break;
@@ -854,11 +858,16 @@ namespace BunnyMod
 				{
 					if (!preventSpawningProjectiles)
 					{
+
+						PlayerController player = (GameManager.Instance.PrimaryPlayer);
+						float curse = 0f;
+						curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 						float num = base.RandomAngle();
-						float num2 = 24f;
-						for (int i = 0; i < 15; i++)
+						float Amount = 15 + curse;
+						float Angle = 360 / Amount;
+						for (int i = 0; i < Amount; i++)
 						{
-							base.Fire(new Direction(num + num2 * (float)i, DirectionType.Absolute, -1f), new Speed(8f, SpeedType.Absolute), null);
+							base.Fire(new Direction(num + Angle * (float)i, DirectionType.Absolute, -1f), new Speed(7.5f, SpeedType.Absolute), null);
 						}
 					}
 				}
@@ -894,25 +903,29 @@ namespace BunnyMod
 					//base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("6868795625bd46f3ae3e4377adce288b").bulletBank.GetBullet("dagger"));
 					base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("ec6b674e0acd4553b47ee94493d66422").bulletBank.GetBullet("bigBullet"));
 				}
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				base.PostWwiseEvent("Play_WPN_shotgun_shot_01", null);
-				base.Fire(new Direction(32f, DirectionType.Aim, -1f), new Speed(6.5f, SpeedType.Absolute), new JammedBlueShotgunAttack.SplitBall());
-				base.Fire(new Direction(24f, DirectionType.Aim, -1f), new Speed(6.5f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(16f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(8f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(-8f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(-16f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(-24f, DirectionType.Aim, -1f), new Speed(6.5f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(-32f, DirectionType.Aim, -1f), new Speed(6.5f, SpeedType.Absolute), new JammedBlueShotgunAttack.SplitBall());
-				yield return base.Wait(40);
+				base.Fire(new Direction(32f, DirectionType.Aim, -1f), new Speed(6.5f+(curse/4), SpeedType.Absolute), new JammedBlueShotgunAttack.SplitBall());
+				base.Fire(new Direction(24f, DirectionType.Aim, -1f), new Speed(6.5f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(16f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(8f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(-8f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(-16f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(-24f, DirectionType.Aim, -1f), new Speed(6.5f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(-32f, DirectionType.Aim, -1f), new Speed(6.5f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.SplitBall());
+				yield return base.Wait(20);
 				base.PostWwiseEvent("Play_WPN_shotgun_shot_01", null);
-				base.Fire(new Direction(24f, DirectionType.Aim, -1f), new Speed(6.5f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(16f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(8f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(8f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(-8f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(-16f, DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
-				base.Fire(new Direction(-24f, DirectionType.Aim, -1f), new Speed(6.5f, SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(24f, DirectionType.Aim, -1f), new Speed(6.5f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(16f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(8f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(8f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(-8f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(-16f, DirectionType.Aim, -1f), new Speed(7f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
+				base.Fire(new Direction(-24f, DirectionType.Aim, -1f), new Speed(6.5f + (curse / 4), SpeedType.Absolute), new JammedBlueShotgunAttack.Chain());
 				yield break;
 			}
 			public class Chain : Bullet
@@ -932,6 +945,7 @@ namespace BunnyMod
 				{
 					if (!preventSpawningProjectiles)
 					{
+
 						float num = base.RandomAngle();
 						float num2 = 36f;
 						for (int i = 0; i < 10; i++)
@@ -959,10 +973,10 @@ namespace BunnyMod
 			shootGunBehavior.LeadAmount = 0.80f;
 
 			shootGunBehavior.WeaponType = WeaponType.BulletScript; // Makes it so the bullet kin will shoot our bullet script instead of his own gun shot.
-			shootGunBehavior.BulletScript = new CustomBulletScriptSelector(typeof(BlizzbulonBasicAttack2)); // Sets the bullet kin's bullet script to our custom bullet script.
+			shootGunBehavior.BulletScript = new CustomBulletScriptSelector(typeof(BlizzbulonBasicAttack2a)); // Sets the bullet kin's bullet script to our custom bullet script.
 
 		}
-		public class BlizzbulonBasicAttack2 : Script // This BulletScript is just a modified version of the script BulletManShroomed, which you can find with dnSpy.
+		public class BlizzbulonBasicAttack2a : Script // This BulletScript is just a modified version of the script BulletManShroomed, which you can find with dnSpy.
 		{
 			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
 			{
@@ -974,11 +988,14 @@ namespace BunnyMod
 				*/
 				for (int i = 0; i < 3; i++)
 				{
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					base.PostWwiseEvent("Play_WPN_colt1851_shot_01", null);
-					base.Fire(new Direction(0 +(i*8), DirectionType.Aim, -1f), new Speed(7f, SpeedType.Absolute), null);
+					base.Fire(new Direction(0 +(i*8), DirectionType.Aim, -1f), new Speed(7f+(curse/3), SpeedType.Absolute), null);
 					yield return base.Wait(5);
 					base.PostWwiseEvent("Play_WPN_colt1851_shot_01", null);
-					base.Fire(new Direction(0+(i*5), DirectionType.Aim, -1f), new Speed(11f, SpeedType.Absolute), null);
+					base.Fire(new Direction(0+(i*5), DirectionType.Aim, -1f), new Speed(11f+(curse / 4), SpeedType.Absolute), null);
 				}
 
 				yield break;
@@ -1026,11 +1043,14 @@ namespace BunnyMod
 				base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(9f, SpeedType.Absolute), new HelixChainBullet(true));
 				base.Fire(new Direction(20f, DirectionType.Aim, -1f), new Speed(9f, SpeedType.Absolute), new HelixChainBullet(false));
 				base.Fire(new Direction(20f, DirectionType.Aim, -1f), new Speed(9f, SpeedType.Absolute), new HelixChainBullet(true));
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				for (int i = 0; i < 3; i++)
                 {
-					base.Fire(new Direction(-20f, DirectionType.Aim, -1f), new Speed(3+(i*3f), SpeedType.Absolute), null);
-					base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(3+(i*3f), SpeedType.Absolute), null);
-					base.Fire(new Direction(20f, DirectionType.Aim, -1f), new Speed(3+(i*3f), SpeedType.Absolute), null);
+					base.Fire(new Direction(-20f-curse, DirectionType.Aim, -1f), new Speed(3+(i*3f), SpeedType.Absolute), null);
+					base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(4+(i*2f), SpeedType.Absolute), null);
+					base.Fire(new Direction(20f+curse, DirectionType.Aim, -1f), new Speed(3+(i*3f), SpeedType.Absolute), null);
 
 				}
 
@@ -1092,11 +1112,14 @@ namespace BunnyMod
 				bool skipInFirstWave = true;
 				bool skipInSecondWave = true;
 				int skip = UnityEngine.Random.Range(0, numBullets - 1);
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				for (int i = 0; i < numBullets - 1; i++)
 				{
 					if (i != skip || !skipInFirstWave)
 					{
-						base.Fire(new Direction(base.SubdivideArc(-sign * 10f, sign * 25f, numBullets, i, true), DirectionType.Aim, -1f), new Speed(8f+(i+1), SpeedType.Absolute), null);
+						base.Fire(new Direction(base.SubdivideArc(-sign * 10f, sign * 25f, numBullets, i, true), DirectionType.Aim, -1f), new Speed(8f+(i+1)+(curse/4), SpeedType.Absolute), null);
 						base.Fire(new Direction(base.SubdivideArc(-sign * 25f, sign * 50f, numBullets, i, true), DirectionType.Aim, -1f), new Speed(7f+(i+(i/2)), SpeedType.Absolute), null);
 					}
 					yield return base.Wait(2);
@@ -1108,7 +1131,7 @@ namespace BunnyMod
 					if (j != skip || !skipInSecondWave)
 					{
 						base.Fire(new Direction(base.SubdivideArc(sign * 40f, -sign * 60f, numBullets, j, false), DirectionType.Aim, -1f), new Speed(6f+ (j + 1), SpeedType.Absolute), null);
-						base.Fire(new Direction(base.SubdivideArc(sign * 25f, -sign * 50f, numBullets, j, false), DirectionType.Aim, -1f), new Speed(7f+ (j + (j / 2)), SpeedType.Absolute), null);
+						base.Fire(new Direction(base.SubdivideArc(sign * 25f, -sign * 50f, numBullets, j, false), DirectionType.Aim, -1f), new Speed(7f+ (j + (j / 2) + (curse / 3)), SpeedType.Absolute), null);
 					}
 					yield return base.Wait(4);
 				}
@@ -1138,6 +1161,9 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				int numBullets = 6;
 				float sign = BraveUtility.RandomSign();
 				bool skipInFirstWave = true;
@@ -1148,7 +1174,7 @@ namespace BunnyMod
 					if (i != skip || !skipInFirstWave)
 					{
 						base.Fire(new Direction(base.SubdivideArc(-sign * 15f, sign * 10f, numBullets, i, true), DirectionType.Aim, -1f), new Speed(8.5f + (i + 1), SpeedType.Absolute), null);
-						base.Fire(new Direction(base.SubdivideArc(-sign * 15f, sign * 35f, numBullets, i, true), DirectionType.Aim, -1f), new Speed(6.5f + (i + (i / 2)), SpeedType.Absolute), null);
+						base.Fire(new Direction(base.SubdivideArc(-sign * 15f, sign * 35f, numBullets, i, true), DirectionType.Aim, -1f), new Speed(6.5f + (i + (i / 2))+(curse/5), SpeedType.Absolute), null);
 					}
 					yield return base.Wait(2);
 				}
@@ -1158,7 +1184,7 @@ namespace BunnyMod
 				{
 					if (j != skip || !skipInSecondWave)
 					{
-						base.Fire(new Direction(base.SubdivideArc(sign * 45f, -sign * 65f, numBullets, j, false), DirectionType.Aim, -1f), new Speed(5f + (j * 1.25f), SpeedType.Absolute), null);
+						base.Fire(new Direction(base.SubdivideArc(sign * 45f, -sign * 65f, numBullets, j, false), DirectionType.Aim, -1f), new Speed(5f + (j * 1.25f) + (curse / 4), SpeedType.Absolute), null);
 						base.Fire(new Direction(base.SubdivideArc(sign * 20f, -sign * 35f, numBullets, j, false), DirectionType.Aim, -1f), new Speed(8f + (j + (j / 1.5f)), SpeedType.Absolute), null);
 					}
 					yield return base.Wait(4);
@@ -1195,13 +1221,16 @@ namespace BunnyMod
 			{
 				for (int i = 0; i < 3; i++)
                 {
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					base.PostWwiseEvent("Play_WPN_shotgun_shot_01", null);
 					float aimDirection = base.GetAimDirection(1f, 9f);
 					for (int a = -3; a <= 3; a++)
 					{
-						base.Fire(new Direction(aimDirection + (float)(a * 6), DirectionType.Absolute, -1f), new Speed(10f - (float)Mathf.Abs(a) * 0.5f, SpeedType.Absolute), null);
+						base.Fire(new Direction(aimDirection + (float)(a * (5+(curse/2))), DirectionType.Absolute, -1f), new Speed(10f - (float)Mathf.Abs(a) * 0.5f, SpeedType.Absolute), null);
 					}
-					yield return base.Wait(20);
+					yield return base.Wait(15);
 
 				}
 				if (this.BulletBank && this.BulletBank.aiActor && this.BulletBank.aiActor.TargetRigidbody)
@@ -1276,8 +1305,11 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
 			{
-				for (int a = 0; a < 4; a++)
+				for (int a = 0; a < 3; a++)
 				{
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					int accuracy = UnityEngine.Random.Range(-20, 20);
 					for (int i = -1; i < 2; i++)
 					{
@@ -1285,8 +1317,8 @@ namespace BunnyMod
 						base.Fire(new Direction(0 + (float)((i+(i/2)) * (9))+ accuracy, DirectionType.Aim, -1f), new Speed(9f - (float)Mathf.Abs(a) * 0.3f, SpeedType.Absolute), null);
 					}
 					yield return base.Wait(16);
-					base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(9f + (float)Mathf.Abs(a) * 2f, SpeedType.Absolute), null);
-					base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(9f + (float)Mathf.Abs(a) * 1f, SpeedType.Absolute), null);
+					base.Fire(new Direction(3f+(curse*2), DirectionType.Aim, -1f), new Speed(8f + (float)Mathf.Abs(a) * 1.2f, SpeedType.Absolute), null);
+					base.Fire(new Direction(-3f-(curse*2), DirectionType.Aim, -1f), new Speed(8f + (float)Mathf.Abs(a) * 1.2f, SpeedType.Absolute), null);
 				}
 				yield break;
 			}
@@ -1352,12 +1384,15 @@ namespace BunnyMod
 				}
 				protected override IEnumerator Top()
 				{
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					base.ChangeSpeed(new Speed(0f, SpeedType.Absolute), 0);
 					yield return base.Wait(60);
 					base.ChangeSpeed(new Speed(.1f, SpeedType.Absolute), 0);
 					for (int a = 0; a < 100; a++)
 					{
-						base.ChangeSpeed(new Speed(.075f * a, SpeedType.Absolute), 0);
+						base.ChangeSpeed(new Speed(.075f * (a+(curse/20)), SpeedType.Absolute), 0);
 						yield return base.Wait(2);
 
 					}
@@ -1421,6 +1456,7 @@ namespace BunnyMod
 				{
 					if (!preventSpawningProjectiles)
 					{
+
 						base.PostWwiseEvent("Play_WPN_shotgun_shot_01", null);
 						base.Fire(new Direction(210f, DirectionType.Relative, -1f), new Speed(20f, SpeedType.Absolute), new JammedEliteSinperAttack.ElitePainSplits()); ;
 						base.Fire(new Direction(150f, DirectionType.Relative, -1f), new Speed(20f, SpeedType.Absolute), new JammedEliteSinperAttack.ElitePainSplits()); ;
@@ -1452,12 +1488,15 @@ namespace BunnyMod
 				}
 				protected override IEnumerator Top()
 				{
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					base.ChangeSpeed(new Speed(0f, SpeedType.Absolute), 0);
 					yield return base.Wait(60);
 					base.ChangeSpeed(new Speed(.1f, SpeedType.Absolute), 0);
 					for (int a = 0; a < 100; a++)
 					{
-						base.ChangeSpeed(new Speed(.1f * a, SpeedType.Absolute), 0);
+						base.ChangeSpeed(new Speed(.1f * (a+(curse/25)), SpeedType.Absolute), 0);
 						yield return base.Wait(2);
 
 					}
@@ -1496,13 +1535,16 @@ namespace BunnyMod
 				{
 					base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("6868795625bd46f3ae3e4377adce288b").bulletBank.GetBullet("dagger"));
 				}
-				int shots = UnityEngine.Random.Range(14,26);
-				for (int a = 0; a < shots; a++)
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+				int shots = UnityEngine.Random.Range(9,16);
+				for (int a = 0; a < shots+curse; a++)
 				{
 					int accuracy = UnityEngine.Random.Range(-20, 20);
 					base.PostWwiseEvent("Play_WPN_uzi_shot_01", null);
 					base.Fire(new Direction(accuracy, DirectionType.Aim, -1f), new Speed(10f, SpeedType.Absolute), null);
-					yield return base.Wait(140/shots);
+					yield return base.Wait(120/shots);
 
 				}
 				base.PostWwiseEvent("Play_OBJ_spears_clank_01", null);
@@ -1570,13 +1612,16 @@ namespace BunnyMod
 				{
 					base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("6868795625bd46f3ae3e4377adce288b").bulletBank.GetBullet("dagger"));
 				}
-				int shots = UnityEngine.Random.Range(18, 34);
-				for (int a = 0; a < shots; a++)
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+				int shots = UnityEngine.Random.Range(11, 24);
+				for (int a = 0; a < shots+curse; a++)
 				{
 					int accuracy = UnityEngine.Random.Range(-5, 5);
 					base.PostWwiseEvent("Play_WPN_uzi_shot_01", null);
 					base.Fire(new Direction(accuracy, DirectionType.Aim, -1f), new Speed(10.5f, SpeedType.Absolute), null);
-					yield return base.Wait(120 / shots);
+					yield return base.Wait(100 / shots);
 				}
 				base.PostWwiseEvent("Play_OBJ_spears_clank_01", null);
 				yield return base.Wait(600 / shots);
@@ -1655,16 +1700,19 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				base.PostWwiseEvent("Play_WPN_shotgun_shot_01", null);
 				for (int a = -4; a <= 4; a++)
 				{
-					base.Fire(new Direction(0f + (float)(a * 7), DirectionType.Aim, -1f), new Speed(9.5f - (float)Mathf.Abs(a) * 0.3f, SpeedType.Absolute), new ShotgrubManAttack1.GrubBullet());
+					base.Fire(new Direction(0f + (float)(a * (5 + (curse / 2))), DirectionType.Aim, -1f), new Speed(9.5f - (float)Mathf.Abs(a) * 0.3f, SpeedType.Absolute), new ShotgrubManAttack1.GrubBullet());
 				}
 				yield return base.Wait(20);
 				base.PostWwiseEvent("Play_WPN_shotgun_shot_01", null);
 				for (int a = -3; a <= 3; a++)
 				{
-					base.Fire(new Direction(0f + (float)(a * 7), DirectionType.Aim, -1f), new Speed(10.5f - (float)Mathf.Abs(a) * 0.3f, SpeedType.Absolute), new ShotgrubManAttack1.GrubBullet());
+					base.Fire(new Direction(0f + (float)(a * (5+(curse/2))), DirectionType.Aim, -1f), new Speed(10.5f - (float)Mathf.Abs(a) * 0.3f, SpeedType.Absolute), new ShotgrubManAttack1.GrubBullet());
 				}
 				yield break;
 			}
@@ -1699,10 +1747,12 @@ namespace BunnyMod
 				}
 				for (int a = 0; a <= 5; a++)
                 {
-
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					int accuracy = UnityEngine.Random.Range(-12, 12);
 					base.PostWwiseEvent("Play_WPN_magnum_shot_01", null);
-					base.Fire(new Direction(accuracy, DirectionType.Aim, -1f), new Speed(10.5f, SpeedType.Absolute), new ShotgrubManAttack1.GrubBullet());
+					base.Fire(new Direction(accuracy, DirectionType.Aim, -1f), new Speed(10.5f+(curse/3), SpeedType.Absolute), new ShotgrubManAttack1.GrubBullet());
 					yield return this.Wait(5);
 				}
 				yield break;
@@ -1731,14 +1781,17 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				int spurt1 = UnityEngine.Random.Range(45, 75);
 				int spurt2 = UnityEngine.Random.Range(25, 45);
-				for (int i = 0; i < spurt1; i++)
+				for (int i = 0; i < spurt1+curse; i++)
 				{
 					string bankName = (UnityEngine.Random.value > 0.33f) ? "spore2" : "spore1";
 					base.Fire(new Direction(base.RandomAngle(), DirectionType.Absolute, -1f), new Speed(UnityEngine.Random.Range(1.2f, 6f), SpeedType.Absolute), new JammedLilMushroomAttack.WaftBullet1(bankName));
 				}
-				for (int j = 0; j < spurt2; j++)
+				for (int j = 0; j < spurt2+curse; j++)
 				{
 					string name = (UnityEngine.Random.value > 0.33f) ? "spore2" : "spore1";
 					Bullet bullet = new SpeedChangingBullet(name, 9f, 75, 300, false);
@@ -1865,13 +1918,16 @@ namespace BunnyMod
 			// Token: 0x060004CF RID: 1231 RVA: 0x000174FC File Offset: 0x000156FC
 			private void FireLine(float startingAngle)
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				float num = 9f;
 				for (int i = 0; i < 11; i++)
 				{
 					float num2 = Mathf.Atan((-45f + (float)i * num) / 45f) * 57.29578f;
 					float num3 = Mathf.Cos(num2 * 0.0174532924f);
 					float num4 = ((double)Mathf.Abs(num3) >= 0.0001) ? (1f / num3) : 1f;
-					base.Fire(new Direction(num2 + startingAngle, DirectionType.Absolute, -1f), new Speed(num4 * 10f, SpeedType.Absolute), null);
+					base.Fire(new Direction(num2 + startingAngle, DirectionType.Absolute, -1f), new Speed(num4 * 9.5f+(curse/4), SpeedType.Absolute), null);
 				}
 			}
 
@@ -1916,13 +1972,16 @@ namespace BunnyMod
 			// Token: 0x060004C2 RID: 1218 RVA: 0x000171A8 File Offset: 0x000153A8
 			private void FireLine(float startingAngle)
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				float num = 4.5f;
 				for (int i = 0; i < 21; i++)
 				{
 					float num2 = Mathf.Atan((-45f + (float)i * num) / 45f) * 57.29578f;
 					float num3 = Mathf.Cos(num2 * 0.0174532924f);
 					float num4 = ((double)Mathf.Abs(num3) >= 0.0001) ? (1f / num3) : 1f;
-					base.Fire(new Direction(num2 + startingAngle, DirectionType.Absolute, -1f), new Speed(num4 * 9f, SpeedType.Absolute), new CubuleadSlam1.ReversingBullet());
+					base.Fire(new Direction(num2 + startingAngle, DirectionType.Absolute, -1f), new Speed(num4 * 8.5f+(curse/4), SpeedType.Absolute), new CubuleadSlam1.ReversingBullet());
 				}
 			}
 
@@ -1996,12 +2055,15 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				float num2 = 10f;
-				for (int i = -13; i < 13; i++)
+				for (int i = -10; i < 10; i++)
 				{
 					for (int a = 0; a < 4; a++)
                     {
-						base.Fire(new Direction((0f + (float)i * num2)+(90*a), DirectionType.Aim, -1f), new Speed(10f - (float)Mathf.Abs(i) * 0.5f, SpeedType.Absolute), null);
+						base.Fire(new Direction((0f + (float)i * num2)+(90*a), DirectionType.Aim, -1f), new Speed((10f+(curse/6)) - (float)Mathf.Abs(i) * 0.5f, SpeedType.Absolute), null);
 					}
 				}
 				yield return null;
@@ -2049,12 +2111,15 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				float num2 = 10f;
-				for (int i = -9; i < 9; i++)
+				for (int i = -7; i < 7; i++)
 				{
 					for (int a = 0; a < 8; a++)
 					{
-						base.Fire(new Direction((0f + (float)i * num2) + (45 * a), DirectionType.Aim, -1f), new Speed(9.5f - (float)Mathf.Abs(i) * 0.6f, SpeedType.Absolute), null);
+						base.Fire(new Direction((0f + (float)i * num2) + (45 * a), DirectionType.Aim, -1f), new Speed((8.5f+(curse/7)) - (float)Mathf.Abs(i) * 0.6f, SpeedType.Absolute), null);
 					}
 				}
 				yield return null;
@@ -2101,8 +2166,12 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
-				for (int i = 0; i < 10; i++)
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+				for (int i = 0; i < 7+curse; i++)
 				{
+					base.PostWwiseEvent("Play_WPN_uzi_shot_01", null);
 					for (int a = -1; a <= 1; a++)
                     {
 						base.Fire(new Direction(0f+(a*(30-(i*2))), DirectionType.Aim, -1f), new Speed(8.5f+(i/2), SpeedType.Absolute), null);
@@ -2139,12 +2208,15 @@ namespace BunnyMod
 					base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("f905765488874846b7ff257ff81d6d0c").bulletBank.GetBullet("spore2"));
 					base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("f905765488874846b7ff257ff81d6d0c").bulletBank.GetBullet("spore1"));
 				}
-				for (int i = 0; i < 9; i++)
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+				for (int i = 0; i < 7+curse; i++)
 				{
 					base.PostWwiseEvent("Play_WPN_colt1851_shot_01", null);
 					for (int a = 0; a <= 1; a++)
 					{
-						base.Fire(new Direction((-40f+(i*3f)) +(a*(80-(i*6))), DirectionType.Aim, -1f), new Speed(8.5f +(i/2), SpeedType.Absolute), null);
+						base.Fire(new Direction((-40f+(i*3f)) +(a*(80-(i*6))), DirectionType.Aim, -1f), new Speed(8.5f +(i/3), SpeedType.Absolute), null);
 					}
 					int ppfpfpft = UnityEngine.Random.Range(1, 2);
 					for (int a = 0; a < ppfpfpft; a++)
@@ -2182,13 +2254,16 @@ namespace BunnyMod
 			{
 				float num = base.RandomAngle();
 				float num2 = 10f;
-				for (int u = 0; u < 3; u++)
+				for (int u = 0; u < 2; u++)
                 {
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					for (int i = 0; i < 4; i++)
 					{
 						for (int a = 0; a < 5; a++)
 						{
-							base.Fire(new Direction((num + (float)i * num2) + (90 * a)+(u*45), DirectionType.Absolute, -1f), new Speed(9f, SpeedType.Absolute), null);
+							base.Fire(new Direction((num + (float)i * num2) + (90 * a)+(u*45), DirectionType.Absolute, -1f), new Speed(8.5f+(curse/7), SpeedType.Absolute), null);
 						}
 					}
 					yield return this.Wait(20);
@@ -2218,14 +2293,17 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				for (int u = 0; u < 3; u++)
 				{
 					base.PostWwiseEvent("Play_WPN_magnum_shot_01", null);
 					for (int i = -1; i < 1; i++)
 					{
-						base.Fire(new Direction(0+(10*i), DirectionType.Relative, -1f), new Speed(12f, SpeedType.Absolute), new JammedAshenKinAttack.BurstBullet());
+						base.Fire(new Direction(0+(10*i), DirectionType.Relative, -1f), new Speed(11f, SpeedType.Absolute), new JammedAshenKinAttack.BurstBullet());
 					}
-					yield return this.Wait(10);
+					yield return this.Wait(15);
 				}
 				yield return null;
 			}
@@ -2235,7 +2313,7 @@ namespace BunnyMod
 				{
 					if (!preventSpawningProjectiles)
 					{
-						base.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(10f, SpeedType.Absolute), null);
+						base.Fire(new Direction(180f, DirectionType.Relative, -1f), new Speed(8.5f, SpeedType.Absolute), null);
 					}
 				}
 			}
@@ -2262,14 +2340,17 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				for (int u = 0; u < 2; u++)
 				{
 					base.PostWwiseEvent("Play_WPN_magnum_shot_01", null);
 					for (int i = -3; i < 3; i++)
 					{
-						base.Fire(new Direction(0 + (7 * i), DirectionType.Relative, -1f), new Speed(12f, SpeedType.Absolute), new JammedAshenShottyAttack.BurstBullet());
+						base.Fire(new Direction(0 + (6 * i), DirectionType.Relative, -1f), new Speed(10.5f+(curse/4), SpeedType.Absolute), new JammedAshenShottyAttack.BurstBullet());
 					}
-					yield return this.Wait(30);
+					yield return this.Wait(20);
 				}
 				yield return null;
 			}
@@ -2279,7 +2360,7 @@ namespace BunnyMod
 				{
 					if (!preventSpawningProjectiles)
 					{
-						int numure = UnityEngine.Random.Range(0, 2);
+						int numure = UnityEngine.Random.Range(0, 3);
 						bool fuckye = numure == 0;
 						if (fuckye)
 						{
@@ -2317,9 +2398,12 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
-				for (int i = 0; i < 3; i++)
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+				for (int i = 0; i < 2; i++)
                 {
-					for (int k = 0; k < 8; k++)
+					for (int k = 0; k < 6+curse; k++)
 					{
 						int times = UnityEngine.Random.Range(1, 4);
 						string transform = string.Format("shoot point {0}", i);
@@ -2446,10 +2530,13 @@ namespace BunnyMod
 				// Token: 0x060000AE RID: 174 RVA: 0x000049FC File Offset: 0x00002BFC
 				private void SpawnBursts()
 				{
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					float num = BraveMathCollege.ClampAngle360(this.Direction);
 					float direction = (float)((num <= 90f || num > 180f) ? 20 : 160);
-					base.Fire(new Direction(direction+30, DirectionType.Absolute, -1f), new Speed(2f, SpeedType.Absolute), new BirdEggVomit2.EggBullet());
-					base.Fire(new Direction(direction-30, DirectionType.Absolute, -1f), new Speed(2f, SpeedType.Absolute), new BirdEggVomit2.EggBullet());
+					base.Fire(new Direction(direction+(30+(curse*2)), DirectionType.Absolute, -1f), new Speed(2f+(curse/5), SpeedType.Absolute), new BirdEggVomit2.EggBullet());
+					base.Fire(new Direction(direction-(30+(curse*2)), DirectionType.Absolute, -1f), new Speed(2f+(curse/5), SpeedType.Absolute), new BirdEggVomit2.EggBullet());
 					float positiveInfinity = float.PositiveInfinity;
 					for (int i = 0; i < 0; i++)
 					{
@@ -2570,11 +2657,14 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
-				for (int i = 0; i < 75; i++)
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				float curse = 0f;
+				curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+				for (int i = 0; i < 65+(curse); i++)
 				{
 					float angle = base.RandomAngle();
-					base.Fire(new Offset(0.75f, 0f, angle, string.Empty, DirectionType.Absolute), new Direction(angle, DirectionType.Absolute, -1f), new Speed(UnityEngine.Random.Range(6f, 9f), SpeedType.Absolute), new JammedPoopyAttack.RotatingBullet(base.Position));
-					base.Fire(new Offset(0.75f, 0f, angle, string.Empty, DirectionType.Absolute), new Direction(angle, DirectionType.Absolute, -1f), new Speed(UnityEngine.Random.Range(6f, 9f), SpeedType.Absolute), new JammedPoopyAttack.RotatingBullet1(base.Position));
+					base.Fire(new Offset(0.75f, 0f, angle, string.Empty, DirectionType.Absolute), new Direction(angle, DirectionType.Absolute, -1f), new Speed(UnityEngine.Random.Range(6f, 10f), SpeedType.Absolute), new JammedPoopyAttack.RotatingBullet(base.Position));
+					base.Fire(new Offset(0.75f, 0f, angle, string.Empty, DirectionType.Absolute), new Direction(angle, DirectionType.Absolute, -1f), new Speed(UnityEngine.Random.Range(6f, 10f), SpeedType.Absolute), new JammedPoopyAttack.RotatingBullet1(base.Position));
 					yield return base.Wait(2);
 				}
 				yield break;
@@ -2669,7 +2759,7 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
-				int times = UnityEngine.Random.Range(3, 7);
+				int times = UnityEngine.Random.Range(2, 6);
 				for (int i = 0; i < times; i++)
 				{
 					base.PostWwiseEvent("Play_WPN_magnum_shot_01", null);
@@ -2761,12 +2851,13 @@ namespace BunnyMod
 		{
 			protected override IEnumerator Top()
 			{
-				this.FireSpinningLine(new Vector2(-0.75f, 0f), new Vector2(0.75f, 0f), 3);
-				this.FireSpinningLine(new Vector2(0f, -0.75f), new Vector2(0f, 0.75f), 3);
-				this.FireSpinningLine1(new Vector2(-0.15f, -0.60f), new Vector2(0.15f, 0.60f), 3);
-				this.FireSpinningLine2(new Vector2(-0.3f, -0.45f), new Vector2(0.3f, 0.45f), 3);
-				this.FireSpinningLine3(new Vector2(-0.45f, -0.30f), new Vector2(0.45f, 0.30f), 3);
-				this.FireSpinningLine4(new Vector2(-0.6f, -0.15f), new Vector2(0.6f, 0.15f), 3);
+				this.FireSpinningLine(new Vector2(-0.3f, 0f), new Vector2(0.3f, 0f), 3);
+				this.FireSpinningLine(new Vector2(0f, -0.3f), new Vector2(0f, 0.3f), 3);
+				
+				this.FireSpinningLine1(new Vector2(-0.06f, -0.24f), new Vector2(0.06f, 0.24f), 3);
+				this.FireSpinningLine2(new Vector2(-0.12f, -0.18f), new Vector2(0.12f, 0.18f), 3);
+				this.FireSpinningLine3(new Vector2(-0.18f, -0.12f), new Vector2(0.18f, 0.12f), 3);
+				this.FireSpinningLine4(new Vector2(-0.24f, -0.06f), new Vector2(0.24f, 0.06f), 3);
 				yield return base.Wait(60);
 				yield break;
 			}
@@ -2854,7 +2945,7 @@ namespace BunnyMod
 						base.Position += delta;
 						yield return base.Wait(1);
 					}
-					this.Speed = 5f;
+					this.Speed = 2f;
 					float angle = 0f;
 					Vector2 centerOfMass = this.m_origin;
 					Vector2 centerOfMassOffset = this.m_origin - base.Position;
@@ -2909,7 +3000,8 @@ namespace BunnyMod
 				{
 					base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("465da2bb086a4a88a803f79fe3a27677").bulletBank.GetBullet("default_novfx"));
 				}
-				int times = UnityEngine.Random.Range(3, 15);
+
+				int times = UnityEngine.Random.Range(3, 12);
 				for (int i = 0; i < times; i++)
 				{
 					int speed = UnityEngine.Random.Range(4, 10);
@@ -2929,7 +3021,10 @@ namespace BunnyMod
 
 				protected override IEnumerator Top()
 				{
-					base.ChangeSpeed(new Speed(15f, SpeedType.Absolute), 120);
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+					base.ChangeSpeed(new Speed(15f+(curse/4), SpeedType.Absolute), 120);
 					yield break;
 				}
 			}
@@ -3100,7 +3195,10 @@ namespace BunnyMod
 			{
 				protected override IEnumerator Top()
 				{
-					base.ChangeSpeed(new Speed(18f, SpeedType.Absolute), 100);
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+					base.ChangeSpeed(new Speed(16f+(curse/3), SpeedType.Absolute), 100);
 					yield break;
 				}
 			}
@@ -3130,7 +3228,7 @@ namespace BunnyMod
 			protected override IEnumerator Top()
 			{
 
-				int times = UnityEngine.Random.Range(8, 17);
+				int times = UnityEngine.Random.Range(6, 14);
 				for (int i = 0; i < times; i++)
 				{
 					base.PostWwiseEvent("Play_WPN_thompson_shot_01", null);
@@ -3312,7 +3410,7 @@ namespace BunnyMod
 							base.Fire(new Direction(90f + (A + 10), DirectionType.Relative, -1f), new Speed(startSpeed, SpeedType.Absolute), new SpeedChangingBullet(endSpeed, 60, deathTimer));
 						}
 					}
-					if (i % 2 == 1)
+					if (i % 4 == 1)
 					{
 						for (int A = -1; A < 1; A++)
 						{
@@ -3418,14 +3516,14 @@ namespace BunnyMod
 				{
 					base.BulletBank.Bullets.Add(EnemyDatabase.GetOrLoadByGuid("41ee1c8538e8474a82a74c4aff99c712").bulletBank.GetBullet("big"));
 				}
-				AkSoundEngine.PostEvent("Play_ENM_ironmaiden_stomp_01", base.BulletBank.gameObject);
-				this.Fire(new Direction(60f, DirectionType.Aim, -1f), new Speed(5f, SpeedType.Absolute), new JammedJammedGat.Superball());
+				AkSoundEngine.PostEvent("Play_BOSS_RatMech_Cannon_01", base.BulletBank.gameObject);
+				this.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(1f, SpeedType.Absolute), new JammedJammedGat.Superball());
 				yield return base.Wait(20);
-				AkSoundEngine.PostEvent("Play_ENM_ironmaiden_stomp_01", base.BulletBank.gameObject);
-				this.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(5f, SpeedType.Absolute), new JammedJammedGat.Superball());
-				yield return base.Wait(20);
-				AkSoundEngine.PostEvent("Play_ENM_ironmaiden_stomp_01", base.BulletBank.gameObject);
-				this.Fire(new Direction(-60f, DirectionType.Aim, -1f), new Speed(5f, SpeedType.Absolute), new JammedJammedGat.Superball());
+				//AkSoundEngine.PostEvent("Play_ENM_ironmaiden_stomp_01", base.BulletBank.gameObject);
+				//this.Fire(new Direction(0f, DirectionType.Aim, -1f), new Speed(5f, SpeedType.Absolute), new JammedJammedGat.Superball());
+				//yield return base.Wait(20);
+				//AkSoundEngine.PostEvent("Play_ENM_ironmaiden_stomp_01", base.BulletBank.gameObject);
+				//this.Fire(new Direction(-60f, DirectionType.Aim, -1f), new Speed(5f, SpeedType.Absolute), new JammedJammedGat.Superball());
 
 				yield break;
 			}
@@ -3437,7 +3535,7 @@ namespace BunnyMod
 				}
 				protected override IEnumerator Top()
 				{
-					base.ChangeSpeed(new Speed(12f, SpeedType.Absolute), 100);
+					base.ChangeSpeed(new Speed(12f, SpeedType.Absolute), 25);
 					yield break;
 				}
 			}
@@ -3448,7 +3546,7 @@ namespace BunnyMod
 				}
 				protected override IEnumerator Top()
 				{
-					base.ChangeSpeed(new Speed(22f, SpeedType.Absolute), 30);
+					base.ChangeSpeed(new Speed(22f, SpeedType.Absolute), 90);
 					yield break;
 				}
 				public override void OnBulletDestruction(Bullet.DestroyType destroyType, SpeculativeRigidbody hitRigidbody, bool preventSpawningProjectiles)
@@ -3459,10 +3557,15 @@ namespace BunnyMod
 					}
 					if (!preventSpawningProjectiles)
 					{
-						for (int i = 0; i < 20; i++)
+						PlayerController player = (GameManager.Instance.PrimaryPlayer);
+						float curse = 0f;
+						curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+						float num = base.RandomAngle();
+						float Amount = 20 + curse;
+						float Angle = 360 / Amount;
+						for (int i = 0; i < Amount; i++)
 						{
-							float aim = 18;
-							this.Fire(new Direction(0f + (aim * i), DirectionType.Absolute, -1f), new Speed(12f, SpeedType.Absolute), null);
+							base.Fire(new Direction(num + Angle * (float)i, DirectionType.Absolute, -1f), new Speed(12f, SpeedType.Absolute), null);
 						}
 					}
 				}
@@ -3575,11 +3678,12 @@ namespace BunnyMod
 					this.Fire(new Direction(0f + (15 * i), DirectionType.Absolute, -1f), new Speed(9f, SpeedType.Absolute), null);
 				};
 				//yield return base.Wait(10);
+
 				for (int i = 0; i < 4; i++)
 				{
 					for (int a = 0; a < 6; a++)
 					{
-						this.Fire(new Direction(0f + (90 * i), DirectionType.Aim, -1f), new Speed(9+((a*1.75f)), SpeedType.Absolute), null);
+						this.Fire(new Direction(0f + (90 * i), DirectionType.Aim, -1f), new Speed(9+((a*1.25f)), SpeedType.Absolute), null);
 					}
 				};
 				yield break;
@@ -3605,13 +3709,13 @@ namespace BunnyMod
 			protected override IEnumerator Top()
 			{
 				int speedandspread = UnityEngine.Random.Range(4, 8);
-				for (int i = -3; i < 4; i++)
+				for (int i = -2; i < 3; i++)
 				{
 					this.Fire(new Direction(0+(speedandspread * i), DirectionType.Aim, -1f), new Speed(speedandspread - (float)Mathf.Abs(i) * 1f, SpeedType.Absolute), new JammedBlizzbulonAtatck2.SpeedBullet());
 				}
 				yield return base.Wait(50);
 				int speedandspread2 = UnityEngine.Random.Range(12, 18);
-				for (int i = -5; i < 6; i++)
+				for (int i = -4; i < 5; i++)
 				{
 					this.Fire(new Direction(0 + ((speedandspread2/2) * i), DirectionType.Aim, -1f), new Speed(speedandspread2 - (float)Mathf.Abs(i) * 0.75f, SpeedType.Absolute), null);
 				}
@@ -3628,7 +3732,7 @@ namespace BunnyMod
 			{
 				protected override IEnumerator Top()
 				{
-					base.ChangeSpeed(new Speed(15f, SpeedType.Absolute), 20);
+					base.ChangeSpeed(new Speed(12.5f, SpeedType.Absolute), 20);
 					yield break;
 				}
 			}
@@ -3678,9 +3782,12 @@ namespace BunnyMod
 			{
 				protected override IEnumerator Top()
 				{
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					base.ChangeSpeed(new Speed(3f, SpeedType.Absolute), 30);
 					yield return base.Wait(34);
-					base.ChangeSpeed(new Speed(19f, SpeedType.Absolute), 15);
+					base.ChangeSpeed(new Speed(19f+(curse/4), SpeedType.Absolute), 15);
 					//yield return base.Wait(40);
 				}
 			}
@@ -3712,7 +3819,10 @@ namespace BunnyMod
 				float num2 = 12f;
 				for (int a = 0; a < 3; a++)
                 {
-					for (int i = 0; i < 32; i++)
+					PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					float curse = 0f;
+					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+					for (int i = 0; i < 26+curse; i++)
 					{
 						base.Fire(new Direction(0 + (12 * i) +(3*a), DirectionType.Absolute, -1f), new Speed(5.5f, SpeedType.Absolute), new JammedGummySpentAttack.RotatingBullet(base.Position));
 						base.Fire(new Direction(num + (float)i * num2 + (3 * a), DirectionType.Absolute, -1f), new Speed(6f, SpeedType.Absolute), new JammedGummySpentAttack.OscillatingBullet());
@@ -3832,6 +3942,9 @@ namespace BunnyMod
 				int shots1 = UnityEngine.Random.Range(3, 7);
 				for (int e = 0; e < shots1; e++)
 				{
+					//PlayerController player = (GameManager.Instance.PrimaryPlayer);
+					//float num = 0f;
+					//num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					int accuracy = UnityEngine.Random.Range(-8, 8);
 					base.PostWwiseEvent("Play_WPN_uzi_shot_01", null);
 					base.Fire(new Direction(accuracy, DirectionType.Aim, -1f), new Speed(9.5f, SpeedType.Absolute), null);

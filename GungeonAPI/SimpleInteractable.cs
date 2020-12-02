@@ -16,7 +16,7 @@ namespace GungeonAPI
 		// Token: 0x04000051 RID: 81
 		public List<string> conversation;
 
-		public List<string> conversation2;
+		public List<string> conversationB;
 
 		// Token: 0x04000052 RID: 82
 		public Func<PlayerController, GameObject, bool> CanUse;
@@ -31,13 +31,13 @@ namespace GungeonAPI
 		public string acceptText;
 
 		// Token: 0x04000037 RID: 55
-		public string acceptText2;
+		public string acceptTextB;
 
 		// Token: 0x04000038 RID: 56
 		public string declineText;
 
 		// Token: 0x04000039 RID: 57
-		public string declineText2;
+		public string declineTextB;
 
 		// Token: 0x04000057 RID: 87
 		public bool isToggle;

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using MonoMod.RuntimeDetour;
 
-namespace GungeonAPI
+namespace BunnyMod
 {
 	// Token: 0x0200000E RID: 14
 	public static class JammedSquire
@@ -38,8 +38,8 @@ namespace GungeonAPI
 			gameObject.AddAnimation("talk", "BunnyMod/Resources/JammedSquire/Talk/", 4, NPCBuilder.AnimationType.Talk, DirectionalAnimation.DirectionType.None, DirectionalAnimation.FlipType.None);
 			gameObject.AddAnimation("talk_start", "BunnyMod/Resources/JammedSquire/TalkStart/", 4, NPCBuilder.AnimationType.Other, DirectionalAnimation.DirectionType.None, DirectionalAnimation.FlipType.None);
 			gameObject.AddAnimation("do_effect", "BunnyMod/Resources/JammedSquire/DoEffect/", 7, NPCBuilder.AnimationType.Other, DirectionalAnimation.DirectionType.None, DirectionalAnimation.FlipType.None);
-			JammedSquireInteractable component = gameObject.GetComponent<JammedSquireInteractable>();
-			component.conversation = new List<string>
+			JammedSquireInteractable component1 = gameObject.GetComponent<JammedSquireInteractable>();
+			component1.conversation = new List<string>
 			{
 				"...",
 				"My Lord has always been curious of your kind...",
@@ -55,12 +55,12 @@ namespace GungeonAPI
 				"What do you say, Gungeoneer...?"
 
 			};
-			component.conversation2 = new List<string>
+			component1.conversationB = new List<string>
 			{
 				"What do you ask of Him...?"
 			};
-			component.declineText2 = "I ask nothing more.";
-			component.acceptText2 = "Remove His offer from me.";
+			component1.declineTextB = "I ask nothing more.";
+			component1.acceptTextB = "Remove His offer from me.";
 			//gameObject.SetActive(false);
 		}
 
@@ -98,10 +98,12 @@ namespace GungeonAPI
 		// Token: 0x06000752 RID: 1874 RVA: 0x000406DC File Offset: 0x0003E8DC
 		private static void Notify(string header, string text)
 		{
+			isSingleLine = false;
 			tk2dSpriteCollectionData encounterIconCollection = AmmonomiconController.Instance.EncounterIconCollection;
-			int spriteIdByName = encounterIconCollection.GetSpriteIdByName("BunnyMod/Resources/curse2icon");
+			int spriteIdByName = encounterIconCollection.GetSpriteIdByName("BunnyMod/Resources/curse2icon.png");
 			GameUIRoot.Instance.notificationController.DoCustomNotification(header, text, null, spriteIdByName, UINotificationController.NotificationColor.PURPLE, false, true);
 		}
+		public static bool isSingleLine;
 	}
 }
 

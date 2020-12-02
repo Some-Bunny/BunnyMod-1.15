@@ -86,7 +86,7 @@ namespace BunnyMod
 				"crisis_stone"
 			};
 			CustomSynergies.Add("Protect And Serve", mandatoryConsoleIDs1, optionalConsoleID1s, true);
-
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{

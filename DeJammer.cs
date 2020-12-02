@@ -32,8 +32,8 @@ namespace BunnyMod
             lockpicker.SetCooldownType(ItemBuilder.CooldownType.PerRoom, 5f);
             lockpicker.consumable = false;
             lockpicker.quality = PickupObject.ItemQuality.B;
-            lockpicker.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
             lockpicker.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+            lockpicker.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
         }
         public override void Pickup(PlayerController player)
         {

@@ -41,7 +41,6 @@ namespace BunnyMod
 			gun.DefaultModule.numberOfShotsInClip = 10;
 			gun.SetBaseMaxAmmo(600);
 			gun.DefaultModule.angleVariance = 15f;
-			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(gun.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
@@ -62,6 +61,7 @@ namespace BunnyMod
 			gun.quality = PickupObject.ItemQuality.C;
 			gun.encounterTrackable.EncounterGuid = "stupid fucking shotgun";
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 		}
 
 		// Token: 0x06000140 RID: 320 RVA: 0x0000D693 File Offset: 0x0000B893

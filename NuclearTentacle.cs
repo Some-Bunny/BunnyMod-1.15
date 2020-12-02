@@ -43,7 +43,6 @@ namespace BunnyMod
 			flakcannon.quality = PickupObject.ItemQuality.A;
 			flakcannon.DefaultModule.angleVariance = 0f;
 			flakcannon.DefaultModule.burstShotCount = 1;
-			flakcannon.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(flakcannon.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
@@ -58,6 +57,7 @@ namespace BunnyMod
 			projectile.SetProjectileSpriteRight("nucleartentacle_projectile_001", 32, 32, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(22), new int?(22), null, null, null);
 			flakcannon.encounterTrackable.EncounterGuid = "tentales gun, yeahhhhhhhhhhhhhhhhhhhhhh!";
 			ETGMod.Databases.Items.Add(flakcannon, null, "ANY");
+			flakcannon.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun flakcannon)

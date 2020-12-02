@@ -42,7 +42,7 @@ namespace BunnyMod
         {
             SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, base.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(base.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
             AkSoundEngine.PostEvent("Play_WPN_Life_Orb_Blast_01", base.gameObject);
-            bool harderlotj = GungeonAPI.JammedSquire.NoHarderLotJ;
+            bool harderlotj = JammedSquire.NoHarderLotJ;
             if (harderlotj)
             {
                 float num = 0f;
@@ -51,10 +51,37 @@ namespace BunnyMod
                 if (this.rng <= (num / 20f))
                 {
                     AkSoundEngine.PostEvent("Play_OBJ_metronome_jingle_01", base.gameObject);
-                    this.DefineEffects();
-                    PlayableCharacters characterIdentity = user.characterIdentity;
-                    CursedPearl.Effect effect = BraveUtility.RandomElement<CursedPearl.Effect>(this.statEffects);
-                    this.AddStat(effect.statToEffect, effect.amount, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    int num3 = UnityEngine.Random.Range(0, 5);
+                    bool flag3 = num3 == 0;
+                    if (flag3)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.KnockbackMultiplier, 1.2f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    }
+                    bool flag4 = num3 == 1;
+                    if (flag4)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.Damage, 1.1f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+                    }
+                    bool a = num3 == 2;
+                    if (a)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.RateOfFire, 1.1f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+                    }
+                    bool ea = num3 == 3;
+                    if (ea)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.ReloadSpeed, 0.9f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+                    }
+                    bool ae = num3 == 4;
+                    if (ae)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.Accuracy, 0.9f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+                    }
+                    AkSoundEngine.PostEvent("Play_OBJ_metronome_jingle_01", base.gameObject);
 
                 }
                 this.rng = UnityEngine.Random.Range(0.00f, 1.00f);
@@ -96,12 +123,38 @@ namespace BunnyMod
                 this.rng = UnityEngine.Random.Range(0.00f, 1.00f);
                 if (this.rng <= (num / 12f))
                 {
-                    AkSoundEngine.PostEvent("Play_OBJ_metronome_jingle_01", base.gameObject);
-                    this.DefineEffects();
-                    PlayableCharacters characterIdentity = user.characterIdentity;
-                    CursedPearl.Effect effect = BraveUtility.RandomElement<CursedPearl.Effect>(this.statEffects);
-                    this.AddStat(effect.statToEffect, effect.amount, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    int num3 = UnityEngine.Random.Range(0, 5);
+                    bool flag3 = num3 == 0;
+                    if (flag3)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.KnockbackMultiplier, 1.2f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    }
+                    bool flag4 = num3 == 1;
+                    if (flag4)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.Damage, 1.1f, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
+                    }
+                    bool a = num3 == 2;
+                    if (a)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.RateOfFire, 1.1f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+                    }
+                    bool ea = num3 == 3;
+                    if (ea)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.ReloadSpeed, 0.9f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+                    }
+                    bool ae = num3 == 4;
+                    if (ae)
+                    {
+                        ApplyStat(user, PlayerStats.StatType.Accuracy, 0.9f, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+                    }
+                    AkSoundEngine.PostEvent("Play_OBJ_metronome_jingle_01", base.gameObject);
+                    //this.DefineEffects();
                 }
                 this.rng = UnityEngine.Random.Range(0.00f, 1.00f);
                 if (this.rng <= (num / 12f))
@@ -196,14 +249,14 @@ namespace BunnyMod
                 }).ToArray<StatModifier>();
             }
         }
-        private void ApplyStat(PlayerController player, PlayerStats.StatType statType, float amountToApply, StatModifier.ModifyMethod modifyMethod)
+        private void ApplyStat(PlayerController player, PlayerStats.StatType statType, float amountToApply, StatModifier.ModifyMethod method)
         {
             player.stats.RecalculateStats(player, false, false);
             StatModifier statModifier = new StatModifier()
             {
                 statToBoost = statType,
                 amount = amountToApply,
-                modifyType = modifyMethod
+                modifyType = method
             };
             player.ownerlessStatModifiers.Add(statModifier);
             player.stats.RecalculateStats(player, false, false);
@@ -224,7 +277,7 @@ namespace BunnyMod
         {
             PlayerController player = (GameManager.Instance.PrimaryPlayer);
             orig(self, finalDamageDirection);
-            bool harderlotj = GungeonAPI.JammedSquire.NoHarderLotJ;
+            bool harderlotj = JammedSquire.NoHarderLotJ;
             if (harderlotj)
             {
             }
@@ -238,7 +291,7 @@ namespace BunnyMod
                     {
                         float num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
                         CursedPearl.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
-                        if (CursedPearl.rnge <= (0.015 * (1 + (num/5))))
+                        if (CursedPearl.rnge <= (0.0166 * (1 + (num/3.5))))
                         {
                             SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, self.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(self.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
                             LootEngine.SpawnItem(ETGMod.Databases.Items["Cursed Pearl"].gameObject, self.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);
@@ -249,7 +302,7 @@ namespace BunnyMod
                 {
                     float num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
                     CursedPearl.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
-                    if (CursedPearl.rnge <= ((0.022 * (1 + (num / 5)/6))))
+                    if (CursedPearl.rnge <= (0.0166 * (1 + (num / 14))))
                     {
                         SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, self.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(self.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
                         LootEngine.SpawnItem(ETGMod.Databases.Items["Cursed Pearl"].gameObject, self.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);

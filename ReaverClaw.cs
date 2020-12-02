@@ -63,6 +63,9 @@ namespace BunnyMod
 			projectile.pierceMinorBreakables = true;
 			projectile.transform.parent = gun.barrelOffset;
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{

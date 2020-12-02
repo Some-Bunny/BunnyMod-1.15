@@ -60,6 +60,7 @@ namespace BunnyMod
 			projectile.pierceMinorBreakables = true;
 			projectile.transform.parent = trollmimic.barrelOffset;
 			ETGMod.Databases.Items.Add(trollmimic, null, "ANY");
+			trollmimic.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{

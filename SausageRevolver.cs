@@ -22,7 +22,7 @@ namespace BunnyMod
 			Gun suasagerevolver = ETGMod.Databases.Items.NewGun("6 Chamber Sausage Shooter", "sausagerevolver");
 			Game.Items.Rename("outdated_gun_mods:6_chamber_sausage_shooter", "bny:6_chamber_sausage_shooter");
 			suasagerevolver.gameObject.AddComponent<SausageRevolver>();
-			GunExt.SetShortDescription(suasagerevolver, "Made from questionable sources");
+			GunExt.SetShortDescription(suasagerevolver, "Made from Questionable Sources");
 			GunExt.SetLongDescription(suasagerevolver, "A sausage revolver made mostly of sausage. It's quite disgusting to hold.");
 			GunExt.SetupSprite(suasagerevolver, null, "sausagerevolver_idle_001", 19);
 			GunExt.SetAnimationFPS(suasagerevolver, suasagerevolver.shootAnimation, 24);
@@ -38,12 +38,11 @@ namespace BunnyMod
 			suasagerevolver.SetBaseMaxAmmo(360);
 			suasagerevolver.quality = PickupObject.ItemQuality.C;
 			suasagerevolver.DefaultModule.angleVariance = 10f;
-			suasagerevolver.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 			suasagerevolver.encounterTrackable.EncounterGuid = "sausage_revolver";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(suasagerevolver.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
-			UnityEngine.Object.DontDestroyOnLoad(projectile);
+			UnityEngine.Object.DontDestroyOnLoad(projectile);	
 			suasagerevolver.DefaultModule.projectiles[0] = projectile;
 			projectile.shouldRotate = true;
 			projectile.baseData.damage *= 1f;
@@ -51,6 +50,7 @@ namespace BunnyMod
 			projectile.transform.parent = suasagerevolver.barrelOffset;
 			projectile.SetProjectileSpriteRight("sausagerevolver_projectile_001", 9, 3, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(7), new int?(7), null, null, null);
 			ETGMod.Databases.Items.Add(suasagerevolver, null, "ANY");
+			suasagerevolver.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun suasagerevolver)

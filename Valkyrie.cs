@@ -22,7 +22,7 @@ namespace BunnyMod
 			Gun gun = ETGMod.Databases.Items.NewGun("Valkyrie", "valkyrie");
 			Game.Items.Rename("outdated_gun_mods:valkyrie", "bny:valkyrie");
 			gun.gameObject.AddComponent<Valkyrie>();
-			gun.SetShortDescription("Lay waste to all");
+			gun.SetShortDescription("Lay Waste To All");
 			gun.SetLongDescription("Through the bullets and the missiles we carry on.\n\nDestroy those who stand before you.");
 			gun.SetupSprite(null, "valkyrie_idle_001", 11);
 			GunExt.SetAnimationFPS(gun, gun.shootAnimation, 22);

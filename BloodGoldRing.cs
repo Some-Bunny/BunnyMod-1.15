@@ -32,6 +32,8 @@ namespace BunnyMod
             bloodring.AddPassiveStatModifier(PlayerStats.StatType.Curse, 0.5f, StatModifier.ModifyMethod.ADDITIVE);
             bloodring.AddPassiveStatModifier(PlayerStats.StatType.DamageToBosses, .125f, StatModifier.ModifyMethod.ADDITIVE);
             bloodring.AddPassiveStatModifier(PlayerStats.StatType.MoneyMultiplierFromEnemies, .1f, StatModifier.ModifyMethod.ADDITIVE);
+            bloodring.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
+
             BloodGoldRing.ringofrain = bloodring.PickupObjectId;
         }
 

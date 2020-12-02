@@ -62,6 +62,7 @@ namespace BunnyMod
 			gun.quality = PickupObject.ItemQuality.C;
 			gun.encounterTrackable.EncounterGuid = "Ok, this gun is now officially an ad for Prismatism.";
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 
 		}
 		public override void PostProcessProjectile(Projectile projectile)

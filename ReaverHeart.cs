@@ -43,8 +43,6 @@ namespace BunnyMod
 			flakcannon.quality = PickupObject.ItemQuality.C;
 			flakcannon.DefaultModule.angleVariance = 0f;
 			flakcannon.DefaultModule.burstShotCount = 1;
-			flakcannon.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
-			flakcannon.AddToSubShop(ItemBuilder.ShopType.OldRed, 1f);
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(flakcannon.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
@@ -62,6 +60,8 @@ namespace BunnyMod
 			explosiveModifier.explosionData = ReaverHeart.ReaverExplosion;
 			flakcannon.encounterTrackable.EncounterGuid = "Void reavers be like 'waaaaaaAAAAAAAAAAAAAA- BWOOM WAUU WAUU'";
 			ETGMod.Databases.Items.Add(flakcannon, null, "ANY");
+			flakcannon.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+			flakcannon.AddToSubShop(ItemBuilder.ShopType.OldRed, 1f);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun flakcannon)

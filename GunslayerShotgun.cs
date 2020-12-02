@@ -79,6 +79,7 @@ namespace BunnyMod
 			//This determines what sprite you want your projectile to use. Note this isn't necessary if you don't want to have a custom projectile sprite.
 			//The x and y values determine the size of your custom projectile
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 
 		}
 		public override void PostProcessProjectile(Projectile projectile)

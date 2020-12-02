@@ -25,7 +25,7 @@ namespace BunnyMod
 			Gun flakcannon = ETGMod.Databases.Items.NewGun("Oppressors Crossbow", "oppressorbow");
 			Game.Items.Rename("outdated_gun_mods:oppressors_crossbow", "bny:oppressors_crossbow");
 			flakcannon.gameObject.AddComponent<OppressorsCrossbow>();
-			GunExt.SetShortDescription(flakcannon, "You're Gonna Need A Guitar.");
+			GunExt.SetShortDescription(flakcannon, "You're Gonna Need A Guitar");
 			GunExt.SetLongDescription(flakcannon, "The crossbow of the Oppressor, a merciless cosmic demigod who slayed any living creature deemed unworthy by it. Their reign of terror ended long ago, after a long battle with a mortal being who stole the crossbow mid-battle and used it to their advantage.\n\nSome say the rage of the Oppressor still lingers in it.");
 			GunExt.SetupSprite(flakcannon, null, "oppressorbow_idle_001", 11);
 			GunExt.SetAnimationFPS(flakcannon, flakcannon.shootAnimation, 15);
@@ -42,7 +42,6 @@ namespace BunnyMod
 			flakcannon.quality = PickupObject.ItemQuality.A;
 			flakcannon.DefaultModule.angleVariance = 2f;
 			flakcannon.DefaultModule.burstShotCount = 1;
-			flakcannon.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(flakcannon.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
@@ -60,6 +59,7 @@ namespace BunnyMod
 			projectile.SetProjectileSpriteRight("oppressorbow_projectile_001", 22, 11, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(11), new int?(5), null, null, null);
 			flakcannon.encounterTrackable.EncounterGuid = "You're Gonna Need A Bigger Ukulele";
 			ETGMod.Databases.Items.Add(flakcannon, null, "ANY");
+			flakcannon.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun flakcannon)

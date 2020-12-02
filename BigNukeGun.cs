@@ -39,7 +39,6 @@ namespace BunnyMod
 			gun.DefaultModule.cooldownTime = 2f;
 			gun.DefaultModule.numberOfShotsInClip = 1;
 			gun.SetBaseMaxAmmo(5);
-			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			gun.quality = PickupObject.ItemQuality.S;
 			gun.encounterTrackable.EncounterGuid = "nuclear_armageddon";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(gun.DefaultModule.projectiles[0]);
@@ -54,6 +53,8 @@ namespace BunnyMod
 			projectile.transform.parent = gun.barrelOffset;
 			projectile.SetProjectileSpriteRight("nucleararmageddon_projectile_001", 15, 8, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(7), new int?(7), null, null, null);
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+
 		}
 
 		public override void OnPostFired(PlayerController player, Gun gun)

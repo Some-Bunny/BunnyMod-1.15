@@ -65,6 +65,8 @@ namespace BunnyMod
 			projectile.AppliedStunDuration = 1.2f;
 			projectile.transform.parent = gun.barrelOffset;
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+
 		}
 		public override void OnPostFired(PlayerController player, Gun staffyeah)
 		{

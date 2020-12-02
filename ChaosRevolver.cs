@@ -57,6 +57,7 @@ namespace BunnyMod
 			spook.penetration = 4;
 			projectile.SetProjectileSpriteRight("chaosrevolver_projectile_001", 10, 10, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(7), new int?(7), null, null, null);
 			ETGMod.Databases.Items.Add(chaosgun, null, "ANY");
+			chaosgun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 
 		}
 		public override void PostProcessProjectile(Projectile projectile)

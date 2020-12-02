@@ -89,7 +89,7 @@ namespace BunnyMod
             if (flag3)
             {
                 AkSoundEngine.PostEvent("Play_ENM_kali_burst_01", base.gameObject);
-                this.m_owner.CurrentRoom.ApplyActionToNearbyEnemies(this.m_owner.CenterPosition, 12f, new Action<AIActor, float>(this.ProcessEnemy));
+                this.m_owner.CurrentRoom.ApplyActionToNearbyEnemies(this.m_owner.CenterPosition, 20f, new Action<AIActor, float>(this.ProcessEnemy));
             }
         }
 
@@ -105,7 +105,7 @@ namespace BunnyMod
             Transform copySprite = this.CreateEmptySprite(target);
             Vector3 startPosition = copySprite.transform.position;
             float elapsed = 0f;
-            float duration = 0.5f;
+            float duration = 0.78f;
             while (elapsed < duration)
             {
                 elapsed += BraveTime.DeltaTime;

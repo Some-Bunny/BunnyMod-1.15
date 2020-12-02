@@ -39,8 +39,6 @@ namespace BunnyMod
 			boomrevolver.SetBaseMaxAmmo(400);
 			boomrevolver.quality = PickupObject.ItemQuality.C;
 			boomrevolver.DefaultModule.angleVariance = 3f;
-			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
-			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			boomrevolver.encounterTrackable.EncounterGuid = "ZA WARUDO *BFPPFPFPFPFPFPFPFPFPFPFPFPT T TT T T *";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(boomrevolver.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
@@ -54,6 +52,8 @@ namespace BunnyMod
 			projectile.AdditionalScaleMultiplier = 1.2f;
 			projectile.transform.parent = boomrevolver.barrelOffset;
 			ETGMod.Databases.Items.Add(boomrevolver, null, "ANY");
+			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 		}
 
 		private bool HasReloaded;

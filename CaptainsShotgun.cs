@@ -89,6 +89,7 @@ namespace BunnyMod
 			};
 			CustomSynergies.Add("Captains Right Hand", mandatoryConsoleIDs1, optionalConsoleID1s, true);
 			CaptainsShotgun.CaptainsShotgunID = gun.PickupObjectId;
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{

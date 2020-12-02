@@ -23,7 +23,7 @@ namespace BunnyMod
             orig(self);
             try
             {
-                bool harderlotj = GungeonAPI.JammedSquire.NoHarderLotJ;
+                bool harderlotj = JammedSquire.NoHarderLotJ;
                 if (harderlotj)
                 {
                 }

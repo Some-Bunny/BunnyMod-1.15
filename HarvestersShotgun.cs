@@ -27,7 +27,7 @@ namespace BunnyMod
 			Gun gun = ETGMod.Databases.Items.NewGun("Harvesters Shotgun", "harvestershotgun");
 			Game.Items.Rename("outdated_gun_mods:harvesters_shotgun", "bny:harvesters_shotgun");
 			gun.gameObject.AddComponent<HarvestersShotgun>();
-			GunExt.SetShortDescription(gun, "Reap What You Slay.");
+			GunExt.SetShortDescription(gun, "Reap What You Slay");
 			GunExt.SetLongDescription(gun, "An antique shotgun used by long-gone Shot-Gunreapers for the job of transporting souls to Bullet Hell. Demoralizing, but pays well.\n\nAnother night...");
 			GunExt.SetupSprite(gun, null, "harvestershotgun_idle_001", 11);
 			GunExt.SetAnimationFPS(gun, gun.shootAnimation, 15);

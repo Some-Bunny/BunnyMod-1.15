@@ -26,7 +26,7 @@ namespace BunnyMod
 			Gun gun = ETGMod.Databases.Items.NewGun("Broken Gun", "brokengun");
 			Game.Items.Rename("outdated_gun_mods:broken_gun", "bny:broken_gun");
 			gun.gameObject.AddComponent<BrokenGunParts>();
-			GunExt.SetShortDescription(gun, "Uh oh.");
+			GunExt.SetShortDescription(gun, "Uh Oh.");
 			GunExt.SetLongDescription(gun, "A gun that has fallen apart completely. The parts seem to be compatible with other guns though, so I guess its got that going for it.");
 			GunExt.SetupSprite(gun, null, "brokengun_idle_001", 8);
 			GunExt.SetAnimationFPS(gun, gun.shootAnimation, 16);

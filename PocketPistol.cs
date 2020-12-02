@@ -41,7 +41,6 @@ namespace BunnyMod
 			pocketpistol.quality = PickupObject.ItemQuality.D;
 			pocketpistol.DefaultModule.angleVariance = 4f;
 			pocketpistol.AddPassiveStatModifier(PlayerStats.StatType.AmmoCapacityMultiplier, .1f, StatModifier.ModifyMethod.ADDITIVE);
-			pocketpistol.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			pocketpistol.encounterTrackable.EncounterGuid = "The Small Gun Hell Yeah Brother";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(pocketpistol.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
@@ -66,6 +65,8 @@ namespace BunnyMod
 				"flak_bullets"
 			};
 			CustomSynergies.Add("How do these even fit in?", mandatoryConsoleIDs1, optionalConsoleID1s, true);
+			pocketpistol.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{

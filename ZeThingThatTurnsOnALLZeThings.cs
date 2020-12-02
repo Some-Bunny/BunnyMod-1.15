@@ -268,6 +268,7 @@ namespace BunnyMod
 			RewardCrown.Init();
 			ChaosMalice.Add();
 			ChaosEmblem.Register();
+			Curse2Emblem.Register();
 			BunnyModule.Log(BunnyModule.MOD_NAME + " v" + BunnyModule.VERSION + " started successfully.", BunnyModule.TEXT_COLOR);
 		}
 		public static void LateStart1(Action<Foyer> orig, Foyer self1)
@@ -444,7 +445,7 @@ namespace BunnyMod
 				float num = 0f;
 				num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				this.RANDOM4JAM = UnityEngine.Random.Range(0.00f, 1.00f);
-				if (this.RANDOM4JAM <= ((num/48f)*(1+num/2.5f))+0.04f)
+				if (this.RANDOM4JAM <= ((num/45f)*(1+num/3f))+0.035f)
                 {
 					bool jam = enemy.IsBlackPhantom;
 					if (!jam)
@@ -460,7 +461,7 @@ namespace BunnyMod
 		public static readonly string MOD_NAME = "Some Bunnys Content Mod";
 
 		// Token: 0x04000002 RID: 2
-		public static readonly string VERSION = "1.15.0 test";
+		public static readonly string VERSION = "1.16.0 test";
 
 		// Token: 0x04000003 RID: 3
 		public static readonly string TEXT_COLOR = "#316316";

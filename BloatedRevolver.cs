@@ -22,7 +22,7 @@ namespace BunnyMod
 			Gun boomrevolver = ETGMod.Databases.Items.NewGun("Bloated Revolver", "bloatedrevolver");
 			Game.Items.Rename("outdated_gun_mods:bloated_revolver", "bny:bloated_revolver");
 			boomrevolver.gameObject.AddComponent<BloatedRevolver>();
-			GunExt.SetShortDescription(boomrevolver, "A bit too full.");
+			GunExt.SetShortDescription(boomrevolver, "A Bit Too Full");
 			GunExt.SetLongDescription(boomrevolver, "A normal revolver that's been packed with so much gunpowder that it explodes if theres nothing left to shoot. Only the forces of the Gungeon prevent the self-destruction of the weapon.");
 			GunExt.SetupSprite(boomrevolver, null, "bloatedrevolver_idle_001", 19);
 			GunExt.SetAnimationFPS(boomrevolver, boomrevolver.shootAnimation, 24);
@@ -39,8 +39,7 @@ namespace BunnyMod
 			boomrevolver.SetBaseMaxAmmo(350);
 			boomrevolver.quality = PickupObject.ItemQuality.D;
 			boomrevolver.DefaultModule.angleVariance = 5f;
-			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
-			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+
 			boomrevolver.encounterTrackable.EncounterGuid = "bloated_revolveryeaahhhhhhh";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(boomrevolver.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
@@ -52,6 +51,8 @@ namespace BunnyMod
 			projectile.baseData.speed *= 0.9f;
 			projectile.transform.parent = boomrevolver.barrelOffset;
 			ETGMod.Databases.Items.Add(boomrevolver, null, "ANY");
+			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
+			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 		}
 
 		private bool HasReloaded;

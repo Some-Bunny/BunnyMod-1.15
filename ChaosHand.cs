@@ -43,8 +43,6 @@ namespace BunnyMod
 			chaoshand.quality = PickupObject.ItemQuality.A;
 			chaoshand.DefaultModule.angleVariance = 10f;
 			chaoshand.DefaultModule.burstShotCount = 1;
-			chaoshand.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
-			chaoshand.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(chaoshand.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
@@ -58,6 +56,8 @@ namespace BunnyMod
 			projectile.baseData.range = .1f;
 			chaoshand.encounterTrackable.EncounterGuid = "iuhxzdcuhdxzsuaadassadsasaassdasasasdsdsdahuzashduzlkmkj,lmkjolkjmkijnkjnhdjnhhkjashduhsaduahusai";
 			ETGMod.Databases.Items.Add(chaoshand, null, "ANY");
+			chaoshand.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
+			chaoshand.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun chaoshand)

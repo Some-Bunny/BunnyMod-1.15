@@ -34,6 +34,7 @@ namespace BunnyMod
             GunSoulBox.AddPassiveStatModifier(PlayerStats.StatType.Curse, 1f, StatModifier.ModifyMethod.ADDITIVE);
             GunSoulBox.AddPassiveStatModifier(PlayerStats.StatType.AmmoCapacityMultiplier, .2f, StatModifier.ModifyMethod.ADDITIVE);
             GunSoulBox.AddPassiveStatModifier(PlayerStats.StatType.AdditionalClipCapacityMultiplier, .5f, StatModifier.ModifyMethod.ADDITIVE);
+            GunSoulBox.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 
 
         }

@@ -61,6 +61,7 @@ namespace BunnyMod
             projectile.shouldRotate = true;
 			projectile.transform.parent = gun.barrelOffset;
             ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 		}
 
 		public override void PostProcessProjectile(Projectile projectile)

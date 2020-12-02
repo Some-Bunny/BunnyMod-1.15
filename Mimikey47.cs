@@ -61,6 +61,8 @@ namespace BunnyMod
 			gun.quality = PickupObject.ItemQuality.S;
 			gun.encounterTrackable.EncounterGuid = "MMMMYEEEESSSSSSSSSKEEEEEEEEEY";
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Flynt, 1f);
+
 		}
 
 

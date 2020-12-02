@@ -47,6 +47,8 @@ namespace BunnyMod
         {
             yield return new WaitForSeconds(3.5f);
             {
+                bool isInCombat = base.Owner.IsInCombat;
+                if (isInCombat)  
                 {
                     for (int counter = 0; counter < 1; counter++)
                     {

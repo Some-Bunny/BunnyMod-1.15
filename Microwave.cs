@@ -25,7 +25,7 @@ namespace BunnyMod
 			Gun gun = ETGMod.Databases.Items.NewGun("Microwave", "microwave");
 			Game.Items.Rename("outdated_gun_mods:microwave", "bny:microwave");
 			gun.gameObject.AddComponent<Microwave>();
-			GunExt.SetShortDescription(gun, "Cook for 10 seconds");
+			GunExt.SetShortDescription(gun, "Cook for 10 Seconds");
 			GunExt.SetLongDescription(gun, "A whole microwave thats been left carelessly laying around in the Gungeon. What monster would do this?");
 			GunExt.SetupSprite(gun, null, "microwave_idle_001", 11);
 			GunExt.SetAnimationFPS(gun, gun.shootAnimation, 18);

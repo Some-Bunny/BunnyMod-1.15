@@ -158,7 +158,7 @@ namespace BunnyMod
 			}
 			else
 			{
-				bool harderlotj = GungeonAPI.JammedSquire.NoHarderLotJ;
+				bool harderlotj = JammedSquire.NoHarderLotJ;
 				if (harderlotj)
 				{
 					orig(self);
@@ -195,7 +195,7 @@ namespace BunnyMod
             }
 			else
 			{
-				bool harderlotj = GungeonAPI.JammedSquire.NoHarderLotJ;
+				bool harderlotj = JammedSquire.NoHarderLotJ;
 				if (harderlotj)
 				{
 					orig(self, player, tierShift = 0);

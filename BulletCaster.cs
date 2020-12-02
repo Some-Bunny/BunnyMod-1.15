@@ -25,7 +25,7 @@ namespace BunnyMod
 			Gun castergun = ETGMod.Databases.Items.NewGun("Bullet Creator", "bulletcaster");
 			Game.Items.Rename("outdated_gun_mods:bullet_creator", "bny:bullet_creator");
 			castergun.gameObject.AddComponent<BulletCaster>();
-			GunExt.SetShortDescription(castergun, "Creates bullets");
+			GunExt.SetShortDescription(castergun, "	");
 			GunExt.SetLongDescription(castergun, "A novice gunsmith had the idea of a gun that could create bullets. However, they were not able to fire the created bullets, so they just rely on gusts of wind to move.");
 			GunExt.SetupSprite(castergun, null, "bulletcaster_idle_001", 25);
 			GunExt.SetAnimationFPS(castergun, castergun.shootAnimation, 14);
@@ -33,7 +33,6 @@ namespace BunnyMod
 			GunExt.SetAnimationFPS(castergun, castergun.idleAnimation, 12);
 			GunExt.AddProjectileModuleFrom(castergun, "ak-47", true, false);
 			castergun.DefaultModule.ammoCost = 1;
-			castergun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 			castergun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
 			castergun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
 			castergun.reloadTime = 1f;
@@ -54,6 +53,7 @@ namespace BunnyMod
 			projectile.transform.parent = castergun.barrelOffset;
 			projectile.SetProjectileSpriteRight("bulletcaster_projectile_001", 4, 4, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(2), new int?(2), null, null, null);
 			ETGMod.Databases.Items.Add(castergun, null, "ANY");
+			castergun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 		}
 
 		public override void OnPostFired(PlayerController player, Gun castergun)

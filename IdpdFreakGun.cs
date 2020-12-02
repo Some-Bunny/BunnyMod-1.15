@@ -59,6 +59,7 @@ namespace BunnyMod
 			gun.quality = PickupObject.ItemQuality.B;
 			gun.encounterTrackable.EncounterGuid = "BWAAAHAAALARRHHHHHH";
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 		}
 
 		// Token: 0x06000140 RID: 320 RVA: 0x0000D693 File Offset: 0x0000B893

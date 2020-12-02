@@ -25,7 +25,7 @@ namespace BunnyMod
 			Gun trollmimic = ETGMod.Databases.Items.NewGun("Starbounder", "starbounder");
 			Game.Items.Rename("outdated_gun_mods:starbounder", "bny:starbounder");
 			trollmimic.gameObject.AddComponent<Starbounder>();
-			GunExt.SetShortDescription(trollmimic, "Unstable");
+			GunExt.SetShortDescription(trollmimic, "	");
 			GunExt.SetLongDescription(trollmimic, "Don't expect this thing to fire normally. Don't.");
 			GunExt.SetupSprite(trollmimic, null, "starbounder_idle_001", 11);
 			GunExt.SetAnimationFPS(trollmimic, trollmimic.shootAnimation, 18);

@@ -25,7 +25,7 @@ namespace BunnyMod
 			Gun flakcannon = ETGMod.Databases.Items.NewGun("Flak Cannon", "flakcannon");
 			Game.Items.Rename("outdated_gun_mods:flak_cannon", "bny:flak_cannon");
 			flakcannon.gameObject.AddComponent<FlakCannon>();
-			GunExt.SetShortDescription(flakcannon, "Bullets in bullets");
+			GunExt.SetShortDescription(flakcannon, "Bullets in Bullets");
 			GunExt.SetLongDescription(flakcannon, "A cannon that was made to shoot large shells with smaller bullets. Younger gundead use these as firework guns.");
 			GunExt.SetupSprite(flakcannon, null, "flakcannon_idle_001", 11);
 			GunExt.SetAnimationFPS(flakcannon, flakcannon.shootAnimation, 15);

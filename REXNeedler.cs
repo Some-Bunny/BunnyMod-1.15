@@ -66,7 +66,7 @@ namespace BunnyMod
 			auegh.procChance = 1;
 			auegh.useSpecialTint = false;
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
-
+			gun.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 		}
 		public override void PostProcessProjectile(Projectile projectile)
 		{

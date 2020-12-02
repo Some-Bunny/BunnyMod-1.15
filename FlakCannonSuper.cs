@@ -24,7 +24,7 @@ namespace BunnyMod
 			Gun superflakcannon = ETGMod.Databases.Items.NewGun("Super Flak Cannon", "superflakcannon");
 			Game.Items.Rename("outdated_gun_mods:super_flak_cannon", "bny:super_flak_cannon");
 			superflakcannon.gameObject.AddComponent<SuperFlakCannon>();
-			GunExt.SetShortDescription(superflakcannon, "Complete Overkill");
+			GunExt.SetShortDescription(superflakcannon, "	");
 			GunExt.SetLongDescription(superflakcannon, "A flak cannon that has been buffed up so badly you should probably be careful firing it.");
 			GunExt.SetupSprite(superflakcannon, null, "superflakcannon_idle_001", 11);
 			GunExt.SetAnimationFPS(superflakcannon, superflakcannon.shootAnimation, 15);
