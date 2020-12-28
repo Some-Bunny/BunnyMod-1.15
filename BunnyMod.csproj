@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\CustomItems\CustomItems\bin\Debug\Assembly-CSharp.Base.mm.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Desktop\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
       <HintPath>..\CustomItems\CustomItems\bin\Debug\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
@@ -89,7 +93,52 @@
     <Compile Include="AbyssFlow.cs" />
     <Compile Include="AdvancedStrings1.cs" />
     <Compile Include="AdvancedStrings2.cs" />
+    <Compile Include="ArtifactOfParanoia.cs" />
+    <Compile Include="GungeonAPI\EnemyCode\BossBuilder.cs" />
+    <Compile Include="GungeonAPI\EnemyCode\TheStrangerIntro.cs" />
+    <Compile Include="GungeonAPI\EnemyCode\TheStranger.cs" />
+    <Compile Include="GungeonAPI\EnemyCode\Dopllegangerclone.cs" />
+    <Compile Include="GungeonAPI\EnemyCode\ChaosBeingLarge.cs" />
+    <Compile Include="GungeonAPI\ImReallySorryNeighborino.cs" />
+    <Compile Include="SaveAPI\AdvancedGameStats.cs" />
+    <Compile Include="SaveAPI\AdvancedGameStatsManager.cs" />
+    <Compile Include="SaveAPI\AdvancedMidGameSaveData.cs" />
+    <Compile Include="SaveAPI\BreachShopTool.cs" />
+    <Compile Include="SaveAPI\Comparers\CustomDungeonFlagsComparer.cs" />
+    <Compile Include="SaveAPI\Comparers\CustomTrackedMaximumsComparer.cs" />
+    <Compile Include="SaveAPI\Comparers\CustomTrackedStatsComparer.cs" />
+    <Compile Include="SaveAPI\CustomDungeonPrerequisite.cs" />
+    <Compile Include="SaveAPI\CustomHuntQuest.cs" />
+    <Compile Include="SaveAPI\CustomHuntQuests.cs" />
+    <Compile Include="SaveAPI\Enums\CustomCharacterSpecificGungeonFlags.cs" />
+    <Compile Include="SaveAPI\Enums\CustomDungeonFlags.cs" />
+    <Compile Include="SaveAPI\Enums\CustomTrackedMaximums.cs" />
+    <Compile Include="SaveAPI\Enums\CustomTrackedStats.cs" />
+    <Compile Include="SaveAPI\JammedEnemyState.cs" />
+    <Compile Include="SaveAPI\SaveAPIManager.cs" />
+    <Compile Include="SaveAPI\SaveTools.cs" />
+    <Compile Include="SaveAPI\SpecialAIActor.cs" />
+    <Compile Include="SaveAPI\SpecialPickupObject.cs" />
+    <Compile Include="SteveStaff.cs" />
+    <Compile Include="ArtifactOfFraility.cs" />
+    <Compile Include="DeathsDebt.cs" />
+    <Compile Include="DualWieldSynergyProcessor.cs" />
     <Compile Include="AstralCounterweight.cs" />
+    <Compile Include="ChaosHammer.cs" />
+    <Compile Include="LaconMK6.cs" />
+    <Compile Include="LaconMK5.cs" />
+    <Compile Include="LaconMK4.cs" />
+    <Compile Include="LaconMK3.cs" />
+    <Compile Include="LaconScrap.cs" />
+    <Compile Include="LaconMK2.cs" />
+    <Compile Include="ChambemimicGun.cs" />
+    <Compile Include="FireEffectForDummies.cs" />
+    <Compile Include="RevolverTaxes.cs" />
+    <Compile Include="RevolverDeath.cs" />
+    <Compile Include="LaconMK1.cs" />
+    <Compile Include="SteadyShotSniper.cs" />
+    <Compile Include="MultiActiveRelaodCode.cs" />
+    <Compile Include="WarningShot.cs" />
     <Compile Include="ChaosMalice.cs" />
     <Compile Include="GungeonAPI\EnemyCode\ChaosBeing.cs" />
     <Compile Include="Valkyrie.cs" />
@@ -235,7 +284,7 @@
     <Compile Include="GungeonAPI\SimpleInteractable.cs" />
     <Compile Include="ItemAPI\AdvancedGunBuilder.cs" />
     <Compile Include="JokeBook.cs" />
-    <Compile Include="BloodyTrigger.cs" />
+    <Compile Include="ChaosTrigger.cs" />
     <Compile Include="DynamiteGuon.cs" />
     <Compile Include="ReaverHeart.cs" />
     <Compile Include="GuonPebble.cs" />
@@ -303,6 +352,79 @@
     <EmbeddedResource Include="Resources\example_item_sprite.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\shrines\imsorryneighborino.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_001.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_002.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_003.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_004.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_005.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_006.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_007.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_008.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_009.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_010.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_011.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_012.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_013.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_014.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_015.png" />
+    <EmbeddedResource Include="TheStranger\stranger_burstfire_016.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_001.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_002.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_003.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_004.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_005.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_006.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_007.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_008.png" />
+    <EmbeddedResource Include="TheStranger\stranger_death_009.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_001.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_002.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_003.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_004.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_005.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_006.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_007.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fire1_008.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_001.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_002.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_003.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_004.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_005.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_006.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_007.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_008.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_009.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_010.png" />
+    <EmbeddedResource Include="TheStranger\stranger_fireup_011.png" />
+    <EmbeddedResource Include="TheStranger\stranger_tell1_001.png" />
+    <EmbeddedResource Include="TheStranger\stranger_tell1_002.png" />
+    <EmbeddedResource Include="TheStranger\stranger_tell1_003.png" />
+    <EmbeddedResource Include="TheStranger\stranger_tell1_004.png" />
+    <EmbeddedResource Include="TheStranger\stranger_tell1_005.png" />
+    <EmbeddedResource Include="TheStranger\stranger_tell1_006.png" />
+    <EmbeddedResource Include="TheStranger\stranger_idle_001.png" />
+    <EmbeddedResource Include="TheStranger\stranger_idle_002.png" />
+    <EmbeddedResource Include="TheStranger\stranger_idle_003.png" />
+    <EmbeddedResource Include="TheStranger\stranger_idle_004.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_001.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_002.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_003.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_004.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_005.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_006.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_007.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_008.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_009.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_010.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_011.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_012.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_013.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_014.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_015.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_016.png" />
+    <EmbeddedResource Include="TheStranger\stranger_intro_017.png" />
+    <EmbeddedResource Include="Resources\thestranger_bosscard.png" />
     <EmbeddedResource Include="Resources\WeakOrbitGuonStone\truecrown.png" />
     <EmbeddedResource Include="Resources\zenithdesign.png" />
     <EmbeddedResource Include="Resources\shrines\chaoscorruptionshrine.png" />
@@ -498,6 +620,8 @@
     <EmbeddedResource Include="Resources\AbyssEnemies\AbyssShotgunner\MoveRight\abyssshotgunner_move_right_004.png" />
     <EmbeddedResource Include="Resources\AbyssEnemies\AbyssShotgunner\MoveRight\abyssshotgunner_move_right_005.png" />
     <EmbeddedResource Include="Resources\AbyssEnemies\AbyssShotgunner\MoveRight\abyssshotgunner_move_right_006.png" />
+    <EmbeddedResource Include="Resources\actualtabletechknife.png" />
+    <EmbeddedResource Include="Resources\adrenalineammolet.png" />
     <Content Include="Resources\Artifacts\ArtifactNPC\reflection.png" />
     <EmbeddedResource Include="Resources\Artifacts\reflection.png" />
     <EmbeddedResource Include="Resources\Artifacts\enigma.png" />
@@ -521,6 +645,8 @@
     <EmbeddedResource Include="Resources\BabyGoodModular\babygoodmodular.png" />
     <EmbeddedResource Include="Resources\Artifacts\sacrifice.png" />
     <EmbeddedResource Include="Resources\astralcounterweight.png" />
+    <EmbeddedResource Include="Resources\Artifacts\frailty.png" />
+    <EmbeddedResource Include="Resources\Artifacts\paranoia.png" />
     <Content Include="Resources\BlastCoreFrames\Blastcore_idle_001.png" />
     <Content Include="Resources\BlastCoreFrames\Blastcore_idle_002.png" />
     <Content Include="Resources\BlastCoreFrames\Blastcore_idle_003.png" />
@@ -827,6 +953,56 @@
     <EmbeddedResource Include="Resources\ChaosEnemy\MoveRight\chaosbeing_move_right_002.png" />
     <EmbeddedResource Include="Resources\ChaosEnemy\MoveRight\chaosbeing_move_right_003.png" />
     <EmbeddedResource Include="Resources\ChaosEnemy\MoveRight\chaosbeing_move_right_004.png" />
+    <EmbeddedResource Include="Resources\chaoshammer.png" />
+    <EmbeddedResource Include="Resources\deathsdebt.png" />
+    <EmbeddedResource Include="Resources\deathsdebtenabled.png" />
+    <EmbeddedResource Include="Resources\dlaconscrap.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackLeft\largechaos_attack_left_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackLeft\largechaos_attack_left_002.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackLeft\largechaos_attack_left_003.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackLeft\largechaos_attack_left_004.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackRight\largechaos_attack_right_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackRight\largechaos_attack_right_002.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackRight\largechaos_attack_right_003.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\AttackRight\largechaos_attack_right_004.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\DeathLeft\largechaos_death_left_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\DeathRight\largechaos_death_right_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_002.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_003.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_004.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_005.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_006.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_007.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_008.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleLeft\largechaos_idle_left_009.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_002.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_003.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_004.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_005.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_006.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_007.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_008.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\IdleRight\largechaos_idle_right_009.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_002.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_003.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_004.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_005.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_006.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_007.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_008.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveLeft\largechaos_move_left_009.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_001.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_002.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_003.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_004.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_005.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_006.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_007.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_008.png" />
+    <EmbeddedResource Include="Resources\ChaosLarge\MoveRight\largechaos_move_right_009.png" />
     <Content Include="Resources\PZeroAnims\Idle\brokencore.png" />
     <EmbeddedResource Include="Resources\PZeroAnims\Idle\P-Zero_idle_001.png" />
     <EmbeddedResource Include="Resources\PZeroAnims\Idle\P-Zero_idle_002.png" />
@@ -893,6 +1069,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\rooms\chaosshrine1.room" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\rooms\StrangerBossRoom.room" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

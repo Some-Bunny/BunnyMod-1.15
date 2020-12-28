@@ -58,7 +58,11 @@ namespace BunnyMod
 			gun.quality = PickupObject.ItemQuality.D;
 			gun.encounterTrackable.EncounterGuid = "you absolute fool, you were PRANKED!!! by the CASEY MIMIC auegh";
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			Casemimic.CasemimicID = gun.PickupObjectId;
+
 		}
+		public static int CasemimicID;
+
 		protected void Update()
 		{
 			PlayerController player = this.gun.CurrentOwner as PlayerController;

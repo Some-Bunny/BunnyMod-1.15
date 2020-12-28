@@ -40,7 +40,7 @@ namespace BunnyMod
 			boomrevolver.quality = PickupObject.ItemQuality.D;
 			boomrevolver.DefaultModule.angleVariance = 5f;
 
-			boomrevolver.encounterTrackable.EncounterGuid = "bloated_revolveryeaahhhhhhh";
+			boomrevolver.encounterTrackable.EncounterGuid = "garbage";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(boomrevolver.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);

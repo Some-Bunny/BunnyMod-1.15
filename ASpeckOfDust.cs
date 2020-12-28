@@ -17,7 +17,7 @@ namespace BunnyMod
 {
     public class SpeckOfDust : PassiveItem
     {
-        private float random;
+        //private float random;
 
         public static void Init()
         {
@@ -59,14 +59,16 @@ namespace BunnyMod
         }
         private void Check4MoreDustShop(PlayerController player, ShopItemController shop)
         {
-            this.random = UnityEngine.Random.Range(0.0f, 1.0f);
-            if (random <= 0.4f)
+            bool flag = this.doost == 0f;
+            if (flag)
             {
+                this.doost += 1f;
                 PickupObject var = Gungeon.Game.Items["bny:a_speck_of_dust"];
                 LootEngine.GivePrefabToPlayer(var.gameObject, player);
             }
         }
 
+        private float doost;
 
 
         public override DebrisObject Drop(PlayerController player)

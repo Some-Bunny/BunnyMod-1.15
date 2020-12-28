@@ -112,6 +112,7 @@ namespace BunnyMod
 		{
 			GameObject obj = new GameObject();
 			ArtifactOfSacrifice fuck = obj.AddComponent<ArtifactOfSacrifice>();
+
 			PlayerController player = (GameManager.Instance.PrimaryPlayer);
 			bool flag = player.HasPickupID(Game.Items["bny:sacrifice"].PickupObjectId);
 			if (flag)
@@ -171,7 +172,8 @@ namespace BunnyMod
 					fuck.random = UnityEngine.Random.Range(0.0f, 1.0f);
 					if (fuck.random <= (num / 10))
 					{
-						LootEngine.SpawnItem(PickupObjectDatabase.GetById(127).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
+						int id = BraveUtility.RandomElement<int>(ArtifactOfSacrifice.Lootdrops);
+						LootEngine.SpawnItem(PickupObjectDatabase.GetById(id).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
 					}
 				}
 			}
@@ -210,20 +212,11 @@ namespace BunnyMod
 					if (ArtifactOfSacrifice.randomcurse <= (num / 18) + (1 * (num / 10)))
 					{
 						int num3 = UnityEngine.Random.Range(0, 3);
-						bool flag3 = num3 == 0;
+						bool flag3 = num3 == 0 | num3 == 1 | num3 == 2;
 						if (flag3)
 						{
-							LootEngine.SpawnItem(PickupObjectDatabase.GetById(224).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-						}
-						bool flag4 = num3 == 1;
-						if (flag4)
-						{
-							LootEngine.SpawnItem(PickupObjectDatabase.GetById(67).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-						}
-						bool flag6 = num3 == 2;
-						if (flag6)
-						{
-							LootEngine.SpawnItem(PickupObjectDatabase.GetById(78).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
+							int id = BraveUtility.RandomElement<int>(ArtifactOfSacrifice.Lootdrops);
+							LootEngine.SpawnItem(PickupObjectDatabase.GetById(id).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
 						}
 
 					}
@@ -243,7 +236,7 @@ namespace BunnyMod
 			}
 		
 		}
-		private void OnEnemyDamaged(float damage, bool fatal, HealthHaver enemyHealth)
+		private void ImSoFuckingPissed(float damage, bool fatal, HealthHaver enemyHealth)
 		{
 			if (enemyHealth.specRigidbody != null)
 			{
@@ -338,14 +331,14 @@ namespace BunnyMod
 		public override void Pickup(PlayerController player)
 		{
 			GameManager.Instance.OnNewLevelFullyLoaded += this.OnNewFloor;
-			player.OnAnyEnemyReceivedDamage += (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
+			player.OnAnyEnemyReceivedDamage += (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.ImSoFuckingPissed));
 			this.CanBeDropped = false;
             base.Pickup(player);
         }
         public override DebrisObject Drop(PlayerController player)
 		{
 			GameManager.Instance.OnNewLevelFullyLoaded -= this.OnNewFloor;
-			player.OnAnyEnemyReceivedDamage -= (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
+			player.OnAnyEnemyReceivedDamage -= (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.ImSoFuckingPissed));
 			Tools.Print($"Player dropped {this.DisplayName}");
             return base.Drop(player);
         }
@@ -362,6 +355,16 @@ namespace BunnyMod
 		public PickupObject target1;
 		private static float randomcurse;
 		private static float chanceagain;
+		public static List<int> Lootdrops = new List<int>
+		{
+			73,
+			85,
+			120,
+			67,
+			224,
+			600,
+			78
+		};
 	}
 }
 

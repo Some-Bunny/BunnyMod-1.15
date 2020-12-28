@@ -11,7 +11,7 @@ using FullSerializer;
 using System.Collections;
 using Gungeon;
 using MonoMod.RuntimeDetour;
-
+using SaveAPI;
 
 
 namespace BunnyMod
@@ -34,6 +34,7 @@ namespace BunnyMod
             whisper.consumable = true;
             whisper.quality = PickupObject.ItemQuality.C;
             whisper.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
+            //whisper.SetupUnlockOnStat(TrackedStats.TIMES_CLEARED_FORGE, DungeonPrerequisite.PrerequisiteOperation.GREATER_THAN, 14);
         }
         public override void Pickup(PlayerController player)
         {

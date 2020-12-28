@@ -59,18 +59,40 @@ namespace BunnyMod
             bool flag = playerGun.ClipShotsRemaining == 0;
             if (flag)
             {
-                List<AIActor> activeEnemies = player.CurrentRoom.GetActiveEnemies(RoomHandler.ActiveEnemyType.All);
-                if (activeEnemies != null)
+                bool flagA = player.PlayerHasActiveSynergy("Reunion");
+                if (flagA)
                 {
-                    int count = activeEnemies.Count;
-                    for (int i = 0; i < count; i++)
+                    List<AIActor> activeEnemies = base.Owner.CurrentRoom.GetActiveEnemies(RoomHandler.ActiveEnemyType.All);
+                    if (activeEnemies != null)
                     {
-                        if (activeEnemies[i] && activeEnemies[i].HasBeenEngaged && activeEnemies[i].healthHaver && activeEnemies[i].IsNormalEnemy && !activeEnemies[i].healthHaver.IsDead && !activeEnemies[i].healthHaver.IsBoss && !activeEnemies[i].IsTransmogrified && activeEnemies[i].IsBlackPhantom)
+                        BulletStatusEffectItem Firecomponent = PickupObjectDatabase.GetById(295).GetComponent<BulletStatusEffectItem>();
+                        GameActorFireEffect gameActorFire = Firecomponent.FireModifierEffect;
+                        int count1 = activeEnemies.Count;
+                        for (int i = 0; i < count1; i++)
                         {
-                            GameManager.Instance.StartCoroutine(this.Heatfuck(player));
+                            if (activeEnemies[i] && activeEnemies[i].HasBeenEngaged && activeEnemies[i].healthHaver && activeEnemies[i].IsNormalEnemy && !activeEnemies[i].healthHaver.IsDead && !activeEnemies[i].healthHaver.IsBoss && !activeEnemies[i].IsTransmogrified)
+                            {
+                                activeEnemies[i].ApplyEffect(gameActorFire, 10f, null);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    List<AIActor> activeEnemies = player.CurrentRoom.GetActiveEnemies(RoomHandler.ActiveEnemyType.All);
+                    if (activeEnemies != null)
+                    {
+                        int count = activeEnemies.Count;
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (activeEnemies[i] && activeEnemies[i].HasBeenEngaged && activeEnemies[i].healthHaver && activeEnemies[i].IsNormalEnemy && !activeEnemies[i].healthHaver.IsDead && !activeEnemies[i].healthHaver.IsBoss && !activeEnemies[i].IsTransmogrified && activeEnemies[i].IsBlackPhantom)
+                            {
+                                GameManager.Instance.StartCoroutine(this.Heatfuck(player));
+                            }
+                        }
+                    }
+                }
+                    
             }
         }
         private IEnumerator Heatfuck(PlayerController user)
@@ -95,6 +117,7 @@ namespace BunnyMod
 
 		private void ProcessEnemy(AIActor target, float distance)
 		{
+            if (target != null && !target.healthHaver.IsBoss)
             {
                 GameManager.Instance.Dungeon.StartCoroutine(this.HandleEnemySuck(target));
                 target.EraseFromExistence(true);

@@ -35,43 +35,41 @@ namespace BunnyMod
 			LunarGlassAmmolet.FlahBaAmmoletID = glassmolet.PickupObjectId;
 
 		}
-		public override void Pickup(PlayerController player)
+		private static Hook BlankHook = new Hook(typeof(SilencerInstance).GetMethod("ProcessBlankModificationItemAdditionalEffects", BindingFlags.Instance | BindingFlags.NonPublic), typeof(LunarGlassAmmolet).GetMethod("BlankModHook", BindingFlags.Instance | BindingFlags.Public), typeof(SilencerInstance));
+
+		public void BlankModHook(Action<SilencerInstance, BlankModificationItem, Vector2, PlayerController> orig, SilencerInstance silencer, BlankModificationItem bmi, Vector2 centerPoint, PlayerController user)
 		{
-			base.Pickup(player);
-			player.OnUsedBlank += this.Shatter;
-		}
-		private void Shatter(PlayerController player, int integer)
-		{
-			List<AIActor> activeEnemies = base.Owner.CurrentRoom.GetActiveEnemies(RoomHandler.ActiveEnemyType.All);
-			bool flag = activeEnemies != null && base.Owner != null;
-			if (flag)
+			orig(silencer, bmi, centerPoint, user);
+			try
 			{
-				for (int i = 0; i < activeEnemies.Count; i++)
+				if (user.HasPickupID(FlahBaAmmoletID))
 				{
-					AkSoundEngine.PostEvent("Play_OBJ_glass_shatter_01", base.gameObject);
-					activeEnemies[i].ApplyEffect(this.GlassEffect, 1f, null);
+					RoomHandler currentRoom = user.CurrentRoom;
+					if (currentRoom.HasActiveEnemies(RoomHandler.ActiveEnemyType.All))
+					{
+						//AkSoundEngine.PostEvent("Play_OBJ_glass_shatter_01", base.gameObject);
+						foreach (AIActor aiactor in currentRoom.GetActiveEnemies(RoomHandler.ActiveEnemyType.All))
+						{
+							if (aiactor.behaviorSpeculator != null)
+							{
+								this.AffectEnemy(aiactor);
+
+							}
+						}
+					}
 				}
 			}
+			catch (Exception e)
+			{
+				ETGModConsole.Log(e.Message);
+				ETGModConsole.Log(e.StackTrace);
+			}
 		}
-		public GameActorFreezeEffect GlassEffect = new GameActorFreezeEffect
+		private void AffectEnemy(AIActor target)
 		{
-			TintColor = new Color(0f, 0.1f, 0.3f).WithAlpha(1f),
-			DeathTintColor = new Color(0f, 0.1f, 0.3f).WithAlpha(1f),
-			AppliesTint = true,
-			AppliesDeathTint = true,
-			effectIdentifier = "Shatter",
-			FreezeAmount = 100f,
-			UnfreezeDamagePercent = 0f,
-			crystalNum = 0,
-			crystalRot = 0,
-			crystalVariation = new Vector2(0.05f, 0.05f),
-			debrisMinForce = 5,
-			debrisMaxForce = 5,
-			debrisAngleVariance = 15f,
-			PlaysVFXOnActor = true,
-			duration = 7f,
-			OverheadVFX = ShatterEffect.ShatterVFXObject,
-		};
+			target.ApplyEffect(Library.Shatter, 1f, null);
+		}
+
 		// Token: 0x0400014B RID: 331
 		private static int FlahBaAmmoletID;
 

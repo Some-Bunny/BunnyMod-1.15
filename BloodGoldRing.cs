@@ -65,7 +65,7 @@ namespace BunnyMod
                         if (flag4)
                         {
                             PlayerController player = base.Owner as PlayerController;
-                            bool actuallygonnafuckingdie = ((double)player.healthHaver.GetCurrentHealth() == 0.5 && player.healthHaver.Armor == 0f) || player.healthHaver.GetCurrentHealth() == 0f && player.healthHaver.Armor == 1f;
+                            bool actuallygonnafuckingdie = ((double)player.healthHaver.GetCurrentHealth() == 1 && player.healthHaver.Armor == 0f) || player.healthHaver.GetCurrentHealth() == 0f && player.healthHaver.Armor == 2f || ((double)player.healthHaver.GetCurrentHealth() == 0.5f && player.healthHaver.Armor == 0f) || player.healthHaver.GetCurrentHealth() == 0f && player.healthHaver.Armor == 1f;
                             if (actuallygonnafuckingdie)
                             {
                                 source.StartCoroutine("IncorporealityOnHit");
@@ -75,7 +75,7 @@ namespace BunnyMod
                                 float num = 0f;
                                 num = (player.stats.GetStatValue(PlayerStats.StatType.Health));
                                 ApplyStat(player, PlayerStats.StatType.Health, (-num) + 1, StatModifier.ModifyMethod.ADDITIVE);
-                                ApplyStat(player, PlayerStats.StatType.Curse, 2f, StatModifier.ModifyMethod.ADDITIVE);
+                                ApplyStat(player, PlayerStats.StatType.Curse, 1.5f, StatModifier.ModifyMethod.ADDITIVE);
                                 player.healthHaver.FullHeal();
                                 player.IsOnFire = false;
                                 if (player.characterIdentity == PlayableCharacters.Robot)

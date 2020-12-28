@@ -20,7 +20,7 @@ namespace BunnyMod
         {
             string itemName = "Table Tech Knife";
 
-            string resourceName = "BunnyMod/Resources/tabletechknife.png";
+            string resourceName = "BunnyMod/Resources/actualtabletechknife.png";
 
             GameObject obj = new GameObject(itemName);
 
@@ -34,7 +34,7 @@ namespace BunnyMod
             minigunrounds.SetupItem(shortDesc, longDesc, "bny");
 
             //minigunrounds.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
-            minigunrounds.quality = PickupObject.ItemQuality.EXCLUDED;
+            minigunrounds.quality = PickupObject.ItemQuality.B;
         }
 
         public override void Pickup(PlayerController player)
@@ -43,59 +43,51 @@ namespace BunnyMod
             base.Pickup(player);
         }
         private void HandleFlip(FlippableCover table)
-        {
-            this.m_extantEffect = this.CreateEffect(base.Owner, 1f, 1f);
-        }
-        private KnifeShieldEffect CreateEffect(PlayerController user, float radiusMultiplier = 1f, float rotationSpeedMultiplier = 1f)
-        {
-            GameObject obj = new GameObject();
-            TableTechKnife fuck = obj.AddComponent<TableTechKnife>();
-            KnifeShieldEffect knifeShieldEffect = PickupObjectDatabase.GetById(65).GetComponent<KnifeShieldEffect>();
+		{
+			PlayerController player = (GameManager.Instance.PrimaryPlayer);
+			bool flag = this.shield != null && this.shield.gameObject;
+			if (flag)
+			{
+				this.shield.ThrowShield();
+			}
+			this.shield = this.CreateEffect(player, 4, 2f);
+		}
+		private KnifeShieldEffect CreateEffect(PlayerController user, int numKnives, float radiusMultiplier = 2f)
+		{
+			KnifeShieldItem knifeShieldItem = (KnifeShieldItem)PickupObjectDatabase.GetById(65);
+			KnifeShieldEffect knifeShieldEffect = new GameObject("knife shield effect")
+			{
+				transform =
+				{
+					position = user.LockedApproximateSpriteCenter,
+					parent = user.transform
+				}
+			}.AddComponent<KnifeShieldEffect>();
+			knifeShieldEffect.numKnives = numKnives;
+			knifeShieldEffect.remainingHealth = knifeShieldItem.knifeHealth;
+			knifeShieldEffect.knifeDamage = knifeShieldItem.knifeDamage;
+			knifeShieldEffect.circleRadius = radiusMultiplier;
+			knifeShieldEffect.rotationDegreesPerSecond = knifeShieldItem.rotationDegreesPerSecond;
+			knifeShieldEffect.throwSpeed = knifeShieldItem.throwSpeed;
+			knifeShieldEffect.throwRange = knifeShieldItem.throwRange;
+			knifeShieldEffect.throwRadius = knifeShieldItem.throwRadius;
+			knifeShieldEffect.radiusChangeDistance = knifeShieldItem.radiusChangeDistance;
+			knifeShieldEffect.deathVFX = knifeShieldItem.knifeDeathVFX;
+			this.shieldPrefab = knifeShieldItem.knifePrefab;
+			knifeShieldEffect.Initialize(user, this.shieldPrefab);
+			return knifeShieldEffect;
+		}
+
+		// Token: 0x040000A1 RID: 161
 
 
-            knifeShieldEffect.numKnives = fuck.numKnives;
-            knifeShieldEffect.remainingHealth = fuck.knifeHealth;
-            knifeShieldEffect.knifeDamage = fuck.knifeDamage;
-            knifeShieldEffect.circleRadius = fuck.circleRadius * radiusMultiplier;
-            knifeShieldEffect.rotationDegreesPerSecond = fuck.rotationDegreesPerSecond * rotationSpeedMultiplier;
-            knifeShieldEffect.throwSpeed = fuck.throwSpeed;
-            knifeShieldEffect.throwRange = fuck.throwRange;
-            knifeShieldEffect.throwRadius = fuck.throwRadius;
-            knifeShieldEffect.radiusChangeDistance = fuck.radiusChangeDistance;
-            knifeShieldEffect.deathVFX = this.knifeDeathVFX;
-            knifeShieldEffect.Initialize(user, this.knifePrefab);
-            return knifeShieldEffect;
-        }
-        public override DebrisObject Drop(PlayerController player)
-        {
-            player.OnTableFlipCompleted = (Action<FlippableCover>)Delegate.Remove(player.OnTableFlipCompleted, new Action<FlippableCover>(this.HandleFlip));
-            return base.Drop(player);
-        }
-        public GameObject knifePrefab;
-        protected KnifeShieldEffect m_extantEffect;
-        public GameObject knifeDeathVFX;
-        public TableTechKnife()
-        {
-            this.numKnives = 1;
-            this.knifeHealth = 0.5f;
-            this.knifeDamage = 5f;
-            this.circleRadius = 3f;
-            this.rotationDegreesPerSecond = 360f;
-            this.throwSpeed = 10f;
-            this.throwRange = 25f;
-            this.throwRadius = 3f;
-            this.radiusChangeDistance = 3f;
-        }
-        public int numKnives;
-        public float knifeHealth;
-        public float knifeDamage;
-        public float circleRadius;
-        public float rotationDegreesPerSecond;
+		// Token: 0x040000A2 RID: 162
+		private GameObject shieldPrefab;
 
-        [Header("Thrown Properties")]
-        public float throwSpeed;
-        public float throwRange;
-        public float throwRadius;
-        public float radiusChangeDistance;
-    }
+		// Token: 0x040000A3 RID: 163
+		public int Kills;
+
+		// Token: 0x040000A4 RID: 164
+		public KnifeShieldEffect shield;
+	}
 }

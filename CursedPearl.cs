@@ -283,31 +283,36 @@ namespace BunnyMod
             }
             else
             {
-                bool jamnation = self.IsBlackPhantom;
-                if (!jamnation)
+                bool ae = self.IsHarmlessEnemy;
+                if (!ae)
                 {
-                    bool FuckYouNoPearlYouGreedyFuck = player.HasPickupID(Game.Items["bny:cursed_pearl"].PickupObjectId);
-                    if (!FuckYouNoPearlYouGreedyFuck)
+                    bool jamnation = self.IsBlackPhantom;
+                    if (!jamnation)
+                    {
+                        bool FuckYouNoPearlYouGreedyFuck = player.HasPickupID(Game.Items["bny:cursed_pearl"].PickupObjectId);
+                        if (!FuckYouNoPearlYouGreedyFuck)
+                        {
+                            float num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
+                            CursedPearl.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
+                            if (CursedPearl.rnge <= (0.125 / (9 / (0.9f/((num+4)/11)))))
+                            {
+                                SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, self.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(self.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+                                LootEngine.SpawnItem(ETGMod.Databases.Items["Cursed Pearl"].gameObject, self.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);
+                            }
+                        }
+                    }
+                    else
                     {
                         float num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
                         CursedPearl.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
-                        if (CursedPearl.rnge <= (0.0166 * (1 + (num/3.5))))
+                        if (CursedPearl.rnge <= (0.125 / (9 / (0.9f / ((num + 4) / 2.75)))))
                         {
                             SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, self.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(self.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
                             LootEngine.SpawnItem(ETGMod.Databases.Items["Cursed Pearl"].gameObject, self.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);
                         }
                     }
                 }
-                else
-                {
-                    float num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
-                    CursedPearl.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
-                    if (CursedPearl.rnge <= (0.0166 * (1 + (num / 14))))
-                    {
-                        SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, self.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(self.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
-                        LootEngine.SpawnItem(ETGMod.Databases.Items["Cursed Pearl"].gameObject, self.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);
-                    }
-                }
+            
             }
         }
     }

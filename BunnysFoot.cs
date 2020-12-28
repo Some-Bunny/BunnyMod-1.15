@@ -119,33 +119,11 @@ namespace BunnyMod
                     bool fuckye = numure == 0 | numure == 1 | numure == 2;
                     if (fuckye)
                     {
-                        int num3 = UnityEngine.Random.Range(0, 3);
-                        bool fuck = num3 == 0;
-                        if (fuck)
+                        bool flag3 = this.mimicGuids.Contains(enemy.aiActor.EnemyGuid);
+                        if (flag3)
                         {
-                            bool flag3 = this.mimicGuids.Contains(enemy.aiActor.EnemyGuid);
-                            if (flag3)
-                            {
-                                LootEngine.SpawnItem(PickupObjectDatabase.GetById(224).gameObject, enemy.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-                            }
-                        }
-                        bool flag4 = num3 == 1;
-                        if (flag4)
-                        {
-                            bool flag3 = this.mimicGuids.Contains(enemy.aiActor.EnemyGuid);
-                            if (flag3)
-                            {
-                                LootEngine.SpawnItem(PickupObjectDatabase.GetById(67).gameObject, enemy.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-                            }
-                        }
-                        bool flag6 = num3 == 2;
-                        if (flag6)
-                        {
-                            bool flag3 = this.mimicGuids.Contains(enemy.aiActor.EnemyGuid);
-                            if (flag3)
-                            {
-                                LootEngine.SpawnItem(PickupObjectDatabase.GetById(78).gameObject, enemy.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-                            }
+                            int id = BraveUtility.RandomElement<int>(BunnysFoot.Lootdrops);
+                            LootEngine.SpawnItem(PickupObjectDatabase.GetById(id).gameObject, enemy.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
                         }
                     }
                     bool fuckye1 = numure == 3;
@@ -225,7 +203,20 @@ namespace BunnyMod
             "6450d20137994881aff0ddd13e3d40c8",
             "479556d05c7c44f3b6abb3b2067fc778"
         };
+        public static List<int> Lootdrops = new List<int>
+        {
+            73,
+            85,
+            120,
+            67,
+            224,
+            600,
+            78
+        };
         public PickupObject.ItemQuality Spawnquality;
         public PassiveItem target;
     }
 }
+
+
+

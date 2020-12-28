@@ -5,7 +5,7 @@ using GungeonAPI;
 using UnityEngine;
 
 
-namespace GungeonAPI
+namespace BunnyMod
 {
 	// Token: 0x0200000E RID: 14
 	public static class DeicideShrine
@@ -40,6 +40,12 @@ namespace GungeonAPI
 			{
 				"Put yourself to the ultimate test?"
 			};
+			component.conversationB = new List<string>
+			{
+				"What do you desire?"
+			};
+			component.declineTextB = "I desire nothing more.";
+			component.acceptTextB = "Make it stop....";
 			gameObject.SetActive(false);
 		}
 
@@ -49,23 +55,39 @@ namespace GungeonAPI
 		{
 			return true;
 		}
+		public static bool AllArtifactMode = false;
 
 		// Token: 0x060006D4 RID: 1748 RVA: 0x0003AD10 File Offset: 0x00038F10
 		public static void Accept(PlayerController player, GameObject npc)
 		{
+			bool flag = DeicideShrine.AllArtifactMode;
+			if (flag)
+			{
+				string header = "Deicide Mode Disabled.";
+				string text = "Trolled.";
+				DeicideShrine.Notify(header, text);
+				DeicideShrine.AllArtifactMode = false;
+				//ETGModConsole.Log("Random Artifacts Disabled.", false);
+			}
+			else
+			{
+				string header = "Deicide Mode Enabled.";
+				string text = "Trolled.";
+				DeicideShrine.Notify(header, text);
+				DeicideShrine.AllArtifactMode = true;
+				ArtifactMonger.RandomArtifactMode = false;
+				Commands.CustomLoadoutArtifactsEnabled = false;
+				//ETGModConsole.Log("Random Artifacts Enabled.", false);
+			}
 			npc.GetComponent<tk2dSpriteAnimator>().PlayForDuration("do_effect", 1f, "idle", false);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Attraction"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Revenge"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Glass"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Avarice"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Daze"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Prey"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Megalomania"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Fodder"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Bolster"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Enigma"].gameObject, player, true);
-			LootEngine.TryGivePrefabToPlayer(ETGMod.Databases.Items["Sacrifice"].gameObject, player, true);
 
+		}
+		private static void Notify(string header, string text)
+		{
+			//isSingleLine = false;
+			tk2dSpriteCollectionData encounterIconCollection = AmmonomiconController.Instance.EncounterIconCollection;
+			int spriteIdByName = encounterIconCollection.GetSpriteIdByName("BunnyMod/Resources/Artifacts/glass");
+			GameUIRoot.Instance.notificationController.DoCustomNotification(header, text, null, spriteIdByName, UINotificationController.NotificationColor.PURPLE, false, true);
 		}
 	}
 }

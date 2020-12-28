@@ -12,7 +12,7 @@ using System.Collections;
 using Gungeon;
 using MonoMod.RuntimeDetour;
 using MonoMod;
-
+using SaveAPI;
 namespace BunnyMod
 {
 	public class TimeZoner : GunBehaviour
@@ -54,6 +54,8 @@ namespace BunnyMod
 			ETGMod.Databases.Items.Add(boomrevolver, null, "ANY");
 			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 			boomrevolver.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+			boomrevolver.SetupUnlockOnCustomFlag(CustomDungeonFlags.ZONER_TRORC_FLAG, true);
+			boomrevolver.AddItemToTrorcMetaShop(18, null);
 		}
 
 		private bool HasReloaded;

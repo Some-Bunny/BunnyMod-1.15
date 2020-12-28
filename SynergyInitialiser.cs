@@ -25,9 +25,47 @@ namespace BunnyMod
 			List<string> mandatoryConsoleIDs1 = new List<string>
 			{
 				"bny:chaos_chamber",
-				"bny:chaos_revolver"
+				"bny:chaos_revolver",
+				"bny:chaos_trigger",
+				"bny:chaos_hammer"
 			};
 			CustomSynergies.Add("Reunion", mandatoryConsoleIDs1, null, true);
+			List<string> mandatoryConsoleIDs2 = new List<string>
+			{
+				"bny:death",
+				"bny:taxes"
+			};
+			CustomSynergies.Add("Death & Taxes", mandatoryConsoleIDs2, null, true);
+			List<string> mandatoryConsoleIDs3 = new List<string>
+			{
+				"bny:gunthemimic",
+				"gunther"
+			};
+			CustomSynergies.Add("Imposter Syndrome", mandatoryConsoleIDs3, null, true);
+			List<string> mandatoryConsoleIDs4 = new List<string>
+			{
+				"bny:mimikey47",
+				"akey47"
+			};
+			CustomSynergies.Add("One Locks, Other Unlocks", mandatoryConsoleIDs4, null, true);
+			List<string> mandatoryConsoleIDs5 = new List<string>
+			{
+				"bny:casemimic",
+				"casey"
+			};
+			CustomSynergies.Add("Suspicion On #ff0000", mandatoryConsoleIDs5, null, true);
+			List<string> mandatoryConsoleIDs6 = new List<string>
+			{
+				"bny:blasphemimic",
+				"blasphemy"
+			};
+			CustomSynergies.Add("Double-Edged Sword", mandatoryConsoleIDs6, null, true);
+			List<string> mandatoryConsoleIDs7 = new List<string>
+			{
+				"bny:chambemimic_gun",
+				"chamber_gun"
+			};
+			CustomSynergies.Add("Russian Roulette", mandatoryConsoleIDs7, null, true);
 		}
 	}
 }

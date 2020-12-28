@@ -649,7 +649,7 @@ namespace BunnyMod
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
             string shortDesc = "ERROR: SENSOR FAILURE.";
             string longDesc = "> \n\n>DETECTED FAILURE IN PROJECTILE SENSOR\n\n>FAILURE TO DETECT ENEMY PROJECTILE SPEED\n\n>SEEK CAUTION UNTIL RESTORATION COMPLETE";
-            ItemBuilder.AddPassiveStatModifier(Module, PlayerStats.StatType.EnemyProjectileSpeedMultiplier, .35f, StatModifier.ModifyMethod.ADDITIVE);
+            ItemBuilder.AddPassiveStatModifier(Module, PlayerStats.StatType.EnemyProjectileSpeedMultiplier, .20f, StatModifier.ModifyMethod.ADDITIVE);
             Module.SetupItem(shortDesc, longDesc, "bny");
             Module.quality = PickupObject.ItemQuality.EXCLUDED;
         }

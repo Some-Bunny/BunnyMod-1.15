@@ -654,7 +654,7 @@ namespace GungeonAPI
 		// Token: 0x02000130 RID: 304
 		public struct RoomData
 		{
-			public static float GlobalRoomWeight = 1000000f;
+			public static float GlobalRoomWeight = 90f;
 
 			// Token: 0x0400024F RID: 591
 			public string category;

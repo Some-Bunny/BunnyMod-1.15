@@ -62,9 +62,11 @@ namespace BunnyMod
 			gun.encounterTrackable.EncounterGuid = "MMMMYEEEESSSSSSSSSKEEEEEEEEEY";
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
 			gun.AddToSubShop(ItemBuilder.ShopType.Flynt, 1f);
+			Mimikey47.MimikeyID = gun.PickupObjectId;
 
 		}
 
+		public static int MimikeyID;
 
 		public override void PostProcessProjectile(Projectile projectile)
 		{

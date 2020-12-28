@@ -95,7 +95,7 @@ namespace GungeonAPI
 					bool flag8 = flag7;
 					if (flag8)
 					{
-						this.room = RoomFactory.CreateEmptyRoom(12, 12);
+						this.room = GungeonAPI.RoomFactory.CreateEmptyRoom(12, 12);
 					}
 					ShrineFactory.RegisterShrineRoom(gameObject, this.room, text, this.offset);
 				}
@@ -146,8 +146,8 @@ namespace GungeonAPI
 			{
 				room = protoroom,
 				isSpecialRoom = true,
-				category = "SPECIAL",
-				specialSubCatergory = "UNSPECIFIED_SPECIAL"
+                category = "SPECIAL",
+                specialSubCatergory = "UNSPECIFIED_SPECIAL"
 			};
 			RoomFactory.rooms.Add(ID, roomData);
 			DungeonHandler.Register(roomData);

@@ -150,8 +150,8 @@ namespace BunnyMod
 
         public override void Pickup(PlayerController player)
         {
-            GameManager.Instance.OnNewLevelFullyLoaded += this.OnNewFloor;
-            this.CanBeDropped = false;
+			GameManager.Instance.StartCoroutine(Prey());
+			this.CanBeDropped = false;
             base.Pickup(player);
         }
         public override DebrisObject Drop(PlayerController player)

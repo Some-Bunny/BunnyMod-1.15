@@ -127,6 +127,7 @@ namespace BunnyMod
 
         public override void Pickup(PlayerController player)
         {
+			this.AvariceCount = 1;
             player.OnEnteredCombat += (Action)Delegate.Combine(player.OnEnteredCombat, new Action(this.Avarice));
             GameManager.Instance.OnNewLevelFullyLoaded += this.OnNewFloor;
             this.CanBeDropped = false;

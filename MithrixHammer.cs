@@ -12,7 +12,7 @@ using System.Collections;
 using Gungeon;
 using MonoMod.RuntimeDetour;
 using MonoMod;
-
+using SaveAPI;
 namespace BunnyMod
 {
 	// Token: 0x0200002D RID: 45
@@ -69,6 +69,8 @@ namespace BunnyMod
 			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
 			gun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.SetupUnlockOnCustomFlag(CustomDungeonFlags.EXAMPLE_BLUEPRINTBEETLEE, true);
+			gun.AddItemToDougMetaShop(1000, null);
 		}
 		protected void Update()
 		{

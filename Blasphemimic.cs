@@ -61,7 +61,9 @@ namespace BunnyMod
 			trollmimichandler.projectileToSpawn = (PickupObjectDatabase.GetById(207) as Gun).DefaultModule.projectiles[0];
 			projectile.transform.parent = trollmimic.barrelOffset;
 			ETGMod.Databases.Items.Add(trollmimic, null, "ANY");
+			ABlasphemimic.BlashempmicID = trollmimic.PickupObjectId;
 		}
+		public static int BlashempmicID;
 
 		public override void OnPostFired(PlayerController player, Gun trollmimic)
 		{

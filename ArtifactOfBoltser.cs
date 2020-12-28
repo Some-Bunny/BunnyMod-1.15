@@ -105,7 +105,7 @@ namespace BunnyMod
 			this.passiveStatModifiers = list.ToArray();
 		}
 
-		private void OnEnemyDamaged(float damage, bool fatal, HealthHaver enemyHealth)
+		private void OnEnemyDamagedYes(float damage, bool fatal, HealthHaver enemyHealth)
 		{
 			if (enemyHealth.specRigidbody != null)
 			{
@@ -118,12 +118,19 @@ namespace BunnyMod
 		}
 		private IEnumerator Bolster()
 		{
+			PlayerController player = (GameManager.Instance.PrimaryPlayer);
 			{
-				this.AddStat(PlayerStats.StatType.EnemyProjectileSpeedMultiplier, .25f, StatModifier.ModifyMethod.ADDITIVE);
+				float num = .25f;
+				bool sacrificeisabastard = player.HasPickupID(Game.Items["bny:sacrifice"].PickupObjectId);
+				if (sacrificeisabastard)
+				{
+					num /= 2;
+				}
+				this.AddStat(PlayerStats.StatType.EnemyProjectileSpeedMultiplier, num, StatModifier.ModifyMethod.ADDITIVE);
 				base.Owner.stats.RecalculateStats(base.Owner, true, true);
                 yield return new WaitForSeconds(3f);
                 {
-					this.AddStat(PlayerStats.StatType.EnemyProjectileSpeedMultiplier, -.25f, StatModifier.ModifyMethod.ADDITIVE);
+					this.AddStat(PlayerStats.StatType.EnemyProjectileSpeedMultiplier, -num, StatModifier.ModifyMethod.ADDITIVE);
 					base.Owner.stats.RecalculateStats(base.Owner, true, true);
 				}
 			}
@@ -133,13 +140,15 @@ namespace BunnyMod
 
 		public override void Pickup(PlayerController player)
         {
-			player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
+			player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamagedYes));
 			this.CanBeDropped = false;
             base.Pickup(player);
         }
         public override DebrisObject Drop(PlayerController player)
         {
-            Tools.Print($"Player dropped {this.DisplayName}");
+			player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Remove(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamagedYes));
+
+			Tools.Print($"Player dropped {this.DisplayName}");
             return base.Drop(player);
         }
         public float FlashHoldtime;

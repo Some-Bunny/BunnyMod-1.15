@@ -1,4 +1,4 @@
-﻿using System;
+﻿	using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +30,7 @@ namespace BunnyMod
 			GunExt.SetAnimationFPS(gun, gun.idleAnimation, 1);
 			for (int i = 0; i < 10; i++)
 			{
-				gun.AddProjectileModuleFrom(PickupObjectDatabase.GetById(125) as Gun, true, false);
+				gun.AddProjectileModuleFrom(PickupObjectDatabase.GetById(336) as Gun, true, false);
 			}
 			foreach (ProjectileModule projectileModule in gun.Volley.projectiles)
 			{
@@ -48,6 +48,8 @@ namespace BunnyMod
 				pierce.penetratesBreakables = true;
 				projectile.baseData.damage = 12f;
 				projectile.AdditionalScaleMultiplier = 0.5f;
+				PierceProjModifier spook = projectile.gameObject.AddComponent<PierceProjModifier>();
+				spook.penetration = 100;
 				FakePrefab.MarkAsFakePrefab(projectile.gameObject);
 				UnityEngine.Object.DontDestroyOnLoad(projectile);
 				gun.DefaultModule.projectiles[0] = projectile;

@@ -12,7 +12,7 @@ using System.Collections;
 using Gungeon;
 using MonoMod.RuntimeDetour;
 using MonoMod;
-
+using SaveAPI;
 
 
 namespace BunnyMod
@@ -31,7 +31,9 @@ namespace BunnyMod
             lizardBlood.SetupItem(shortDesc, longDesc, "bny");
             lizardBlood.quality = PickupObject.ItemQuality.A;
             lizardBlood.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
-        }
+			lizardBlood.SetupUnlockOnCustomFlag(CustomDungeonFlags.INFUSION_GOOPTON_FLAG, true);
+			lizardBlood.AddItemToGooptonMetaShop(20, null);
+		}
 		private void KillCount(PlayerController player)
 		{
 			this.Killed += 1f;

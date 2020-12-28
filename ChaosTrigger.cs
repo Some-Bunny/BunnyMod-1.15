@@ -21,7 +21,7 @@ namespace BunnyMod
     {
         public static void Init()
         {
-            string itemName = "Bloody Trigger";
+            string itemName = "Chaos Trigger";
             string resourceName = "BunnyMod/Resources/bloodytrigger";
             GameObject obj = new GameObject(itemName);
             BloodyTrigger bloodyTrigger = obj.AddComponent<BloodyTrigger>();
@@ -29,12 +29,12 @@ namespace BunnyMod
             string shortDesc = "Bloodlust";
             string longDesc = "Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! Shoot! ";
             bloodyTrigger.SetupItem(shortDesc, longDesc, "bny");
-            bloodyTrigger.quality = PickupObject.ItemQuality.A;
+            bloodyTrigger.quality = PickupObject.ItemQuality.C;
             bloodyTrigger.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
             bloodyTrigger.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
             List<string> mandatoryConsoleIDs2 = new List<string>
             {
-                "bny:bloody_trigger",
+                "bny:chaos_trigger",
                 "lichy_trigger_finger"
             };
             CustomSynergies.Add("So it benefits you...", mandatoryConsoleIDs2, null, true);
@@ -48,26 +48,42 @@ namespace BunnyMod
         private IEnumerator death()
         {
             this.yees += 1f;
-            yield return new WaitForSeconds(0.25f);
+            PlayerController player = base.Owner as PlayerController;
+            bool flagA = player.PlayerHasActiveSynergy("Reunion");
+            if (flagA)
             {
-                this.yees -= 1f;
-                yield break;
+                yield return new WaitForSeconds(0.5f);
+                {
+                    this.yees -= 1f;
+                    yield break;
+                }
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.25f);
+                {
+                    this.yees -= 1f;
+                    yield break;
+                }
             }
         }
         protected override void Update()
         {
-            this.RemoveStat(PlayerStats.StatType.Damage);
-            bool flagA = base.Owner.PlayerHasActiveSynergy("So it benefits you...");
-            if (flagA)
+            if (base.Owner != null)
             {
-                this.AddStat(PlayerStats.StatType.Damage, (0.033f * yees), StatModifier.ModifyMethod.ADDITIVE);
-                base.Owner.stats.RecalculateStats(base.Owner, true, true);
-            }
-            else
-            {
+                this.RemoveStat(PlayerStats.StatType.Damage);
+                bool flagA = base.Owner.PlayerHasActiveSynergy("So it benefits you...");
+                if (flagA)
+                {
+                    this.AddStat(PlayerStats.StatType.Damage, (0.033f * yees), StatModifier.ModifyMethod.ADDITIVE);
+                    base.Owner.stats.RecalculateStats(base.Owner, true, true);
+                }
+                else
+                {
 
-                this.AddStat(PlayerStats.StatType.Damage, (0.025f * yees), StatModifier.ModifyMethod.ADDITIVE);
-                base.Owner.stats.RecalculateStats(base.Owner, true, true);
+                    this.AddStat(PlayerStats.StatType.Damage, (0.025f * yees), StatModifier.ModifyMethod.ADDITIVE);
+                    base.Owner.stats.RecalculateStats(base.Owner, true, true);
+                }
             }
         }
 

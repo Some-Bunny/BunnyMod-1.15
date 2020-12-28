@@ -101,14 +101,21 @@ namespace BunnyMod
 			}
 			this.passiveStatModifiers = list.ToArray();
 		}
-		private void OnEnemyDamaged(float damage, bool fatal, HealthHaver enemyHealth)
+		private void EatPen(float damage, bool fatal, HealthHaver enemyHealth)
         {
-            if (enemyHealth.specRigidbody != null)
+			PlayerController player = (GameManager.Instance.PrimaryPlayer);
+			if (enemyHealth.specRigidbody != null)
             {
                 bool flag = enemyHealth.aiActor && fatal;
                 if (flag)
-                {
-                    for (int counter = 0; counter < 2; counter++)
+				{
+					float num = 2;
+					bool sacrificeisabastard = player.HasPickupID(Game.Items["bny:sacrifice"].PickupObjectId);
+					if (sacrificeisabastard)
+					{
+						num /= 2;
+					}
+					for (int counter = 0; counter < num; counter++)
                     {
                         this.Revenge(enemyHealth.sprite.WorldCenter);
                     }
@@ -126,7 +133,7 @@ namespace BunnyMod
             boomer.explosionData.damage = 1;
             {
 				component2.HasDefaultTint = true;
-				component2.DefaultTintColor = new Color(10f, 0f, 0f).WithAlpha(0.5f);
+				component2.DefaultTintColor = new Color(10f, 0f, 0f).WithAlpha(1f);
 				component2.specRigidbody.AddCollisionLayerIgnoreOverride(CollisionMask.LayerToMask(CollisionLayer.EnemyCollider));
                 component2.specRigidbody.AddCollisionLayerIgnoreOverride(CollisionMask.LayerToMask(CollisionLayer.EnemyHitBox));
                 component2.AdjustPlayerProjectileTint(new Color((float)(40), (float)(40), 0f), 5, 0f);
@@ -141,11 +148,12 @@ namespace BunnyMod
         {
             this.CanBeDropped = false;
             base.Pickup(player);
-            player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
+            player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.EatPen));
         }
         public override DebrisObject Drop(PlayerController player)
         {
-            Tools.Print($"Player dropped {this.DisplayName}");
+			player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Remove(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.EatPen));
+
             return base.Drop(player);
         }
     }

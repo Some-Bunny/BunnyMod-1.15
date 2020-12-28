@@ -62,7 +62,9 @@ namespace BunnyMod
 			gun.quality = PickupObject.ItemQuality.S;
 			gun.encounterTrackable.EncounterGuid = "NOM NOM NOM NOM NOM NOM NOM NOM NOM NOM NOM  BLALALALALALALAAA";
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			Gunthemimic.GunthemimicID = gun.PickupObjectId;
 		}
+		public static int GunthemimicID;
 
 		// Token: 0x06000140 RID: 320 RVA: 0x0000D693 File Offset: 0x0000B893
 		public override void OnPostFired(PlayerController player, Gun gun)
@@ -111,7 +113,7 @@ namespace BunnyMod
 						for (int counter = 0; counter < 1; counter++)
 						{
 
-							playerController.CurrentRoom.ApplyActionToNearbyEnemies(playerController.CenterPosition, 4f, new Action<AIActor, float>(this.DEVOUR));
+							playerController.CurrentRoom.ApplyActionToNearbyEnemies(playerController.CenterPosition, 7f, new Action<AIActor, float>(this.DEVOUR));
 						}
 
 					}
@@ -133,6 +135,7 @@ namespace BunnyMod
 
 		private void DEVOUR(AIActor target, float distance)
 		{
+			if (target != null && !target.healthHaver.IsBoss)
 			{
 				GameManager.Instance.Dungeon.StartCoroutine(this.HandleEnemySuck(target));
 				target.EraseFromExistence(true);

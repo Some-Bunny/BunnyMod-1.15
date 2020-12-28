@@ -12,7 +12,7 @@ namespace BunnyMod
 
         public static void Init()
         {
-            string itemName = "The Lead Hand";
+            string itemName = "Lead Hand";
             string resourceName = "BunnyMod/Resources/theleadhand";
             GameObject obj = new GameObject(itemName);
             LeadHand leadhand = obj.AddComponent<LeadHand>();
@@ -44,27 +44,13 @@ namespace BunnyMod
             if (flag)
             {
                 this.random = UnityEngine.Random.Range(0.00f, 1.00f);
-                if (random <= 0.15f)
+                if (random <= 0.166f)
                 {
                     this.random = UnityEngine.Random.Range(0.00f, 1.00f);
                     if (random <= 0.99f)
                     {
-                        int num3 = UnityEngine.Random.Range(0, 3);
-                        bool flag3 = num3 == 0;
-                        if (flag3)
-                        {
-                            LootEngine.SpawnItem(PickupObjectDatabase.GetById(224).gameObject, enemyHealth.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);
-                        }
-                        bool flag4 = num3 == 1;
-                        if (flag4)
-                        {
-                            LootEngine.SpawnItem(PickupObjectDatabase.GetById(67).gameObject, enemyHealth.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);
-                        }
-                        bool flag6 = num3 == 2;
-                        if (flag6)
-                        {
-                            LootEngine.SpawnItem(PickupObjectDatabase.GetById(78).gameObject, enemyHealth.specRigidbody.UnitCenter, Vector2.right, 1f, false, true, false);
-                        }
+                        int id = BraveUtility.RandomElement<int>(LeadHand.Lootdrops);
+                        LootEngine.SpawnItem(PickupObjectDatabase.GetById(id).gameObject, enemyHealth.specRigidbody.UnitCenter, Vector2.zero, 0f, false, true, false);
                     }
                     else
                     {
@@ -92,7 +78,16 @@ namespace BunnyMod
         public bool IsBlackPhantom;
         public PickupObject.ItemQuality Spawnquality;
         public PassiveItem target;
-        private float random;
+        public static List<int> Lootdrops = new List<int>
+        {
+            73,
+            85,
+            120,
+            67,
+            224,
+            600,
+            78
+        }; private float random;
     }
 }
 

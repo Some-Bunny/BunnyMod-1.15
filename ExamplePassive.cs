@@ -125,12 +125,44 @@ namespace BunnyMod
         }
         protected override void DoEffect(PlayerController user)
         {
-            AkSoundEngine.PostEvent("Play_CHR_general_death_02", base.gameObject);
-            new WaitForSeconds(2f);
-            { 
-                GameManager.Instance.LoadCustomLevel("tt_bullethell"); 
-            }
+            GameManager.Instance.LoadCustomLevel("tt_bullethell");
+            //base.StartCoroutine(this.BanishEnemy(user));
         }
+        private IEnumerator BanishEnemy(PlayerController user)
+        {
+            AkSoundEngine.PostEvent("Play_CHR_general_death_02", base.gameObject);
+            //Tools.Print(enemy.transform.position, "FFFFFF", true);
+            //Tools.Print(enemy.specRigidbody.UnitBottomCenter, "FFFFFF", true);
+
+            float xOffset = user.specRigidbody.UnitBottomCenter.x - user.transform.position.x;
+            float yOffset = user.specRigidbody.UnitBottomCenter.y - user.transform.position.y;
+
+            GameObject hellPortal = UnityEngine.Object.Instantiate<GameObject>(this.hellSynergyVFX, user.transform.localPosition + new Vector3(xOffset, yOffset, 0f), Quaternion.Euler(45f, 0f, 0f), user.transform);
+            //Tools.Print(hellPortal.layer, "ffffff", true);
+            //Tools.Print(enemy.gameObject.layer, "ffffff", true);
+
+            MeshRenderer component = gameObject.GetComponent<MeshRenderer>();
+            component.material.SetFloat("_UVDistCutoff", 0f);
+            yield return new WaitForSeconds(this.introDuration);
+            float elapsed = 0f;
+            float duration = this.coreDuration;
+            float t = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += BraveTime.DeltaTime;
+                t = Mathf.Clamp01(elapsed / 0.25f);
+                component.material.SetFloat("_UVDistCutoff", Mathf.Lerp(0f, 0.21f, t));
+                yield return null;
+            }
+            GameManager.Instance.LoadCustomLevel("tt_bullethell");
+            //yield return new WaitForSeconds(0.6f);
+            yield break;
+        }
+
+        private float introDuration = 0.1f;
+        private float coreDuration = 0.5f;
+        private GameObject hellSynergyVFX = PickupObjectDatabase.GetById(155).GetComponent<SpawnObjectPlayerItem>().objectToSpawn.GetComponent<BlackHoleDoer>().HellSynergyVFX;
+
         private void ApplyStat(PlayerController player, PlayerStats.StatType statType, float amountToApply, StatModifier.ModifyMethod modifyMethod)
         {
             player.stats.RecalculateStats(player, false, false);
@@ -425,8 +457,25 @@ namespace BunnyMod
 
         protected override void DoEffect(PlayerController user)
         {
-            GameManager.Instance.LoadCustomLevel("bny_abyss_chamber");
+            Vector2 unitBottomLeft2 = user.sprite.WorldBottomCenter;
+            Vector2 unitTopRight2 = user.sprite.WorldTopCenter;
+            GameObject prefab2 = BraveUtility.RandomElement<GameObject>(this.bigExplosionVfx);
+            Vector2 v2 = BraveUtility.RandomVector2(unitBottomLeft2, unitTopRight2, new Vector2(1f, 1f));
+            tk2dBaseSprite component2 = SpawnManager.SpawnVFX(prefab2, v2, Quaternion.identity).GetComponent<tk2dBaseSprite>();
+            component2.HeightOffGround = 3f;
+            this.sprite.AttachRenderer(component2);
+            this.sprite.UpdateZDepth();
+            //GameManager.Instance.LoadCustomLevel("bny_abyss_chamber");
+            this.StoredGunId = user.CurrentGun.PickupObjectId;
+            BunnyModule.Log("Gun ID:" + this.StoredGunId);
+
         }
+        //public GameObject bigExplosionVfx;
+
+        //public GameObject bigExplosionVfx;
+        public List<GameObject> bigExplosionVfx;
+
+        private int StoredGunId;
     }
 }
 

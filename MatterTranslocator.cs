@@ -12,7 +12,7 @@ using System.Collections;
 using Gungeon;
 using MonoMod.RuntimeDetour;
 using MonoMod;
-
+using SaveAPI;
 
 
 namespace BunnyMod
@@ -22,32 +22,34 @@ namespace BunnyMod
 		// Token: 0x06000036 RID: 54 RVA: 0x000037D8 File Offset: 0x000019D8
 		public static void Add()
 		{
-			Gun flakcannon = ETGMod.Databases.Items.NewGun("Matter Translocator", "mattertranslocator");
+			Gun gun = ETGMod.Databases.Items.NewGun("Matter Translocator", "mattertranslocator");
 			Game.Items.Rename("outdated_gun_mods:matter_translocator", "bny:matter_translocator");
-			flakcannon.gameObject.AddComponent<MatterTranslocator>();
-			GunExt.SetShortDescription(flakcannon, "Tele-Tech");
-			GunExt.SetLongDescription(flakcannon, "The most stable and well-calibrated portable teleporter available for use. As with all things, it's weaponized.");
-			GunExt.SetupSprite(flakcannon, null, "mattertranslocator_idle_001", 11);
-			GunExt.SetAnimationFPS(flakcannon, flakcannon.shootAnimation, 15);
-			GunExt.SetAnimationFPS(flakcannon, flakcannon.reloadAnimation, 12);
-			GunExt.SetAnimationFPS(flakcannon, flakcannon.idleAnimation, 5);
-			GunExt.AddProjectileModuleFrom(flakcannon, "magnum", true, false);
-			flakcannon.barrelOffset.transform.localPosition = new Vector3(2.3125f, 0.625f, 0f);
-			flakcannon.DefaultModule.ammoCost = 1;
-			flakcannon.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
-			flakcannon.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
-			flakcannon.reloadTime = 3f;
-			flakcannon.DefaultModule.cooldownTime = .1f;
-			flakcannon.DefaultModule.numberOfShotsInClip = 1;
-			flakcannon.SetBaseMaxAmmo(30);
-			flakcannon.quality = PickupObject.ItemQuality.A;
-			flakcannon.DefaultModule.angleVariance = 0f;
-			flakcannon.DefaultModule.burstShotCount = 1;
-			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(flakcannon.DefaultModule.projectiles[0]);
+			gun.gameObject.AddComponent<MatterTranslocator>();
+			GunExt.SetShortDescription(gun, "Tele-Tech");
+			GunExt.SetLongDescription(gun, "The most stable and well-calibrated portable teleporter available for use. As with all things, it's weaponized.");
+			GunExt.SetupSprite(gun, null, "mattertranslocator_idle_001", 11);
+			GunExt.SetAnimationFPS(gun, gun.shootAnimation, 15);
+			GunExt.SetAnimationFPS(gun, gun.reloadAnimation, 12);
+			GunExt.SetAnimationFPS(gun, gun.idleAnimation, 5);
+			GunExt.AddProjectileModuleFrom(gun, "magnum", true, false);
+			gun.barrelOffset.transform.localPosition = new Vector3(2.3125f, 0.625f, 0f);
+			gun.DefaultModule.ammoCost = 1;
+			gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
+			gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
+			gun.reloadTime = 3f;
+			gun.DefaultModule.cooldownTime = .1f;
+			gun.DefaultModule.numberOfShotsInClip = 1;
+			gun.SetBaseMaxAmmo(30);
+			gun.quality = PickupObject.ItemQuality.A;
+			gun.DefaultModule.angleVariance = 0f;
+			gun.DefaultModule.burstShotCount = 1;
+			//gun.SetupUnlockOnCustomFlag(CustomDungeonFlags.EXAMPLE_BLUEPRINTTRUCK, true);
+			gun.AddItemToTrorcMetaShop(50, null);
+			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(gun.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
 			UnityEngine.Object.DontDestroyOnLoad(projectile);
-			flakcannon.DefaultModule.projectiles[0] = projectile;
+			gun.DefaultModule.projectiles[0] = projectile;
 			projectile.baseData.damage = 60f;
 			projectile.baseData.speed *= .35f;
 			projectile.AdditionalScaleMultiplier = 0.85f;
@@ -59,14 +61,14 @@ namespace BunnyMod
 			bouncy.numberOfBounces = 100;
 			PierceProjModifier spook = projectile.gameObject.AddComponent<PierceProjModifier>();
 			spook.penetration = 100;
-			flakcannon.encounterTrackable.EncounterGuid = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-			ETGMod.Databases.Items.Add(flakcannon, null, "ANY");
-			flakcannon.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
-			flakcannon.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+			gun.encounterTrackable.EncounterGuid = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+			ETGMod.Databases.Items.Add(gun, null, "ANY");
+			gun.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
+			gun.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 
 		}
 
-		public override void OnPostFired(PlayerController player, Gun flakcannon)
+		public override void OnPostFired(PlayerController player, Gun gun)
 		{
 			gun.PreventNormalFireAudio = true;
 			AkSoundEngine.PostEvent("Play_BOSS_RatMech_Cannon_01", base.gameObject);
@@ -89,7 +91,7 @@ namespace BunnyMod
 			}
 		}
 
-		public override void OnReloadPressed(PlayerController player, Gun flakcannon, bool bSOMETHING)
+		public override void OnReloadPressed(PlayerController player, Gun gun, bool bSOMETHING)
 		{
 			if (gun.IsReloading && this.HasReloaded)
 			{

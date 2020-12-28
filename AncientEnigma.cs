@@ -28,9 +28,7 @@ namespace BunnyMod
             string shortDesc = "... And the abyss gazes back";
             string longDesc = "A perfectly contained chunk of reality. It's existence is permanent,as it has written itself into a constant.\n\nIt releases some of its concepts over time, altering you for the better or worse.";
             ancientEngima.SetupItem(shortDesc, longDesc, "bny");
-            ancientEngima.quality = PickupObject.ItemQuality.B;
-            ancientEngima.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
-            ancientEngima.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
+            ancientEngima.quality = PickupObject.ItemQuality.SPECIAL;
         }
         private void Enigmatize(PlayerController user)
         {

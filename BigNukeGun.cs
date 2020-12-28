@@ -40,7 +40,7 @@ namespace BunnyMod
 			gun.DefaultModule.numberOfShotsInClip = 1;
 			gun.SetBaseMaxAmmo(5);
 			gun.quality = PickupObject.ItemQuality.S;
-			gun.encounterTrackable.EncounterGuid = "nuclear_armageddon";
+			gun.encounterTrackable.EncounterGuid = "a gigiantic ass nuclear weapon gun holy shit why isnt this illegal on every single planet oh ghd oh fuck";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(gun.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);
@@ -131,6 +131,8 @@ namespace BunnyMod
 			DeadlyDeadlyGoopManager goopManagerForGoopType = DeadlyDeadlyGoopManager.GetGoopManagerForGoopType(goopDefinition);
 			goopManagerForGoopType.TimedAddGoopCircle(projectile.sprite.WorldCenter, 10f, 0.1f, false);
 			this.Nuke = assetBundle.LoadAsset<GameObject>("assets/data/vfx prefabs/impact vfx/vfx_explosion_nuke.prefab");
+			//this.Nuke = assetBundle.LoadAsset<GameObject>("assets/data/vfx prefabs/impact vfx/vfx_explosion_big_new.prefab");
+
 			GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(this.Nuke);
 			gameObject2.GetComponent<tk2dBaseSprite>().PlaceAtLocalPositionByAnchor(projectile.specRigidbody.UnitCenter, tk2dBaseSprite.Anchor.LowerCenter);
 			gameObject2.transform.position = gameObject.transform.position.Quantize(0.0625f);

@@ -11,23 +11,29 @@ using System.Reflection;
 using MonoMod.Utils;
 using Dungeonator;
 using Brave.BulletScript;
+using Random = System.Random;
+using FullSerializer;
+using System.Collections;
+using Gungeon;
+using SaveAPI;
 
 namespace BunnyMod
 {
 	// Token: 0x02000008 RID: 8
 	public class BunnyModule : ETGModule
 	{
+		public static AdvancedStringDB Strings;
 
 		// Token: 0x0600001B RID: 27 RVA: 0x000028E8 File Offset: 0x00000AE8
 		public override void Start()
 		{
+			BreachShopTool.DoSetup();
+			BossBuilder.Init()
+;			MultiActiveReloadManager.SetupHooks();
 			ItemBuilder.Init();
-			FakePrefabHooks.Init();
 			HookYeah.Init();
-			GungeonAPI.GungeonAP.Init();
 			FakePrefabHooks.Init();
 			GungeonAPI.Tools.Init();
-			//ItemAPI.FakePrefabHooks.Init();
 			GungeonAP.Init();
 			FakePrefabHooks.Init();
 			ShrineFactory.Init();
@@ -37,9 +43,9 @@ namespace BunnyMod
 			ShatterEffect.Initialise();
 			ShrineOfTheLeadLord.Add();
 			ChaosCorruptionShrine.Add();
-
+			PleaseForgiveMe.Add();
 			BunnyModule.Strings = new AdvancedStringDB();
-			SpecialDungeon.Init();
+			//SpecialDungeon.Init();
 
 			EnemyBuilder.Init();
 			HooksEnemy.Init();
@@ -57,8 +63,8 @@ namespace BunnyMod
 			ArtifactOfHatred.Init();
 			ArtifactOfEnigma.Init();
 			ArtifactOfSacrifice.Init();
-
-
+			ArtifactOfFraility.Init();
+			//ArtifactOfParanoia.Init();
 
 			ModuleCannon.Add();
 			ModuleChip.Init();
@@ -92,13 +98,14 @@ namespace BunnyMod
 			Commiter.Add();
 			Pickshot.Add();
 			AerialBombardment.Add();
+			WarningShot.Add();
 
 
 			//Mimic Guns
 			Casemimic.Add();
+			ChambemimicGun.Add();
 			ABlasphemimic.Add();
 			Gunthemimic.Add();
-			
 			Mimikey47.Add();
 
 			//Mechanical Guns
@@ -127,6 +134,7 @@ namespace BunnyMod
 			ChaosRevolverSynergyForme.Add();
 			ChaosHand.Add();
 			NuclearTentacle.Add();
+			SteveStaff.Add();
 
 			//Outright Wacky weaponry
 			Valkyrie.Add();
@@ -141,7 +149,7 @@ namespace BunnyMod
 			Microwave.Add();
 			//Dumb Guns
 			StickGun.Add();
-			BulletCaster.Add();
+			//BulletCaster.Add();
 			SausageRevolver.Add();
 			BloatedRevolver.Add();
 			PocketPistol.Add();
@@ -163,7 +171,6 @@ namespace BunnyMod
 			JokeBook.Init();
 			//Mechanical Items
 			OnPlayerItemUsedItem.Init();
-			BloodyTrigger.Init();
 			StaticCharger.Init();
 
 			//Bullet Type Items
@@ -212,14 +219,17 @@ namespace BunnyMod
 			SoulInAJar.Init();
 			AmmoRepurposer.Init();
 			ZenithDesign.Init();
+			ChaosGodsWrath.Register();
 			SkyGrass.Init();
 			ChaosChamber.Init();
-			ChaosGodsWrath.Register();
+			ChaosHammer.Init();
+			BloodyTrigger.Init();
+
 			Coolrobes.Init();
 			//Companion Items/CompanionAI
-			Claycord.Init();
+			//Claycord.Init();
 			Blastcore.Init();
-			ClayCordStatue.ClayBuildPrefab();
+			//ClayCordStatue.ClayBuildPrefab();
 			GunSoulBox.Init();
 			GunSoulBlue.BlueBuildPrefab();
 			GunSoulGreen.GreenBuildPrefab();
@@ -253,6 +263,15 @@ namespace BunnyMod
 			Keyceipt.Init();
 			FrequentFlyer.Init();
 
+			Death.Add();
+			Taxes.Add();
+			Lacon1Scrap.Register();
+			Lacon1.Add();
+			Lacon2.Add();
+			Lacon3.Add();
+			Lacon4.Add();
+			Lacon5.Add();
+			Lacon6.Add();
 			//Vengeance.Init();
 			TestItemBNY.Init();
 			DragunHeartThing.Init();
@@ -263,12 +282,26 @@ namespace BunnyMod
 			//AbyssKinPlease.Init();
 			//AbyssShotgunner.Init();
 			ChaosBeing.Init();
+			ChaosBeingLarge.Init();
+			//DopplegamnerClone.Init();
 			AncientWhisperInfinite.Init();
 			CursedPearl.Init();
 			RewardCrown.Init();
 			ChaosMalice.Add();
 			ChaosEmblem.Register();
 			Curse2Emblem.Register();
+
+
+			DeathsDebt.Init();
+			
+			SteadyShotSniper.Add();
+			TheStranger.Init();
+			//TheStranger.Init();
+			//AdrenalineAmmolet.Init();
+			//Game.Items["bny:matter_translocator"].SetupUnlockOnCustomFlag(CustomDungeonFlags.EXAMPLE_BLUEPRINTTRUCK, true); //setups rolling eye's unlock
+			//Game.Items["bny:matter_translocator"].AddItemToTrorcMetaShop(1123); //adds rolling eye to trorc's breach shop as the last item
+
+
 			BunnyModule.Log(BunnyModule.MOD_NAME + " v" + BunnyModule.VERSION + " started successfully.", BunnyModule.TEXT_COLOR);
 		}
 		public static void LateStart1(Action<Foyer> orig, Foyer self1)
@@ -372,59 +405,111 @@ namespace BunnyMod
 				}
 			}
 		}
-		/*
-		public static void LootCurse(Action<Chest, PlayerController> orig, Chest self, PlayerController player)
+		public static void LaconUps(Action<AIActor, Vector2> orig, AIActor self, Vector2 finalDamageDirection)
 		{
-			bool harderlotj = GungeonAPI.JammedSquire.NoHarderLotJ;
-			if (harderlotj)
+			PlayerController player = (GameManager.Instance.PrimaryPlayer);
+			orig(self, finalDamageDirection);
 			{
-				orig(self, player);
-			}
-			else
-			{
-
-				float num = 0f;
-				orig(self, player);
-				num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
-				BunnyModule.random = UnityEngine.Random.Range(0.0f, 1.0f);
-				if (BunnyModule.random <= (num / 16) + (1 * (num / 10)))
+				bool ae = self.IsHarmlessEnemy;
+				if (!ae)
 				{
-					int num3 = UnityEngine.Random.Range(0, 3);
-					bool flag3 = num3 == 0;
-					if (flag3)
+					bool moduledrops = player.HasPickupID(Game.Items["bny:lacon_mk.1"].PickupObjectId) || player.HasPickupID(Game.Items["bny:lacon_mk.2"].PickupObjectId) || player.HasPickupID(Game.Items["bny:lacon_mk.3"].PickupObjectId) || player.HasPickupID(Game.Items["bny:lacon_mk.4"].PickupObjectId) || player.HasPickupID(Game.Items["bny:lacon_mk.5"].PickupObjectId);
+					if (moduledrops)
 					{
-						LootEngine.SpawnItem(PickupObjectDatabase.GetById(224).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-					}
-					bool flag4 = num3 == 1;
-					if (flag4)
-					{
-						LootEngine.SpawnItem(PickupObjectDatabase.GetById(67).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-					}
-					bool flag6 = num3 == 2;
-					if (flag6)
-					{
-						LootEngine.SpawnItem(PickupObjectDatabase.GetById(78).gameObject, self.specRigidbody.UnitCenter, Vector2.down, .7f, false, true, false);
-					}
-					
-				}
-				BunnyModule.chanceagain = UnityEngine.Random.Range(0.0f, 1.0f);
-				if (BunnyModule.random <= (num / 11.4f) * (1.01 * (num / 12)))
-				{
-					bool flag = !GameStatsManager.Instance.IsRainbowRun && self && self.contents != null;
-					if (flag)
-					{
-						foreach (PickupObject pickupObject in self.contents)
+						BunnyModule.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
+						if (BunnyModule.rnge <= (0.03))
 						{
-
-							{
-								GameManager.Instance.RewardManager.SpawnTotallyRandomItem(player.specRigidbody.UnitCenter, pickupObject.quality, pickupObject.quality);
-							}
+							LootEngine.SpawnItem(PickupObjectDatabase.GetById(Lacon1Scrap.Scrap1ID).gameObject, self.specRigidbody.UnitCenter, Vector2.down, 0f, false, true, false);
 						}
 					}
 				}
 			}
 		}
-		*/
+		public static void ChaosIncursion(Action<AIActor, Vector2> orig, AIActor self, Vector2 finalDamageDirection)
+		{
+			PlayerController player = (GameManager.Instance.PrimaryPlayer);
+			orig(self, finalDamageDirection);
+			{
+				bool ae = self.IsHarmlessEnemy;
+				if (!ae)
+				{
+					float num = 0;
+					bool ChaosIncursion = player.HasPickupID(Game.Items["bny:chaos_chamber"].PickupObjectId);
+					if (ChaosIncursion)
+					{
+						num += 0.0075f;
+					}
+					bool ChaosIncursion1 = player.HasPickupID(Game.Items["bny:chaos_revolver"].PickupObjectId);
+					if (ChaosIncursion1)
+					{
+						num += 0.0075f;
+					}
+					bool ChaosIncursion2 = player.HasPickupID(Game.Items["bny:chaos_trigger"].PickupObjectId);
+					if (ChaosIncursion2)
+					{
+						num += 0.0075f;
+					}
+					bool ChaosIncursion3 = player.HasPickupID(Game.Items["bny:chaos_hammer"].PickupObjectId);
+					if (ChaosIncursion3)
+					{
+						num += 0.0075f;
+					}
+					bool flagA = player.PlayerHasActiveSynergy("Reunion");
+					if (flagA)
+                    {
+						num += 0.015f;
+					}
+					GameObject obj = new GameObject();
+					BunnyModule.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
+					if (BunnyModule.rnge <= (num))
+					{
+						float num1 = 0;
+						num1 = UnityEngine.Random.Range(1f, 5);
+						for (int counter = 0; counter < num1; counter++)
+						{
+							string guid;
+							guid = "ChaosBeing";
+							PlayerController owner = player;
+							AIActor orLoadByGuid = EnemyDatabase.GetOrLoadByGuid(guid);
+							IntVector2? intVector = new IntVector2?(player.CurrentRoom.GetRandomVisibleClearSpot(2, 2));
+							AIActor aiactor = AIActor.Spawn(orLoadByGuid.aiActor, intVector.Value, GameManager.Instance.Dungeon.data.GetAbsoluteRoomFromPosition(intVector.Value), true, AIActor.AwakenAnimationType.Default, true);
+							aiactor.CanTargetEnemies = false;
+							aiactor.CanTargetPlayers = true;
+							PhysicsEngine.Instance.RegisterOverlappingGhostCollisionExceptions(aiactor.specRigidbody, null, false);
+							aiactor.IsHarmlessEnemy = false;
+							aiactor.IgnoreForRoomClear = true;
+							aiactor.HandleReinforcementFallIntoRoom(-1f);
+							SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, aiactor.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(aiactor.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+							SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, aiactor.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(aiactor.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+							SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, aiactor.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(aiactor.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+
+						}
+						if (num1 >= 3)
+						{
+							string guid;
+							guid = "ChaosBeingLarge";
+							PlayerController owner = player;
+							AIActor orLoadByGuid = EnemyDatabase.GetOrLoadByGuid(guid);
+							IntVector2? intVector = new IntVector2?(player.CurrentRoom.GetRandomVisibleClearSpot(2, 2));
+							AIActor aiactor = AIActor.Spawn(orLoadByGuid.aiActor, intVector.Value, GameManager.Instance.Dungeon.data.GetAbsoluteRoomFromPosition(intVector.Value), true, AIActor.AwakenAnimationType.Default, true);
+							aiactor.CanTargetEnemies = false;
+							aiactor.CanTargetPlayers = true;
+							PhysicsEngine.Instance.RegisterOverlappingGhostCollisionExceptions(aiactor.specRigidbody, null, false);
+							aiactor.IsHarmlessEnemy = false;
+							aiactor.IgnoreForRoomClear = true;
+							aiactor.HandleReinforcementFallIntoRoom(-1f);
+							SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, aiactor.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(aiactor.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+							SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, aiactor.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(aiactor.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+							SpawnManager.SpawnVFX((PickupObjectDatabase.GetById(573) as ChestTeleporterItem).TeleportVFX, aiactor.sprite.WorldCenter.ToVector3ZisY(0f), Quaternion.identity).GetComponent<tk2dBaseSprite>().PlaceAtPositionByAnchor(aiactor.sprite.WorldCenter.ToVector3ZisY(0f), tk2dBaseSprite.Anchor.MiddleCenter);
+						}
+						AkSoundEngine.PostEvent("Play_wpn_voidcannon_shot_01", obj);
+						
+					}
+				}
+			}
+		}
+		private static float rnge;
+
 		// Token: 0x0600001D RID: 29 RVA: 0x00002979 File Offset: 0x00000B79
 		public override void Exit()
 		{
@@ -433,6 +518,14 @@ namespace BunnyMod
 		// Token: 0x0600001E RID: 30 RVA: 0x0000297C File Offset: 0x00000B7C
 		public override void Init()
 		{
+			try
+			{
+				SaveAPIManager.Setup("bny");
+			}
+			catch (Exception arg)
+			{
+				ETGModConsole.Log(string.Format("{0}", arg), false);
+			}
 			JammedSquire.NoHarderLotJ = true;
 			ETGMod.AIActor.OnPreStart = (Action<AIActor>)Delegate.Combine(ETGMod.AIActor.OnPreStart, new Action<AIActor>(this.Jamnation));
 		}
@@ -445,7 +538,7 @@ namespace BunnyMod
 				float num = 0f;
 				num = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 				this.RANDOM4JAM = UnityEngine.Random.Range(0.00f, 1.00f);
-				if (this.RANDOM4JAM <= ((num/45f)*(1+num/3f))+0.035f)
+				if (this.RANDOM4JAM <= ((num/50f)*(1+num/3f))+0.03f)
                 {
 					bool jam = enemy.IsBlackPhantom;
 					if (!jam)
@@ -477,7 +570,6 @@ namespace BunnyMod
 		[NonSerialized]
 		public Vector2 knockbackComponent;
 		public static BulletScriptSource m_bulletSource;
-		public static AdvancedStringDB Strings;
 
 	}
 }

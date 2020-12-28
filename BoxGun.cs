@@ -40,7 +40,7 @@ namespace BunnyMod
 			gun.DefaultModule.numberOfShotsInClip = 4;
 			gun.SetBaseMaxAmmo(100);
 			gun.quality = PickupObject.ItemQuality.B;
-			gun.encounterTrackable.EncounterGuid = "cargo_loader";
+			gun.encounterTrackable.EncounterGuid = "B O X";
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(gun.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
 			FakePrefab.MarkAsFakePrefab(projectile.gameObject);

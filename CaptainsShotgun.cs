@@ -61,7 +61,7 @@ namespace BunnyMod
 			gun.SetBaseMaxAmmo(160);
 			gun.muzzleFlashEffects = (PickupObjectDatabase.GetById(57) as Gun).muzzleFlashEffects;
 			gun.quality = PickupObject.ItemQuality.B;
-			gun.encounterTrackable.EncounterGuid = "Cheer up Bunny ^ᴗ^ (i dont want to change this, at the very least not remove it) still doing this";
+			gun.encounterTrackable.EncounterGuid = "I'M NOT STUCK HERE WITH YOU, YOU'RE STUCK HERE WITH ME! MWAHAAHAHAHAHAHHAHAHAHAHAAHAHHA!";
 			//thanks Hunter, i really needed that, i wish you the best, cause you da best o7
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
 			List<string> mandatoryConsoleIDs15 = new List<string>

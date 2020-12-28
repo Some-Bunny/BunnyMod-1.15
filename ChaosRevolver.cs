@@ -26,7 +26,7 @@ namespace BunnyMod
 			Game.Items.Rename("outdated_gun_mods:chaos_revolver", "bny:chaos_revolver");
 			chaosgun.gameObject.AddComponent<ChaosRevolver>();
 			GunExt.SetShortDescription(chaosgun, "Predictable Gun");
-			GunExt.SetLongDescription(chaosgun, "A legendary gun that was sealed away because it was thought to speak ancient secrets, when in reality the Chamber was.\n\nWhile the gun was sealed away, the Chamber managed to escape, leaving the innocent weapon behind. You are lucky to resurface it.");
+			GunExt.SetLongDescription(chaosgun, "A legendary gun that was pulled apart because it was thought to speak ancient secrets.\n\nSome say if one is able to assemble it back together, they will have a weapon of immeasurable power on their hands.");
 			GunExt.SetupSprite(chaosgun, null, "chaosrevolver_idle_001", 25);
 			GunExt.SetAnimationFPS(chaosgun, chaosgun.shootAnimation, 14);
 			GunExt.SetAnimationFPS(chaosgun, chaosgun.reloadAnimation, 8);
@@ -43,7 +43,6 @@ namespace BunnyMod
 			chaosgun.DefaultModule.angleVariance = 15f;
 			chaosgun.DefaultModule.burstShotCount = 1;
 			chaosgun.encounterTrackable.EncounterGuid = "chaosgun";
-			ChaosRevolver.ChaosRevolverID = chaosgun.PickupObjectId;
 			chaosgun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 			Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(chaosgun.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
@@ -57,6 +56,7 @@ namespace BunnyMod
 			spook.penetration = 4;
 			projectile.SetProjectileSpriteRight("chaosrevolver_projectile_001", 10, 10, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(7), new int?(7), null, null, null);
 			ETGMod.Databases.Items.Add(chaosgun, null, "ANY");
+			ChaosRevolver.ChaosRevolverID = chaosgun.PickupObjectId;
 			chaosgun.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
 
 		}
@@ -79,7 +79,7 @@ namespace BunnyMod
 				homing.HomingRadius = 2.5f;
 				homing.AngularVelocity = 5000;
 			}
-
+				
 		}
 
 		public override void OnPostFired(PlayerController player, Gun chaosgun)
