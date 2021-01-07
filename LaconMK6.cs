@@ -30,7 +30,6 @@ namespace BunnyMod
             gun.gunClass = GunClass.BEAM;
             gun.barrelOffset.transform.localPosition = new Vector3(1.875f, 0.4375f, 0f);
 
-            gun.DefaultModule.cooldownTime = 0.01f;//dunno if it's useful, don't think so 
             gun.DefaultModule.numberOfShotsInClip = 30;
             gun.SetBaseMaxAmmo(300);
 
@@ -51,23 +50,18 @@ namespace BunnyMod
             projectile.baseData.speed *= 2.5f;
             projectile.baseData.range *= 2.25f;
 
-            projectile.PenetratesInternalWalls = true;//doesn't seem to work
-
-
-            projectile.AdditionalScaleMultiplier = 10f;//doesn't work on beam width apparently here
-            projectile.AdjustPlayerProjectileTint(Color.magenta, 10, 1f); //doesn't change anything here
-
-            //doesn't work here
-            BounceProjModifier bounceMod = projectile.gameObject.GetOrAddComponent<BounceProjModifier>();
-            bounceMod.numberOfBounces = 4;
-            PierceProjModifier pierceMod = projectile.gameObject.GetOrAddComponent<PierceProjModifier>();
-            pierceMod.penetratesBreakables = true;
-            pierceMod.penetration = 5;
-
+            BasicBeamController beam = projectile.GetComponentInChildren<BasicBeamController>();
+            if (!beam.IsReflectedBeam)
+            {
+                //beam.reflections = 0;
+            }
+            //beam.usesChargeDelay = true;
+            //beam.chargeDelay = 0.5f;
+            beam.penetration += 10;
+            beam.PenetratesCover = true;
 
             gun.quality = PickupObject.ItemQuality.SPECIAL;
 
-            //projectile.SetProjectileSpriteRight("build_projectile", 5, 5);
 
             ETGMod.Databases.Items.Add(gun, null, "ANY");
 
@@ -126,22 +120,22 @@ namespace BunnyMod
 
         private void PostProcessBeam(BeamController beam)
         {
-            beam.AdjustPlayerBeamTint(Color.magenta, 1); //works
             if (beam is BasicBeamController)
             {
                 BasicBeamController basicBeamController = (beam as BasicBeamController);
-                basicBeamController.penetration += 10; //it works 
-                if (!basicBeamController.IsReflectedBeam)
+                if (basicBeamController.Gun == this.gun)
                 {
-                    //basicBeamController.reflections = 5; //reflection = bounce and it works 
-                    //create lag when hitting a broken lamp thingy on walls though for some reasons
+                    beam.AdjustPlayerBeamTint(Color.magenta, 1); //works
+                    basicBeamController.ProjectileScale = 1.5f;
+                    basicBeamController.DamageModifier = 80f;
                 }
+                /*
+                basicBeamController.penetration += 10; //it works 
+
                 basicBeamController.ProjectileScale = 1.5f;//it works !!!
                 basicBeamController.PenetratesCover = true; //works to pass through tables
-                basicBeamController.DamageModifier = 80f;
-                //basicBeamController.homingRadius = 9999f;//work
-                //basicBeamController.homingAngularVelocity = 9999f;//work
                 basicBeamController.projectile.PenetratesInternalWalls = true;//don't work
+                */
             }
         }
     }

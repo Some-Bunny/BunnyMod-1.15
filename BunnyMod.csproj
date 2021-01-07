@@ -94,6 +94,7 @@
     <Compile Include="AdvancedStrings1.cs" />
     <Compile Include="AdvancedStrings2.cs" />
     <Compile Include="ArtifactOfParanoia.cs" />
+    <Compile Include="GungeonAPI\EnemyAPI\OverrideBehavior.cs" />
     <Compile Include="GungeonAPI\EnemyCode\BossBuilder.cs" />
     <Compile Include="GungeonAPI\EnemyCode\TheStrangerIntro.cs" />
     <Compile Include="GungeonAPI\EnemyCode\TheStranger.cs" />
@@ -158,7 +159,6 @@
     <Compile Include="GungeonAPI\JammedSquireInteractable.cs" />
     <Compile Include="GungeonAPI\EnemyAPI\EnemyOverwriteCode.cs" />
     <Compile Include="GungeonAPI\EnemyAPI\Hooks.cs" />
-    <Compile Include="GungeonAPI\EnemyAPI\OverrideBehavior.cs" />
     <Compile Include="GungeonAPI\EnemyAPI\Tools.cs" />
     <Compile Include="GungeonAPI\EnemyCode\AbyssKin.cs" />
     <Compile Include="GungeonAPI\ChaosCorruptionShrine.cs" />

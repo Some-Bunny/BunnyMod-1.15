@@ -152,7 +152,7 @@ namespace BunnyMod
                 }
             }
             base.Owner.stats.RecalculateStats(base.Owner, true);
-            yield return new WaitForSeconds(0.2f);
+            yield return null;
             foreach (PlayerStats.StatType stat in statTypes)
             {
                 this.previousStats[stat] = -1;

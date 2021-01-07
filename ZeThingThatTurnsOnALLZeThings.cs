@@ -433,7 +433,7 @@ namespace BunnyMod
 				bool ae = self.IsHarmlessEnemy;
 				if (!ae)
 				{
-					float num = 0;
+					float num = 0.00001f;
 					bool ChaosIncursion = player.HasPickupID(Game.Items["bny:chaos_chamber"].PickupObjectId);
 					if (ChaosIncursion)
 					{
@@ -554,7 +554,7 @@ namespace BunnyMod
 		public static readonly string MOD_NAME = "Some Bunnys Content Mod";
 
 		// Token: 0x04000002 RID: 2
-		public static readonly string VERSION = "1.16.0 test";
+		public static readonly string VERSION = "1.16.2";
 
 		// Token: 0x04000003 RID: 3
 		public static readonly string TEXT_COLOR = "#316316";

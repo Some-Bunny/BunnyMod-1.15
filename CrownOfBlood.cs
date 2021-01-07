@@ -40,13 +40,14 @@ namespace BunnyMod
         }
         private void CrownCraze()
         {
-            GameManager.Instance.StartCoroutine(AhShitWereGoGoAgain());
-
+            CrownOfBlood.NotTriggeredCrown = true;
         }
+        //private float fuckyou = 0;
         private IEnumerator AhShitWereGoGoAgain()
         {
             yield return new WaitForSeconds(3.5f);
             {
+
                 bool isInCombat = base.Owner.IsInCombat;
                 if (isInCombat)  
                 {
@@ -387,17 +388,30 @@ namespace BunnyMod
             }
             yield break;
         }
+        private void OnEnemyDamaged(float damage, bool fatal, HealthHaver enemy)
+        {
+            if (CrownOfBlood.NotTriggeredCrown)
+            {
+                GameManager.Instance.StartCoroutine(AhShitWereGoGoAgain());
+                CrownOfBlood.NotTriggeredCrown = false;
+            }
+        }
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
-            Tools.Print($"Player picked up {this.DisplayName}");
-            player.OnEnteredCombat += (Action)Delegate.Combine(player.OnEnteredCombat, new Action(this.CrownCraze));
+            player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
+            player.OnEnteredCombat += (Action)Delegate.Combine(player.OnEnteredCombat, new Action(this.resetBool));
         }
         public override DebrisObject Drop(PlayerController player)
         {
-            player.OnEnteredCombat -= (Action)Delegate.Combine(player.OnEnteredCombat, new Action(this.CrownCraze));
-            Tools.Print($"Player dropped {this.DisplayName}");
+            player.OnEnteredCombat = (Action)Delegate.Remove(player.OnEnteredCombat, new Action(this.resetBool));
+            player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Remove(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
             return base.Drop(player);
         }
+        public void resetBool()
+        {
+            CrownOfBlood.NotTriggeredCrown = true;
+        }
+        private static bool NotTriggeredCrown = true;
     }
 }
