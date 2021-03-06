@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using GungeonAPI;
-using MonoMod.RuntimeDetour;
-using UnityEngine;
-using Dungeonator;
+﻿	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Reflection;
+	using GungeonAPI;
+	using MonoMod.RuntimeDetour;
+	using UnityEngine;
+	using Dungeonator;
 
 namespace BunnyMod
 {
@@ -23,7 +23,7 @@ namespace BunnyMod
 				Hook openchesthook = new Hook(typeof(Chest).GetMethod("Open", BindingFlags.Instance | BindingFlags.NonPublic), typeof(BunnysFoot).GetMethod("LootPlus"));
 				
 				//Hook curse = new Hook(typeof(Chest).GetMethod("Open", BindingFlags.Instance | BindingFlags.NonPublic), typeof(BunnyModule).GetMethod("LootCurse"));
-				Hook a = new Hook(typeof(PlayerController).GetProperty("LocalShaderName", BindingFlags.Public | BindingFlags.Instance).GetGetMethod(),typeof(BunnyModule).GetMethod("LocalShaderNameGetHook"));
+				//Hook a = new Hook(typeof(PlayerController).GetProperty("LocalShaderName", BindingFlags.Public | BindingFlags.Instance).GetGetMethod(),typeof(BunnyModule).GetMethod("LocalShaderNameGetHook"));
 				//Hook ascrifice = new Hook(typeof(Chest).GetMethod("Open", BindingFlags.Instance | BindingFlags.NonPublic), typeof(ArtifactOfSacrifice).GetMethod("Lootless"));
 				
 				Hook ascrifice1 = new Hook(typeof(Chest).GetMethod("OnBroken", BindingFlags.Instance | BindingFlags.NonPublic), typeof(ArtifactOfSacrifice).GetMethod("DenyDrops"));

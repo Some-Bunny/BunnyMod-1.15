@@ -16,7 +16,7 @@ namespace BunnyMod
 {
     public class MinigunRounds : PassiveItem
     {
-        public static void Register()
+        public static void Init()
         {
             string itemName = "Minigun Clip";
 
@@ -42,18 +42,6 @@ namespace BunnyMod
             minigunrounds.AddPassiveStatModifier(PlayerStats.StatType.RateOfFire, 2.25f, StatModifier.ModifyMethod.MULTIPLICATIVE);
             minigunrounds.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
             minigunrounds.quality = PickupObject.ItemQuality.B;
-        }
-
-        public override void Pickup(PlayerController player)
-        {
-            base.Pickup(player);
-            Tools.Print($"Player picked up {this.DisplayName}");
-        }
-
-        public override DebrisObject Drop(PlayerController player)
-        {
-            Tools.Print($"Player dropped {this.DisplayName}");
-            return base.Drop(player);
         }
     }
 }

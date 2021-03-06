@@ -6,6 +6,7 @@ using Dungeonator;
 using MonoMod.RuntimeDetour;
 using UnityEngine;
 
+/*
 namespace BunnyMod
 {
 	// Token: 0x02000084 RID: 132
@@ -116,3 +117,4 @@ namespace BunnyMod
 		}
 	}
 }
+*/

@@ -19,7 +19,7 @@ namespace BunnyMod
 {
     public class Lacon1Scrap : PassiveItem
     {
-        public static void Register()
+        public static void Init()
         {
             string itemName = "LaCon Upgrade Scrap";
             string resourceName = "BunnyMod/Resources/dlaconscrap.png";
@@ -36,10 +36,6 @@ namespace BunnyMod
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
-        }
-        public override DebrisObject Drop(PlayerController player)
-        {
-            return base.Drop(player);
         }
     }
 }

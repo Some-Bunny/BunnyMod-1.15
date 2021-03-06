@@ -236,6 +236,7 @@ namespace BunnyMod
         }
         public override DebrisObject Drop(PlayerController player)
         {
+            player.healthHaver.damageTypeModifiers.Remove(this.m_PoisonImmunity);
             player.OnDealtDamageContext -= this.OnDealtDamage;
             this.DisableVFX(player);
             return base.Drop(player);

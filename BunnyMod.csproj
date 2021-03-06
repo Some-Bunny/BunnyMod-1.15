@@ -93,7 +93,6 @@
     <Compile Include="AbyssFlow.cs" />
     <Compile Include="AdvancedStrings1.cs" />
     <Compile Include="AdvancedStrings2.cs" />
-    <Compile Include="ArtifactOfParanoia.cs" />
     <Compile Include="GungeonAPI\EnemyAPI\OverrideBehavior.cs" />
     <Compile Include="GungeonAPI\EnemyCode\BossBuilder.cs" />
     <Compile Include="GungeonAPI\EnemyCode\TheStrangerIntro.cs" />
@@ -149,7 +148,6 @@
     <Compile Include="ZenithDesign.cs" />
     <Compile Include="BloodGoldRing.cs" />
     <Compile Include="CursedPearl.cs" />
-    <Compile Include="AncientWhisperInfinite.cs" />
     <Compile Include="ArtifactOfSacrifice.cs" />
     <Compile Include="BabyGoodModular.cs" />
     <Compile Include="Bugun.cs" />
@@ -185,7 +183,6 @@
     <Compile Include="SuperShield.cs" />
     <Compile Include="GungeonAPI\EnemyBuilder.cs" />
     <Compile Include="GungeonAPI\Hooks.cs" />
-    <Compile Include="GungeonAPI\Gilbert.cs" />
     <Compile Include="LastStand.cs" />
     <Compile Include="PocketPistol.cs" />
     <Compile Include="TimeZoner.cs" />
@@ -199,7 +196,6 @@
     <Compile Include="ReaverClaw.cs" />
     <Compile Include="DetainEffect.cs" />
     <Compile Include="ShatteredEffect.cs" />
-    <Compile Include="ShatteredEffectVFX.cs" />
     <Compile Include="MultiActiveReloadThing.cs" />
     <Compile Include="SynergyInitialiser.cs" />
     <Compile Include="SynergyGunInitialiser.cs" />
@@ -228,7 +224,6 @@
     <Compile Include="ModuleItem.cs" />
     <Compile Include="ModuleCannon.cs" />
     <Compile Include="SynergyCheckINC.cs" />
-    <Compile Include="ArtifactOfHatred.cs" />
     <Compile Include="ChaosHand.cs" />
     <Compile Include="CaptainsShotgun.cs" />
     <Compile Include="LeadHand.cs" />
@@ -349,7 +344,7 @@
     <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\example_item_sprite.png" />
+    <None Include="Resources\example_item_sprite.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\shrines\imsorryneighborino.png" />
@@ -433,17 +428,17 @@
     <EmbeddedResource Include="Resources\tabletechbomb.png" />
     <EmbeddedResource Include="Resources\reaverammolet.png" />
     <EmbeddedResource Include="Resources\tabletechsoul.png" />
-    <EmbeddedResource Include="Resources\VengeanceClone\Idle\vengclone_idle_001.png" />
-    <EmbeddedResource Include="Resources\VengeanceClone\Idle\vengclone_idle_002.png" />
-    <EmbeddedResource Include="Resources\VengeanceClone\Idle\vengclone_idle_003.png" />
-    <EmbeddedResource Include="Resources\VengeanceClone\Idle\vengclone_idle_004.png" />
+    <None Include="Resources\VengeanceClone\Idle\vengclone_idle_001.png" />
+    <None Include="Resources\VengeanceClone\Idle\vengclone_idle_002.png" />
+    <None Include="Resources\VengeanceClone\Idle\vengclone_idle_003.png" />
+    <None Include="Resources\VengeanceClone\Idle\vengclone_idle_004.png" />
     <EmbeddedResource Include="Resources\reaverrounds.png" />
     <EmbeddedResource Include="Resources\WeakOrbitGuonStone\paradoxdragunheart.png" />
     <EmbeddedResource Include="Resources\WeakOrbitGuonStone\opdragunheart.png" />
     <EmbeddedResource Include="Resources\WeakOrbitGuonStone\dragoncutter.png" />
     <EmbeddedResource Include="Resources\supershield.png" />
-    <EmbeddedResource Include="Resources\WeakOrbitGuonStone\weakorbitguon.png" />
-    <EmbeddedResource Include="Resources\WeakOrbitGuonStone\WeakOrbitGuonStonefloaty.png" />
+    <None Include="Resources\WeakOrbitGuonStone\weakorbitguon.png" />
+    <None Include="Resources\WeakOrbitGuonStone\WeakOrbitGuonStonefloaty.png" />
     <EmbeddedResource Include="Resources\rtg.png" />
     <EmbeddedResource Include="Resources\ShrineOfWhisper\ancientwhispershadow_001.png" />
     <EmbeddedResource Include="Resources\ShrineOfWhisper\ancientwhisper_do_effect_001.png" />
@@ -529,10 +524,8 @@
     <EmbeddedResource Include="Resources\Artifacts\ArtifactNPC\TalkStart\artifactmonger_talk_start_002.png" />
     <EmbeddedResource Include="Resources\Artifacts\ArtifactNPC\TalkStart\artifactmonger_talk_start_003.png" />
     <EmbeddedResource Include="Resources\Artifacts\fodder.png" />
-    <EmbeddedResource Include="Resources\Artifacts\artifactthing.png" />
+    <None Include="Resources\Artifacts\artifactthing.png" />
     <EmbeddedResource Include="Resources\Artifacts\bolster.png" />
-    <EmbeddedResource Include="Resources\Artifacts\hatred.png" />
-    <EmbeddedResource Include="Resources\Artifacts\hatredfloaty.png" />
     <EmbeddedResource Include="BehaviorScripts\abysskin.txt" />
     <EmbeddedResource Include="Resources\AbyssEnemies\AbyssKin\Corpse\abysskin_corpse_001.png" />
     <EmbeddedResource Include="Resources\AbyssEnemies\AbyssKin\DeathLeft\abysskin_death_left_001.png" />
@@ -623,7 +616,7 @@
     <EmbeddedResource Include="Resources\actualtabletechknife.png" />
     <EmbeddedResource Include="Resources\adrenalineammolet.png" />
     <Content Include="Resources\Artifacts\ArtifactNPC\reflection.png" />
-    <EmbeddedResource Include="Resources\Artifacts\reflection.png" />
+    <None Include="Resources\Artifacts\reflection.png" />
     <EmbeddedResource Include="Resources\Artifacts\enigma.png" />
     <EmbeddedResource Include="Resources\BabyGoodModular\babygoodmodular_idle_left_001.png" />
     <EmbeddedResource Include="Resources\BabyGoodModular\babygoodmodular_idle_left_002.png" />
@@ -646,7 +639,7 @@
     <EmbeddedResource Include="Resources\Artifacts\sacrifice.png" />
     <EmbeddedResource Include="Resources\astralcounterweight.png" />
     <EmbeddedResource Include="Resources\Artifacts\frailty.png" />
-    <EmbeddedResource Include="Resources\Artifacts\paranoia.png" />
+    <None Include="Resources\Artifacts\paranoia.png" />
     <Content Include="Resources\BlastCoreFrames\Blastcore_idle_001.png" />
     <Content Include="Resources\BlastCoreFrames\Blastcore_idle_002.png" />
     <Content Include="Resources\BlastCoreFrames\Blastcore_idle_003.png" />
@@ -851,11 +844,10 @@
     <EmbeddedResource Include="Resources\GunSoulSprites\Purple\Right\gunsoulpurple_moveright_007.png" />
     <EmbeddedResource Include="Resources\GunSoulSprites\Purple\Right\gunsoulpurple_moveright_008.png" />
     <EmbeddedResource Include="Resources\gunsoulphylactery.png" />
-    <EmbeddedResource Include="Resources\claycord.png" />
-    <EmbeddedResource Include="Resources\claycordstatue_idle_001.png" />
+    <None Include="Resources\claycord.png" />
+    <None Include="Resources\claycordstatue_idle_001.png" />
     <EmbeddedResource Include="Resources\microscope.png" />
     <EmbeddedResource Include="Resources\empoweringcore.png" />
-    <EmbeddedResource Include="Resources\EffectIcons\shattered_debuff_icon.png" />
     <EmbeddedResource Include="Resources\gungeonmonetaryprogram.png" />
     <EmbeddedResource Include="Resources\jammedguillotine.png" />
     <EmbeddedResource Include="Resources\curseBgone.png" />
@@ -1032,7 +1024,7 @@
     <EmbeddedResource Include="Resources\guillotinebullets.png" />
     <EmbeddedResource Include="Resources\gunslayershelmet.png" />
     <EmbeddedResource Include="Resources\ibzanslighter.png" />
-    <Content Include="Resources\killstrike.png" />
+    <None Include="Resources\killstrike.png" />
     <EmbeddedResource Include="Resources\lastresort.png" />
     <EmbeddedResource Include="Resources\liazrdbloodtransfusion.png" />
     <EmbeddedResource Include="Resources\lockpickbot.png" />
@@ -1059,13 +1051,13 @@
     <EmbeddedResource Include="Resources\rooms\AbyssExit.room" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\rooms\TheAbyss\AbyssBossRoom.room" />
-    <EmbeddedResource Include="Resources\rooms\TheAbyss\AbyssBossRoom2.room" />
-    <EmbeddedResource Include="Resources\rooms\TheAbyss\AbyssBossRoom3.room" />
-    <EmbeddedResource Include="Resources\rooms\TheAbyss\AbyssEntrance.room" />
-    <EmbeddedResource Include="Resources\rooms\TheAbyss\AbyssEntrance2.room" />
-    <EmbeddedResource Include="Resources\rooms\TheAbyss\AbyssEntrance3.room" />
-    <EmbeddedResource Include="Resources\rooms\TheAbyss\AbyssExit.room" />
+    <None Include="Resources\rooms\TheAbyss\AbyssBossRoom.room" />
+    <None Include="Resources\rooms\TheAbyss\AbyssBossRoom2.room" />
+    <None Include="Resources\rooms\TheAbyss\AbyssBossRoom3.room" />
+    <None Include="Resources\rooms\TheAbyss\AbyssEntrance.room" />
+    <None Include="Resources\rooms\TheAbyss\AbyssEntrance2.room" />
+    <None Include="Resources\rooms\TheAbyss\AbyssEntrance3.room" />
+    <None Include="Resources\rooms\TheAbyss\AbyssExit.room" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\rooms\chaosshrine1.room" />

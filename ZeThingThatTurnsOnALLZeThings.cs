@@ -27,20 +27,24 @@ namespace BunnyMod
 		// Token: 0x0600001B RID: 27 RVA: 0x000028E8 File Offset: 0x00000AE8
 		public override void Start()
 		{
+			ItemAPI.Tools.Init();
+			StaticReferences.Init();
+			ShrineFakePrefabHooks.Init();
+			ShrineFactory.Init();
 			BreachShopTool.DoSetup();
 			BossBuilder.Init()
 ;			MultiActiveReloadManager.SetupHooks();
 			ItemBuilder.Init();
 			HookYeah.Init();
-			FakePrefabHooks.Init();
+			//FakePrefabHooks.Init();
 			GungeonAPI.Tools.Init();
-			GungeonAP.Init();
-			FakePrefabHooks.Init();
-			ShrineFactory.Init();
-			ShrineFactory.PlaceBnyBreachShrines();
-			TestActiveItem.Init();
+			//GungeonAP.Init();
+			//FakePrefabHooks.Init();
+			//ShrineFactory.Init();
+			//ShrineFactory.PlaceBnyBreachShrines();
+			//TestActiveItem.Init();
 			//VengeanceVlone.Init();
-			ShatterEffect.Initialise();
+			//ShatterEffect.Initialise();
 			ShrineOfTheLeadLord.Add();
 			ChaosCorruptionShrine.Add();
 			PleaseForgiveMe.Add();
@@ -60,12 +64,12 @@ namespace BunnyMod
 			ArtifactOfMegalomania.Init();
 			ArtifactOfFodder.Init();
 			ArtifactOfBolster.Init();
-			ArtifactOfHatred.Init();
 			ArtifactOfEnigma.Init();
 			ArtifactOfSacrifice.Init();
 			ArtifactOfFraility.Init();
 			//ArtifactOfParanoia.Init();
 
+			/*
 			ModuleCannon.Add();
 			ModuleChip.Init();
 			ModuleAmmoEater.Init();
@@ -89,7 +93,7 @@ namespace BunnyMod
 			CorruptModuleLoose.Init();
 			CorruptModuleCoolant.Init();
 			CorruptModuleDamage.Init();
-
+			*/
 
 			//Gimmick Heavy Guns
 			TrainGun.Add();
@@ -175,7 +179,7 @@ namespace BunnyMod
 
 			//Bullet Type Items
 			ResurrectionBullets.Init();
-			GuillotineRounds.Register();
+			GuillotineRounds.Init();
 			
 			LunarGlassRounds.Init();
 			ReaverRounds.Init();
@@ -209,17 +213,17 @@ namespace BunnyMod
 			//Stats Up
 			Microscope.Init();
 			EmpoweringCore.Init();
-			BookOfEconomics.Register();
-			CounterChamber.Register();
+			BookOfEconomics.Init();
+			CounterChamber.Init();
 			Infusion.Init();
-			MinigunRounds.Register();
+			MinigunRounds.Init();
 			//Otherworldly
 			AstralCounterweight.Init();
 			SpiritOfStagnation.Init();
 			SoulInAJar.Init();
 			AmmoRepurposer.Init();
 			ZenithDesign.Init();
-			ChaosGodsWrath.Register();
+			ChaosGodsWrath.Init();
 			SkyGrass.Init();
 			ChaosChamber.Init();
 			ChaosHammer.Init();
@@ -238,7 +242,7 @@ namespace BunnyMod
 			GunSoulPink.PinkBuildPrefab();
 			GunSoulPurple.PurpleBuildPrefab();
 			PointZero.Init();
-			BabyGoodModular.Init();
+			//BabyGoodModular.Init();
 			//Guon Stones
 			GuonPebble.Init();
 			ChaosGuonStone.Init();
@@ -265,7 +269,7 @@ namespace BunnyMod
 
 			Death.Add();
 			Taxes.Add();
-			Lacon1Scrap.Register();
+			Lacon1Scrap.Init();
 			Lacon1.Add();
 			Lacon2.Add();
 			Lacon3.Add();
@@ -284,12 +288,12 @@ namespace BunnyMod
 			ChaosBeing.Init();
 			ChaosBeingLarge.Init();
 			//DopplegamnerClone.Init();
-			AncientWhisperInfinite.Init();
+		//	AncientWhisperInfinite.Init();
 			CursedPearl.Init();
 			RewardCrown.Init();
 			ChaosMalice.Add();
-			ChaosEmblem.Register();
-			Curse2Emblem.Register();
+			ChaosEmblem.Init();
+			//Curse2Emblem.Init();
 
 
 			DeathsDebt.Init();
@@ -320,7 +324,7 @@ namespace BunnyMod
 				}
 				BunnyModule.hasInitialized = true;
 			}
-			ShrineFactory.PlaceBnyBreachShrines();
+			//ShrineFactory.PlaceBnyBreachShrines();
 		}
 
 		// Token: 0x0600001C RID: 28 RVA: 0x00002944 File Offset: 0x00000B44
@@ -437,27 +441,27 @@ namespace BunnyMod
 					bool ChaosIncursion = player.HasPickupID(Game.Items["bny:chaos_chamber"].PickupObjectId);
 					if (ChaosIncursion)
 					{
-						num += 0.0075f;
+						num += 0.00075f;
 					}
 					bool ChaosIncursion1 = player.HasPickupID(Game.Items["bny:chaos_revolver"].PickupObjectId);
 					if (ChaosIncursion1)
 					{
-						num += 0.0075f;
+						num += 0.00075f;
 					}
 					bool ChaosIncursion2 = player.HasPickupID(Game.Items["bny:chaos_trigger"].PickupObjectId);
 					if (ChaosIncursion2)
 					{
-						num += 0.0075f;
+						num += 0.00075f;
 					}
 					bool ChaosIncursion3 = player.HasPickupID(Game.Items["bny:chaos_hammer"].PickupObjectId);
 					if (ChaosIncursion3)
 					{
-						num += 0.0075f;
+						num += 0.00075f;
 					}
 					bool flagA = player.PlayerHasActiveSynergy("Reunion");
 					if (flagA)
                     {
-						num += 0.015f;
+						num += 0.0015f;
 					}
 					GameObject obj = new GameObject();
 					BunnyModule.rnge = UnityEngine.Random.Range(0.000f, 1.000f);
@@ -554,21 +558,11 @@ namespace BunnyMod
 		public static readonly string MOD_NAME = "Some Bunnys Content Mod";
 
 		// Token: 0x04000002 RID: 2
-		public static readonly string VERSION = "1.16.2";
+		public static readonly string VERSION = "1.16.3";
 
 		// Token: 0x04000003 RID: 3
 		public static readonly string TEXT_COLOR = "#316316";
 		private static bool hasInitialized;
-
-		public BulletScriptSelector BulletScript;
-		public Transform ShootPoint;
-		public float ShootTimer = 3f;
-		public float MinSpeed = 3f;
-		public float MaxSpeed = 10f;
-		public float MinSpeedDistance = 10f;
-		public float MaxSpeedDistance = 50f;
-		[NonSerialized]
-		public Vector2 knockbackComponent;
 		public static BulletScriptSource m_bulletSource;
 
 	}

@@ -187,10 +187,8 @@ namespace GungeonAPI
 		}
 		public class DeathHowl : BraveBehaviour
 		{
-			// Token: 0x060004A9 RID: 1193 RVA: 0x0002A69C File Offset: 0x0002889C
 			public void Start()
 			{
-				//Gun gun;
 
 			}
 			public void Update()
@@ -210,10 +208,8 @@ namespace GungeonAPI
 		}
 		public class OopsAllMasterRounds : BraveBehaviour
 		{
-			// Token: 0x060004A9 RID: 1193 RVA: 0x0002A69C File Offset: 0x0002889C
 			public void Start()
 			{
-				//Gun gun;
 				PlayerController player = GameManager.Instance.PrimaryPlayer;
 				player.healthHaver.OnDamaged += this.OnDamaged;
 			}
@@ -236,6 +232,5 @@ namespace GungeonAPI
 		public static PickupObject target;
 		public static PickupObject target1;
 		public static Gun m_extantGun;
-		//private static bool CanBUsed = false;
 	}
 }

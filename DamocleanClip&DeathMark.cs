@@ -42,7 +42,6 @@ namespace BunnyMod
         {
             this.CanBeDropped = false;
             base.Pickup(player);
-            Tools.Print($"Player picked up {this.DisplayName}");
         }
     }
 }

@@ -18,7 +18,7 @@ namespace BunnyMod
 {
     public class CounterChamber : PassiveItem
     {
-        public static void Register()
+        public static void Init()
         {
             string itemName = "Counterproductive Chamber";
             string resourceName = "BunnyMod/Resources/counterproductivechamber";

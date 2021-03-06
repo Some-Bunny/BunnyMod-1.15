@@ -1212,9 +1212,6 @@ namespace BunnyMod
 			{
 				for (int i = 0; i < 3; i++)
                 {
-					PlayerController player = (GameManager.Instance.PrimaryPlayer);
-					float curse = 0f;
-					curse = (player.stats.GetStatValue(PlayerStats.StatType.Curse));
 					base.PostWwiseEvent("Play_WPN_shotgun_shot_01", null);
 					float aimDirection = base.GetAimDirection(1f, 9f);
 					for (int a = -3; a <= 3; a++)
@@ -1921,7 +1918,7 @@ namespace BunnyMod
 {
 	public class JammedCubulead : OverrideBehavior
 	{
-		public override string OverrideAIActorGUID => "0b547ac6b6fc4d68876a241a88f5ca6a";
+		public override string OverrideAIActorGUID => "0b547ac6b6fc4d68876a241a88f5ca6a";	
 
 		public override void DoOverride()
 		{
@@ -2185,7 +2182,7 @@ namespace BunnyMod
 					base.PostWwiseEvent("Play_WPN_colt1851_shot_01", null);
 					for (int a = 0; a <= 1; a++)
 					{
-						base.Fire(new Direction((-40f+(i*3f)) +(a*(80-(i*6))), DirectionType.Aim, -1f), new Speed(8.5f +(i/3), SpeedType.Absolute), null);
+						base.Fire(new Direction((-20f+(i*3f)) +(a*(40-(i*6))), DirectionType.Aim, -1f), new Speed(8.5f +(i/3), SpeedType.Absolute), null);
 					}
 					int ppfpfpft = UnityEngine.Random.Range(1, 2);
 					for (int a = 0; a < ppfpfpft; a++)
@@ -4123,7 +4120,7 @@ namespace BunnyMod
 
 namespace BunnyMod
 {
-	public class LOTJScript2 : Script // This BulletScript is just a modified version of the script BulletManShroomed, which you can find with dnSpy.
+	public class LOTJScript2 : Script 
 	{
 		protected override IEnumerator Top()
 		{
@@ -4139,7 +4136,7 @@ namespace BunnyMod
 		}
 		public class MakeChain : Bullet
 		{
-			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
+			protected override IEnumerator Top()
 			{
 				for (int A = 0; A < 100; A++)
 				{
@@ -4152,7 +4149,7 @@ namespace BunnyMod
 		}
 		public class BreakChain : Bullet
 		{
-			protected override IEnumerator Top() // This is just a simple example, but bullet scripts can do so much more.
+			protected override IEnumerator Top() 
 			{
 				yield return this.Wait(180);
 				int numure = UnityEngine.Random.Range(0, 12);

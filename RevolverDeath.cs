@@ -58,7 +58,8 @@ namespace BunnyMod
 			//projectile.SetProjectileSpriteRight("chaosrevolver_projectile_001", 10, 10, true, tk2dBaseSprite.Anchor.MiddleCenter, new int?(7), new int?(7), null, null, null);
 			ETGMod.Databases.Items.Add(gun, null, "ANY");
 			Death.DeathID = gun.PickupObjectId;
-	}
+		}
+	
 
 		public override void PostProcessProjectile(Projectile projectile)
 		{
@@ -71,15 +72,14 @@ namespace BunnyMod
 				ETGModConsole.Log(ex.Message, false);
 			}
 		}
-
-		// Token: 0x06000662 RID: 1634 RVA: 0x0003A90C File Offset: 0x00038B0C
 		private void HandlePreCollision(SpeculativeRigidbody myRigidbody, PixelCollider myPixelCollider, SpeculativeRigidbody otherRigidbody, PixelCollider otherPixelCollider)
 		{
-			bool flag = otherRigidbody && otherRigidbody.healthHaver;
+			bool flag = otherRigidbody && otherRigidbody.healthHaver && otherRigidbody != null;
 			if (flag)
 			{
+
 				float maxHealth = otherRigidbody.healthHaver.GetMaxHealth();
-				float num = maxHealth * 0.33f;
+				float num = maxHealth * 0.50f;
 				float currentHealth = otherRigidbody.healthHaver.GetCurrentHealth();
 				bool flag2 = currentHealth < num;
 				if (flag2)
@@ -88,8 +88,13 @@ namespace BunnyMod
 					myRigidbody.projectile.baseData.damage *= 1.66f;
 					GameManager.Instance.StartCoroutine(this.ChangeProjectileDamage(myRigidbody.projectile, damage));
 				}
+				
 			}
 		}
+		// Token: 0x06000662 RID: 1634 RVA: 0x0003A90C File Offset: 0x00038B0C
+
+
+
 
 		// Token: 0x0600042E RID: 1070 RVA: 0x00027D59 File Offset: 0x00025F59
 		private IEnumerator ChangeProjectileDamage(Projectile bullet, float oldDamage)

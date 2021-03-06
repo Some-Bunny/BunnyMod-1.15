@@ -45,10 +45,74 @@ namespace BunnyMod
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
-            player.healthHaver.OnDamaged += new HealthHaver.OnDamagedEvent(this.FailContract);
-            Tools.Print($"Player picked up {this.DisplayName}");
+            player.OnHitByProjectile += this.OwnerHitByProjectile;
+            //Tools.Print($"Player picked up {this.DisplayName}");
         }
-
+        private void OwnerHitByProjectile(Projectile incomingProjectile, PlayerController arg2)
+        {
+            AIActor aIActor = (AIActor)incomingProjectile.Owner;
+            PlayerController player = (GameManager.Instance.PrimaryPlayer);
+            bool isInCombat = player.IsInCombat;
+            if (isInCombat)
+            {
+                if (incomingProjectile.Owner != arg2)
+                {
+                    if (!incomingProjectile.Owner.healthHaver.IsBoss)
+                    {
+                        bool flag = ((double)player.healthHaver.GetCurrentHealth() == 0.5 && player.healthHaver.Armor == 0f) || player.healthHaver.GetCurrentHealth() == 0f && player.healthHaver.Armor == 1f;
+                        if (!flag)
+                        {
+                            AkSoundEngine.PostEvent("Play_BOSS_lichB_intro_01", base.gameObject);
+                            GameStatsManager.Instance.RegisterStatChange(TrackedStats.TIMES_HIT_WITH_THE_GRIPPY, 1f);
+                            int num = 1;
+                            if (num < 1)
+                            {
+                                num = 1;
+                            }
+                            List<RoomHandler> list = new List<RoomHandler>();
+                            List<RoomHandler> list2 = new List<RoomHandler>();
+                            //PlayerController player = base.Owner;
+                            list.Add(player.CurrentRoom);
+                            while (list.Count - 1 < num)
+                            {
+                                RoomHandler roomHandler = list[list.Count - 1];
+                                list2.Clear();
+                                foreach (RoomHandler roomHandler2 in roomHandler.connectedRooms)
+                                {
+                                    if (roomHandler2.hasEverBeenVisited && roomHandler2.distanceFromEntrance < roomHandler.distanceFromEntrance && !list.Contains(roomHandler2))
+                                    {
+                                        if (!roomHandler2.area.IsProceduralRoom || roomHandler2.area.proceduralCells == null)
+                                        {
+                                            list2.Add(roomHandler2);
+                                        }
+                                    }
+                                }
+                                if (list2.Count == 0)
+                                {
+                                    break;
+                                }
+                                list.Add(BraveUtility.RandomElement<RoomHandler>(list2));
+                            }
+                            if (list.Count > 1)
+                            {
+                                base.Owner.RespawnInPreviousRoom(false, PlayerController.EscapeSealedRoomStyle.GRIP_MASTER, true, list[list.Count - 1]);
+                                for (int i = 1; i < list.Count - 1; i++)
+                                {
+                                    list[i].ResetPredefinedRoomLikeDarkSouls();
+                                }
+                            }
+                            else
+                            {
+                                base.Owner.RespawnInPreviousRoom(false, PlayerController.EscapeSealedRoomStyle.GRIP_MASTER, true, null);
+                            }
+                            base.Owner.specRigidbody.Velocity = Vector2.zero;
+                            base.Owner.knockbackDoer.TriggerTemporaryKnockbackInvulnerability(1f);
+                        }
+                    }
+                }
+            }
+        }
+        /*
         private void FailContract(float resultValue, float maxValue, CoreDamageTypes damageTypes, DamageCategory damageCategory, Vector2 damageDirection)
         {
             PlayerController player = (GameManager.Instance.PrimaryPlayer);
@@ -106,10 +170,11 @@ namespace BunnyMod
                 }
             }            
         }
+        */
         public override DebrisObject Drop(PlayerController player)
         {
-            player.healthHaver.OnDamaged -= new HealthHaver.OnDamagedEvent(this.FailContract);
-            Tools.Print($"Player dropped {this.DisplayName}");
+            player.OnHitByProjectile -= this.OwnerHitByProjectile;
+            //Tools.Print($"Player dropped {this.DisplayName}");
             return base.Drop(player);
         }
     }

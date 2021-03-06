@@ -111,7 +111,7 @@ namespace BunnyMod
 		public static void DenyDrops(Action<Chest> orig, Chest self)
 		{
 			GameObject obj = new GameObject();
-			ArtifactOfSacrifice fuck = obj.AddComponent<ArtifactOfSacrifice>();
+			ArtifactOfSacrifice fuck = obj.GetComponent<ArtifactOfSacrifice>();
 
 			PlayerController player = (GameManager.Instance.PrimaryPlayer);
 			bool flag = player.HasPickupID(Game.Items["bny:sacrifice"].PickupObjectId);
@@ -296,7 +296,7 @@ namespace BunnyMod
 		}
 		private void RollRnG()
         {
-			int num3 = UnityEngine.Random.Range(0, 19);
+			int num3 = UnityEngine.Random.Range(0, 20);
 			bool DTier = num3 == 0 | num3 == 1 | num3 == 2 | num3 == 3;
 			if (DTier)
 			{

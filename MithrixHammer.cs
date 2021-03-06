@@ -239,9 +239,7 @@ namespace BunnyMod
 			debrisMaxForce = 5,
 			debrisAngleVariance = 15f,
 			PlaysVFXOnActor = true,
-			OverheadVFX = ShatterEffect.ShatterVFXObject,
 		};
 
-		public static GameObject ShatterVFXObject = SpriteBuilder.SpriteFromResource("BunnyMod/Resources/EffectIcons/shattered_debuff_icon.png", new GameObject("Shatter"), true);
 	}
 }

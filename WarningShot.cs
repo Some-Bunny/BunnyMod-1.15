@@ -144,14 +144,14 @@ namespace BunnyMod
 		}
 		protected void Update()
 		{
-			PlayerController player = (GameManager.Instance.PrimaryPlayer);
-			WarningShot.fleeData = new FleePlayerData();
-			WarningShot.fleeData.Player = player;
-			WarningShot.fleeData.StartDistance = 100f;
 			this.gun.PreventNormalFireAudio = true;
 			bool flag = this.gun.CurrentOwner;
 			if (flag)
 			{
+				PlayerController player = (GameManager.Instance.PrimaryPlayer);
+				WarningShot.fleeData = new FleePlayerData();
+				WarningShot.fleeData.Player = player;
+				WarningShot.fleeData.StartDistance = 100f;
 				bool flag2 = !this.gun.IsReloading && !this.HasReloaded;
 				if (flag2)
 				{
@@ -219,7 +219,7 @@ namespace BunnyMod
 		private int Index = 0;
 
 		// Token: 0x0400015E RID: 350
-		private int LoadedShot = WarningShot.Warner.ClipCapacity ;
+		private int LoadedShot = WarningShot.Warner.ClipCapacity;
 		private static FleePlayerData fleeData;
 	}
 }

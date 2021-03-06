@@ -18,7 +18,7 @@ namespace BunnyMod
 {
     public class BookOfEconomics : PassiveItem
     {
-        public static void Register()
+        public static void Init()
         {
             string itemName = "Book Of Monetary Gain";
             string resourceName = "BunnyMod/Resources/bookofmonetarygain";
@@ -49,7 +49,7 @@ namespace BunnyMod
 {
     public class ChaosEmblem : PassiveItem
     {
-        public static void Register()
+        public static void Init()
         {
             string itemName = "ChaosEmblem";
             string resourceName = "BunnyMod/Resources/chaosthing.png";

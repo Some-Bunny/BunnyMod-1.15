@@ -5,7 +5,7 @@ using GungeonAPI;
 using UnityEngine;
 using Gungeon;
 using ItemAPI;
-
+/*
 namespace BunnyMod
 {
 	// Token: 0x02000085 RID: 133
@@ -56,3 +56,4 @@ namespace BunnyMod
 		//public static List<string> EntranceRooms;
 	}
 }
+*/

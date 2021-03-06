@@ -106,7 +106,7 @@ namespace BunnyMod
             {
 				if (ArtifactMonger.RandomArtifactMode)
 				{
-					BunnyModule.Log("GIVE AN ARTIFACT YOU FUCK");
+					//BunnyModule.Log("GIVE AN ARTIFACT YOU FUCK");
 					ArtifactMonger.Char = UnityEngine.Random.Range(1, 13);
 					switch (ArtifactMonger.Char)
 					{

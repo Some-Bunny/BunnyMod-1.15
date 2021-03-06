@@ -16,7 +16,7 @@ namespace BunnyMod
 {
     public class ChaosGodsWrath : PassiveItem
     {
-        public static void Register()
+        public static void Init()
         {
             string itemName = "Effigy Of ChaosGod";
             string resourceName = "BunnyMod/Resources/effigyofchaosgod";

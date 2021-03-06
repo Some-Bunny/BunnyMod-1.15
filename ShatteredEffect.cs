@@ -22,7 +22,6 @@ namespace BunnyMod
 			this.debrisMinForce = 5;
 			this.debrisMaxForce = 5;
 			this.debrisAngleVariance = 15f;
-			this.OverheadVFX = ShatterEffect.ShatterVFXObject;
 		}
 
         public ShatteredEffect(object player)

@@ -71,7 +71,7 @@ namespace BunnyMod
         }
         private void OwnerHitByProjectile(Projectile incomingProjectile, PlayerController arg2)
         {
-            if (incomingProjectile.Owner)
+            if (incomingProjectile.Owner != arg2)
             {
                 var target = incomingProjectile.Owner;
                 target.PlayEffectOnActor(ResourceCache.Acquire("Global VFX/VFX_Curse") as GameObject, Vector3.zero, true, false, false);

@@ -63,7 +63,6 @@ namespace BunnyMod
             debrisAngleVariance = 15f,
             PlaysVFXOnActor = true,
             duration = 7f,
-            OverheadVFX = ShatterEffect.ShatterVFXObject,
         };
 
     }

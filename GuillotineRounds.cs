@@ -16,7 +16,7 @@ namespace BunnyMod
 {
     public class GuillotineRounds : PassiveItem
     {
-        public static void Register()
+        public static void Init()
         {
             string itemName = "Guillotine Rounds";
 
@@ -36,18 +36,6 @@ namespace BunnyMod
             item.AddToSubShop(ItemBuilder.ShopType.Cursula, 1f);
             item.AddToSubShop(ItemBuilder.ShopType.Trorc, 1f);
             item.quality = PickupObject.ItemQuality.C;
-        }
-
-        public override void Pickup(PlayerController player)
-        {
-            base.Pickup(player);
-            Tools.Print($"Player picked up {this.DisplayName}");
-        }
-
-        public override DebrisObject Drop(PlayerController player)
-        {
-            Tools.Print($"Player dropped {this.DisplayName}");
-            return base.Drop(player);
         }
     }
 }

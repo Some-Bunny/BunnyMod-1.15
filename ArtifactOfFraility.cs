@@ -66,10 +66,10 @@ namespace BunnyMod
 			int total = healthInt + armorInt;
 			if (total <= DeathMark || total == DeathMark)
 			{
-				int num = 2;
+				int num = 1;
 				if (num >= 0)
 				{
-					player.healthHaver.ApplyDamage(total, Vector2.zero, StringTableManager.GetEnemiesString("#SMOKING", -1), CoreDamageTypes.None, DamageCategory.Normal, true, null, false);
+					player.healthHaver.ApplyDamage(total, Vector2.zero, StringTableManager.GetEnemiesString("#SMOKING", -1), CoreDamageTypes.Void, DamageCategory.Unstoppable, true, null, false);
 					num--;
 				}
 
